@@ -97,7 +97,7 @@ if __name__ == '__main__':
 
     settingFile = open(f'{froot}/setting.json', 'r')
     setting = json.load(settingFile)
-    sourceFilePath = args.source
+    sourceFilePath = f'{args.source}/{args.source}'
     DF = pd.DataFrame()
     unused_reads = pd.DataFrame()
     sequences_scores = dict()

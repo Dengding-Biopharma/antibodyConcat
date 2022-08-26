@@ -7,14 +7,13 @@ def read_fasta(fname):
 
     for i in range(len(lines)):
         line = lines[i]
-        if '9844' in line:
+        if 'Homo' in line:
             fasta[line] = lines[i+1]
     return fasta
 
-fasta = read_fasta('nanobody_template.fasta')
+fasta = read_fasta('mAB_database.fasta')
 
-
-outfile = 'nanobody_templates.fasta'
+outfile = 'homo_templates.fasta'
 f = open(outfile,'w')
 for key in fasta.keys():
     f.writelines(key)

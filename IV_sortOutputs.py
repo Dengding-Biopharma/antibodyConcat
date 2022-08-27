@@ -47,7 +47,7 @@ if __name__ == '__main__':
                 else:
                     sequences_scores[temp['DENOVO'][i]] = temp['Score'][i] + sequences_scores[temp['DENOVO'][i]]
 
-    contigs = read_reads(f'{froot}/{froot}.fasta')
+    contigs = read_reads(f'{froot}/{froot}_concatenated.fasta')
     scores = []
 
     k=setting['k_upperlimit']

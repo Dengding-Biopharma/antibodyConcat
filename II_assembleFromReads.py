@@ -28,6 +28,7 @@ if __name__ == '__main__':
     sequences = []
     args = get_args()
     froot = args.froot
+    more = args.more
     # froot = 'avastin_5-8mer_0.8_2'
     f = open(f'{froot}/setting.json')
     setting = json.load(f)
@@ -50,7 +51,9 @@ if __name__ == '__main__':
 
 
     # sequences = list(Counter(sequences).keys())
-    sequences = read_reads(f'{froot}/input_reads.fasta')
+    more = setting['more']
+    if more == 1:
+        sequences = read_reads(f'{froot}/input_reads.fasta')
     print('number of inputs: ',len(sequences))
     # sequences = ['EVQLVE','QLVAPG','LVESGGAL','LVESGGGL']
     for k in range(k_lowerlimit, k_upperlimit + 1):

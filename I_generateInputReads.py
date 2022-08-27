@@ -16,6 +16,7 @@ def get_args():
     parser.add_argument('-t', type=int, required=True)
     parser.add_argument('-kl', type=int, required=True)
     parser.add_argument('-ku', type=int, required=True)
+    parser.add_argument('-more', type=int, required=True)
 
     args = parser.parse_args()
     return args
@@ -23,15 +24,23 @@ def get_args():
 
 if __name__ == '__main__':
     args = get_args()
+    more = args.more
     score_cut = args.score
     threshold = args.t
     k_lowerlimit = args.kl
     k_upperlimit = args.ku
     source = f'{args.source}'
     froot = f'{args.source}_{k_lowerlimit}-{k_upperlimit}mer_{score_cut}_{threshold}'
+    read_path = f'{source}/{source}'
+    setting = {'score_cut': score_cut, 'threshold': threshold, 'k_lowerlimit': k_lowerlimit,
+               'k_upperlimit': k_upperlimit,'source':read_path,'more':more}
+    if not more:
+        os.mkdir(froot)
+        with open(f'{froot}/setting.json', 'w') as fw:
+            json.dump(setting, fw, indent=4)
+        quit()
     input_reads = []
     unused_reads =[]
-    read_path = f'{source}/{source}'
     spectrum_path = f'{source}/Spectrum'
     title_denovo_dic = dict()
     for read_filename in os.listdir(read_path):
@@ -60,8 +69,6 @@ if __name__ == '__main__':
     df['Charge'] = [2 for i in range(len(unused_reads))]
     df['Type'] = ['HCD' for i in range(len(unused_reads))]
     df['NCE'] = [25 for i in range(len(unused_reads))]
-    setting = {'score_cut': score_cut, 'threshold': threshold, 'k_lowerlimit': k_lowerlimit,
-               'k_upperlimit': k_upperlimit,'source':read_path }
 
     try:
         os.mkdir(froot)

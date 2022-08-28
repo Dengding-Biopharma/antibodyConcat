@@ -448,7 +448,7 @@ if __name__ == '__main__':
         for key in annotation[ann_key].keys():
             interval = annotation[ann_key][key]
             print(key,end=',')
-            for i in range(interval[0],interval[1]):
+            for i in range(interval[0],interval[1]+1):
                 print(template.sequence[i],end='')
             print()
         quit()

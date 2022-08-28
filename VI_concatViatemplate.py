@@ -204,15 +204,15 @@ if __name__ == '__main__':
 
     # pprint(template_contig_group)
 
-    report_path = f'{froot}/{froot}_TemplateMatchReport.txt'
-    outFile = open(report_path, 'w')
-    message = ''
-    html_path = f'{froot}/{froot}_TemplateMatchReport.html'
-    htmlFile = open(html_path, 'w')
-    html = '''<!DOCTYPE html>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
-    <body>
-    '''
+    # report_path = f'{froot}/{froot}_TemplateMatchReport.txt'
+    # outFile = open(report_path, 'w')
+    # message = ''
+    # html_path = f'{froot}/{froot}_TemplateMatchReport.html'
+    # htmlFile = open(html_path, 'w')
+    # html = '''<!DOCTYPE html>
+    # <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    # <body>
+    # '''
     reads = DF['DENOVO'].values
     unused_reads = unused_reads['DENOVO'].values
     reads_count = Counter(reads)
@@ -300,13 +300,13 @@ if __name__ == '__main__':
 
         # print()
         # print('*' * 500)
-        # print(template.sequence)
-        message += '*' * 500
-        message += '\n'
-        message += 'Template ID: {}'.format(template.id)
-        message += '\n'
-        message += template.sequence
-        message += '\n'
+        # # print(template.sequence)
+        # message += '*' * 500
+        # message += '\n'
+        # message += 'Template ID: {}'.format(template.id)
+        # message += '\n'
+        # message += template.sequence
+        # message += '\n'
         for contig_array in template.contigArrays:
             contig_array = sorted(contig_array, key=lambda x: x.template_interval[0])
             for contig in contig_array:
@@ -338,16 +338,16 @@ if __name__ == '__main__':
                 letters = list(candidate_letters.keys())
                 for i in range(len(letters)):
                     result_sequences[i][key] = letters[i]
-        for sequence in result_sequences:
-            # print(''.join(sequence))
-            message += ''.join(sequence)
-            message += '\n'
+        # for sequence in result_sequences:
+        #     # print(''.join(sequence))
+        #     message += ''.join(sequence)
+        #     message += '\n'
 
-        message += '-' * 100 + '\n'
-        # print('-' * 100)
-        message += 'Unused reads blast result: \n'
-        # print('Unused reads blast result: ')
-        message += template.sequence + '\n'
+        # message += '-' * 100 + '\n'
+        # # print('-' * 100)
+        # message += 'Unused reads blast result: \n'
+        # # print('Unused reads blast result: ')
+        # message += template.sequence + '\n'
         # print(template.sequence)
         with open(f'{froot}/temp.fasta', 'w') as f:
             f.write('>{}\n'.format(template.id))
@@ -392,9 +392,9 @@ if __name__ == '__main__':
             letters = template.unusedReads_match[key]
             for i in range(len(letters)):
                 unusedReadsResultSequence[i][key] = letters[i]
-        for sequence in unusedReadsResultSequence:
-            # print(''.join(sequence))
-            message += ''.join(sequence) + '\n'
+        # for sequence in unusedReadsResultSequence:
+        #     # print(''.join(sequence))
+        #     message += ''.join(sequence) + '\n'
 
         matched_length = 0
         for i in range(len(template.sequence)):
@@ -426,86 +426,36 @@ if __name__ == '__main__':
 
         merged_result = result_sequences
 
-        step = 250
-        html += '*' * 100 + 'Merged Result' + '*' * 100 + '<br>'
-        html += 'Template ID: {}<br>'.format(template.id)
-        for i in range(0, len(template.sequence), step):
-            try:
-                sub_template = template.sequence[i:i + step]
-            except:
-                sub_template = template.sequence[i:]
-            # print(sub_template)
-            html += '<pre>' + sub_template + '</pre>'
-            for sequence in merged_result:
-                try:
-                    sub_sequence = sequence[i:i + step]
-                except:
-                    sub_sequence = sequence[i:]
-                sub_sequence = ''.join(sub_sequence)
-                if not any(c.isalpha() for c in sub_sequence):
-                    continue
-                html += '<pre>' + sub_sequence + '</pre>'
-            html += '<br>'
-        html += 'Minimum Contigs Array (Blue part): ' + '<br>'
-        for index in range(len(minimum_contigs_array)):
-            contig = minimum_contigs_array[index]
-            id = uuid.uuid4()
-            colored_contig = list(contig.sequence)
-            for i in range(contig.contig_interval[0] - 1,contig.contig_interval[1]):
-                colored_contig[i] = '<font color="blue">{}</font>'.format(colored_contig[i])
-            html += '<pre>' + 'Template interval: '+ str(contig.template_interval) + ' | ' + 'Contig score: ' + str(round(findSupportReadScore(contig.sequence,sequences_scores),2)) + '</pre>'
-            html += '<pre>' + ''.join(colored_contig) + '</pre>'
-            y = list(contig.rates.values())
-            y = list(NormalizeData(y))
-            x = [letter for letter in contig.sequence]
-            line_chart = f'''
-            <canvas id="{id}" style="width:100%;max-width:600px"></canvas>
-            <script>
-            var xValues = {str(x)};
-            var yValues = {str(y)};
-            
-            new Chart("{id}", 
-            '''
 
-            line_chart += '''{
-              type: "line",
-              data: {
-                labels: xValues,
-                datasets: [{
-                  fill: false,
-                  lineTension: 0,
-                  backgroundColor: "rgba(0,0,255,1.0)",
-                  borderColor: "rgba(0,0,255,0.1)",
-                  data: yValues
-                }]
-              },
-              options: {
-                legend: {display: false},
-              }
-            });
-            </script>                       
-            '''
-            html += line_chart + '<br>'
+        best_result = merged_result[0]
+        best_result_coverage_list = []
+        is_continue = False
+        for best_result_position in range(len(best_result)):
+            current = best_result[best_result_position]
+            if not is_continue and current != ' ':
+                start = best_result_position
+                is_continue = True
+            elif is_continue and current == ' ':
+                end = best_result_position-1
+                is_continue = False
+                best_result_coverage_list.append([start,end])
+            elif is_continue and len(best_result) == best_result_position + 1:
+                best_result_coverage_list.append([start,best_result_position])
+        print(best_result_coverage_list)
+        for ann_key in annotation.keys():
+            if template_id in ann_key:
+                break
+        print(template.id)
+        print(len(template.sequence),len(best_result))
+        print(ann_key,annotation[ann_key])
+        for key in annotation[ann_key].keys():
+            interval = annotation[ann_key][key]
+            print(key,end=',')
+            for i in range(interval[0],interval[1]+1):
+                print(template.sequence[i],end='')
+            print()
+        for contig_array in template.contigArrays:
+            for contig in contig_array:
+                print(contig.template_interval)
 
-        html += 'unused Reads (Green part): ' + '<br>'
-        for read in unused_reads_intervals.keys():
-            count = 0
-            for i in range(unused_reads_intervals[read][0][0]-1,unused_reads_intervals[read][0][1]):
-                if 'green' in merged_result[0][i]:
-                    count += 1
-            if count == 0:
-                continue
-            read_sequence = list(read)
-            for i in range(unused_reads_intervals[read][1][0]-1,unused_reads_intervals[read][1][1]):
-                read_sequence[i] = '<font color="green">{}</font>'.format(read_sequence[i])
-            html += '<pre>' + 'Template interval: ' + str(unused_reads_intervals[read][0]) + ' | ' + 'Read Count: ' + str(reads_count[read]) + ' | ' + ''.join(read_sequence) + '</pre>'
-            # html += '<pre>' + ''.join(read_sequence) + '</pre>'
-
-    html += '''
-    </body>
-    </html>
-    '''
-    htmlFile.write(html)
-    htmlFile.close()
-    outFile.write(message)
-    outFile.close()
+        quit()

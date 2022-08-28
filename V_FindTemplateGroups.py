@@ -412,7 +412,9 @@ if __name__ == '__main__':
                     sequence[i] = '<font color="blue">{}</font>'.format(sequence[i])
 
         merged_result = result_sequences
-        print(merged_result)
+        for result in merged_result:
+            print(len(result))
+            print(result)
         quit()
         step = 250
         html += '*' * 100 + 'Merged Result' + '*' * 100 + '<br>'
@@ -433,7 +435,6 @@ if __name__ == '__main__':
                 if not any(c.isalpha() for c in sub_sequence):
                     continue
                 html += '<pre>' + sub_sequence + '</pre>'
-
             html += '<br>'
         html += 'Minimum Contigs Array (Blue part): ' + '<br>'
         for index in range(len(minimum_contigs_array)):

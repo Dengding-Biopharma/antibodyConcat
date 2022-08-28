@@ -75,12 +75,13 @@ def read_ann(file_path):
         line = lines[i]
         if '>' in line:
             ann[line.rstrip()[1:]] = {}
-            print(ann)
-            quit()
             continue
         else:
             fragment = line.split('=')
-            key = f
+            key = fragment[0]
+            temp = fragment[1].rstrip()
+            value = temp.split('-')
+            print(key,value)
             quit()
             ann[line] = lines[i+1]
     return ann

@@ -420,12 +420,16 @@ if __name__ == '__main__':
             current = best_result[best_result_position]
             if not is_continue and current != ' ':
                 start = best_result_position
+
                 is_continue = True
             elif is_continue and current == ' ':
                 print(current,best_result_position)
                 end = best_result_position-1
                 is_continue = False
                 best_result_coverage_list.append([start,end])
+            elif is_continue and len(best_result) == best_result_position + 1:
+                best_result_coverage_list.append([start,best_result_position-1])
+
         pprint(best_result_coverage_list)
         quit()
         step = 250

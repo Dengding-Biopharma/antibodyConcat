@@ -412,9 +412,19 @@ if __name__ == '__main__':
                     sequence[i] = '<font color="blue">{}</font>'.format(sequence[i])
 
         merged_result = result_sequences
-        for result in merged_result:
-            print(len(result))
-            print(result)
+        best_result = merged_result[0]
+        best_result_coverage_list = []
+        is_continue = False
+
+        for best_result_position in range(len(best_result)):
+            if best_result[best_result_position] != ' ':
+                start = best_result_position
+                is_continue = True
+            elif is_continue and best_result[best_result_position] == ' ':
+                end = best_result_position-1
+                is_continue = False
+                best_result_coverage_list.append([start,end])
+        pprint(best_result_coverage_list)
         quit()
         step = 250
         html += '*' * 100 + 'Merged Result' + '*' * 100 + '<br>'

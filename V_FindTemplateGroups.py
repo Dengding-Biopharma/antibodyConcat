@@ -427,18 +427,6 @@ if __name__ == '__main__':
         best_result = merged_result[0]
         best_result_coverage_list = []
         is_continue = False
-        print(best_result)
-        print(len(best_result))
-        print(template_id)
-        print(template.sequence)
-        for position in best_result:
-            if position != ' ':
-                for char in position:
-                    if char.isupper():
-                        print(char,end='')
-            else:
-                print(position,end='')
-        quit()
         for best_result_position in range(len(best_result)):
             current = best_result[best_result_position]
             if not is_continue and current != ' ':

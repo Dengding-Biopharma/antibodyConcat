@@ -84,8 +84,6 @@ def read_ann(file_path):
             value = temp.split('-')
             value = [int(value[0]),int(value[1])]
             ann[id][key] = value
-    pprint(ann)
-    quit()
     return ann
 
 def get_args():
@@ -155,7 +153,7 @@ if __name__ == '__main__':
     contig_dic = read_fasta(contig_filepath)
     contigs = list(contig_dic.keys())
     annotation = read_ann(annotation_name)
-    quit()
+
 
     dfList = df.values
     sequence_template_id_pair_dic = {}
@@ -445,7 +443,9 @@ if __name__ == '__main__':
             elif is_continue and len(best_result) == best_result_position + 1:
                 best_result_coverage_list.append([start,best_result_position])
         pprint(best_result_coverage_list)
-
+        for ann_key in annotation.keys():
+            if template_id in ann_key:
+                print(ann_key)
         quit()
 
         step = 250

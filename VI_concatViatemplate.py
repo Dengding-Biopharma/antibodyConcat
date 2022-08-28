@@ -456,6 +456,6 @@ if __name__ == '__main__':
             print()
         for contig_array in template.contigArrays:
             for contig in contig_array:
-                print(contig.template_interval)
-
+                print(contig.template_interval,end='')
+            print()
         quit()

@@ -445,7 +445,8 @@ if __name__ == '__main__':
         pprint(best_result_coverage_list)
         for ann_key in annotation.keys():
             if template_id in ann_key:
-                print(ann_key)
+                break
+        print(annotation[ann_key])
         quit()
 
         step = 250

@@ -223,11 +223,8 @@ if __name__ == '__main__':
         for i in range(len(unused_reads)):
             f.write('>unused_reads_{}\n'.format(i))
             f.write('{}\n'.format(unused_reads[i]))
-    print(1)
 
     for template_id in template_contig_group.keys():
-        print(1)
-        quit(1)
         template = Template(template_id, template_dic[template_id])
         for contig_id in template_contig_group[template_id]:
             label = contig_id + '+' + template_id

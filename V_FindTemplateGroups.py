@@ -106,7 +106,6 @@ if __name__ == '__main__':
     annotation_name = f'templates/mAB_database.ann'
     froot = args.froot
     contig_filepath = f'{froot}/{froot}_sorted.fasta'
-
     settingFile = open(f'{froot}/setting.json', 'r')
     setting = json.load(settingFile)
     sourceFilePath = f'{args.source}/{args.source}'
@@ -154,7 +153,8 @@ if __name__ == '__main__':
     contigs = list(contig_dic.keys())
     annotation = read_ann(annotation_name)
 
-
+    print(1)
+    quit(1)
     dfList = df.values
     sequence_template_id_pair_dic = {}
     for item in dfList:

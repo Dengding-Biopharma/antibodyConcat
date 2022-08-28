@@ -65,16 +65,23 @@ def checkOverlap(contig_array, contig):
     return False
 
 
-def toHTML(string):
-    result = []
-    for char in string:
-        if char == ' ':
-            result.append('-')
-        else:
-            result.append(char)
-    result = ''.join(result)
+def read_ann(file_path):
+    f = open(file_path, 'r')
+    lines = f.readlines()
+    f.close()
+    ann={}
 
-    return result
+    for i in range(len(lines)):
+        line = lines[i]
+        if '>' in line:
+            inner = {}
+            continue
+        else:
+            print(line.split('='))
+            quit()
+            ann[line] = lines[i+1]
+    return ann
+
 def get_args():
     parser = argparse.ArgumentParser()
     # start
@@ -92,6 +99,7 @@ if __name__ == '__main__':
     args = get_args()
     template = args.template
     template_name = f'templates/{template}_templates.fasta'
+    annotation_name = f'template/mAB_database.ann'
     froot = args.froot
     contig_filepath = f'{froot}/{froot}_sorted.fasta'
 
@@ -140,6 +148,8 @@ if __name__ == '__main__':
     templates = list(template_dic.keys())
     contig_dic = read_fasta(contig_filepath)
     contigs = list(contig_dic.keys())
+    annotation = read_ann(annotation_name)
+    quit()
 
     dfList = df.values
     sequence_template_id_pair_dic = {}
@@ -423,15 +433,15 @@ if __name__ == '__main__':
 
                 is_continue = True
             elif is_continue and current == ' ':
-                print(current,best_result_position)
                 end = best_result_position-1
                 is_continue = False
                 best_result_coverage_list.append([start,end])
             elif is_continue and len(best_result) == best_result_position + 1:
                 best_result_coverage_list.append([start,best_result_position])
-
         pprint(best_result_coverage_list)
+
         quit()
+
         step = 250
         html += '*' * 100 + 'Merged Result' + '*' * 100 + '<br>'
         html += 'Template ID: {}<br>'.format(template.id)

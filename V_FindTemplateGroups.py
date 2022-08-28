@@ -436,6 +436,8 @@ if __name__ == '__main__':
                 for char in position:
                     if char.isupper():
                         print(char,end='')
+            else:
+                print(position,end='')
         quit()
         for best_result_position in range(len(best_result)):
             current = best_result[best_result_position]

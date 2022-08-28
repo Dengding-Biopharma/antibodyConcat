@@ -74,16 +74,18 @@ def read_ann(file_path):
     for i in range(len(lines)):
         line = lines[i]
         if '>' in line:
-            ann[line.rstrip()[1:]] = {}
+            id = line.rstrip()[1:]
+            ann[id] = {}
             continue
         else:
             fragment = line.split('=')
             key = fragment[0]
             temp = fragment[1].rstrip()
             value = temp.split('-')
-            print(key,value)
-            quit()
-            ann[line] = lines[i+1]
+            value = [int(value[0]),int(value[1])]
+            ann[id][key] = value
+    pprint(ann)
+    quit()
     return ann
 
 def get_args():

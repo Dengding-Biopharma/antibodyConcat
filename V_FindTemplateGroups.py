@@ -422,6 +422,7 @@ if __name__ == '__main__':
                 start = best_result_position
                 is_continue = True
             elif is_continue and current == ' ':
+                print(current,best_result_position)
                 end = best_result_position-1
                 is_continue = False
                 best_result_coverage_list.append([start,end])

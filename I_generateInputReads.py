@@ -47,7 +47,7 @@ if __name__ == '__main__':
         read_file = f'{read_path}/{read_filename}'
         data = pd.read_csv(read_file, delimiter='\t')
         for i in range(len(data)):
-            title_denovo_dic[data['TITLE'][i]] = [data['DENOVO'][i],data['PPM Difference'][i]]
+            title_denovo_dic[data['TITLE'][i]] = [data['DENOVO'][i],data['PPM Difference'][i],data['Score'][i]]
 
         temp = data[data['Score'] >= score_cut]
         temp = temp[-50 <= temp['PPM Difference']]
@@ -95,12 +95,14 @@ if __name__ == '__main__':
         slashResult = pd.read_csv(f'{froot}/msSLASHresult_{spectrum_filename}.tsv',sep='\t')
         slashResult['DENOVO'] = np.nan
         slashResult['PPM Diff'] = np.nan
+        slashResult['Score'] = np.nan
         slashResult.to_csv('test.csv',na_rep=np.nan)
         for i in range(len(slashResult)):
             try:
                 data = title_denovo_dic[slashResult['Title'][i]]
                 slashResult['DENOVO'][i] = data[0]
                 slashResult['PPM Diff'][i] = data[1]
+                slashResult['Score'][i] = data[2]
             except:
                 continue
         df = df.append(slashResult)

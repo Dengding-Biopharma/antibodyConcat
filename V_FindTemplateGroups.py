@@ -99,7 +99,7 @@ if __name__ == '__main__':
     args = get_args()
     template = args.template
     template_name = f'templates/{template}_templates.fasta'
-    annotation_name = f'template/mAB_database.ann'
+    annotation_name = f'templates/mAB_database.ann'
     froot = args.froot
     contig_filepath = f'{froot}/{froot}_sorted.fasta'
 

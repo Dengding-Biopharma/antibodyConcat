@@ -153,8 +153,6 @@ if __name__ == '__main__':
     contigs = list(contig_dic.keys())
     annotation = read_ann(annotation_name)
 
-    print(1)
-    quit(1)
     dfList = df.values
     sequence_template_id_pair_dic = {}
     for item in dfList:
@@ -202,7 +200,8 @@ if __name__ == '__main__':
                 remove.append(contig)
         for item in remove:
             contigs.remove(item)
-
+    print(1)
+    quit(1)
     # pprint(template_contig_group)
 
     report_path = f'{froot}/{froot}_TemplateMatchReport.txt'

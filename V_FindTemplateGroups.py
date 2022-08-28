@@ -415,7 +415,8 @@ if __name__ == '__main__':
         best_result = merged_result[0]
         best_result_coverage_list = []
         is_continue = False
-
+        print(best_result)
+        quit()
         for best_result_position in range(len(best_result)):
             if best_result[best_result_position] != ' ':
                 start = best_result_position

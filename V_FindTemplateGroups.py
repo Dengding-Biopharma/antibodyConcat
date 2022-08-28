@@ -412,6 +412,8 @@ if __name__ == '__main__':
                     sequence[i] = '<font color="blue">{}</font>'.format(sequence[i])
 
         merged_result = result_sequences
+        print(merged_result)
+        quit()
         step = 250
         html += '*' * 100 + 'Merged Result' + '*' * 100 + '<br>'
         html += 'Template ID: {}<br>'.format(template.id)

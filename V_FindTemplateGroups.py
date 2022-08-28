@@ -443,7 +443,8 @@ if __name__ == '__main__':
         for ann_key in annotation.keys():
             if template_id in ann_key:
                 break
-        print(annotation[ann_key])
+        print(template.id)
+        print(ann_key,annotation[ann_key])
         quit()
 
         step = 250

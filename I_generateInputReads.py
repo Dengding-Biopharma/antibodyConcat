@@ -109,7 +109,9 @@ if __name__ == '__main__':
         df.reset_index(drop=True, inplace=True)
 
     temp = df[df['TopScore'] >= 0.5]
-    temp = temp[temp['Score'] >= score_cut]
+    temp = temp[temp['Score'] >= 0.6]
+    temp = temp[temp['PPM Diff'] >= -50]
+    temp = temp[temp['PPM Diff'] <= 50]
     unused_reads = temp['TopPep'].values
     input_reads.extend(unused_reads)
     input_reads = list(Counter(input_reads).keys())

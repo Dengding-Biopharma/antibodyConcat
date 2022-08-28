@@ -82,7 +82,7 @@ def read_ann(file_path):
             key = fragment[0]
             temp = fragment[1].rstrip()
             value = temp.split('-')
-            value = [int(value[0]),int(value[1])]
+            value = [int(value[0])-1,int(value[1])-2]
             ann[id][key] = value
     return ann
 
@@ -431,7 +431,6 @@ if __name__ == '__main__':
             current = best_result[best_result_position]
             if not is_continue and current != ' ':
                 start = best_result_position
-
                 is_continue = True
             elif is_continue and current == ' ':
                 end = best_result_position-1
@@ -439,7 +438,7 @@ if __name__ == '__main__':
                 best_result_coverage_list.append([start,end])
             elif is_continue and len(best_result) == best_result_position + 1:
                 best_result_coverage_list.append([start,best_result_position])
-        pprint(best_result_coverage_list)
+        print(best_result_coverage_list)
         for ann_key in annotation.keys():
             if template_id in ann_key:
                 break

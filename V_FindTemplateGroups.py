@@ -424,6 +424,8 @@ if __name__ == '__main__':
                     sequence[i] = '<font color="blue">{}</font>'.format(sequence[i])
 
         merged_result = result_sequences
+
+        '''
         best_result = merged_result[0]
         best_result_coverage_list = []
         is_continue = False
@@ -451,7 +453,7 @@ if __name__ == '__main__':
             for i in range(interval[0],interval[1]+1):
                 print(template.sequence[i],end='')
             print()
-        quit()
+        '''
 
         step = 250
         html += '*' * 100 + 'Merged Result' + '*' * 100 + '<br>'

@@ -444,6 +444,7 @@ if __name__ == '__main__':
             if template_id in ann_key:
                 break
         print(template.id)
+        print(len(template.sequence),len(best_result))
         print(ann_key,annotation[ann_key])
         quit()
 

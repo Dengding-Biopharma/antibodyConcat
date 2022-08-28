@@ -445,6 +445,12 @@ if __name__ == '__main__':
         print(template.id)
         print(len(template.sequence),len(best_result))
         print(ann_key,annotation[ann_key])
+        for key in annotation[ann_key].keys():
+            interval = annotation[ann_key][key]
+            print(key,end=',')
+            for i in range(interval[0],interval[1]):
+                print(template.sequence[i],end='')
+            print()
         quit()
 
         step = 250

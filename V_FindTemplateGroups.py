@@ -74,7 +74,7 @@ def read_ann(file_path):
     for i in range(len(lines)):
         line = lines[i]
         if '>' in line:
-            ann[line.rstrip('>')] = {}
+            ann[line.rstrip()[1:]] = {}
             print(ann)
             quit()
             continue

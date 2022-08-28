@@ -416,12 +416,12 @@ if __name__ == '__main__':
         best_result_coverage_list = []
         is_continue = False
         print(best_result)
-        quit()
         for best_result_position in range(len(best_result)):
-            if best_result[best_result_position] != ' ':
+            current = best_result[best_result_position]
+            if not is_continue and current != ' ':
                 start = best_result_position
                 is_continue = True
-            elif is_continue and best_result[best_result_position] == ' ':
+            elif is_continue and current == ' ':
                 end = best_result_position-1
                 is_continue = False
                 best_result_coverage_list.append([start,end])

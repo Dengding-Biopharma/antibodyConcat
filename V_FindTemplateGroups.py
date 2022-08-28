@@ -428,7 +428,7 @@ if __name__ == '__main__':
                 is_continue = False
                 best_result_coverage_list.append([start,end])
             elif is_continue and len(best_result) == best_result_position + 1:
-                best_result_coverage_list.append([start,best_result_position-1])
+                best_result_coverage_list.append([start,best_result_position])
 
         pprint(best_result_coverage_list)
         quit()

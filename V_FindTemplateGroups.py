@@ -83,7 +83,7 @@ def read_ann(file_path):
             key = fragment[0]
             temp = fragment[1].rstrip()
             value = temp.split('-')
-            value = [int(value[0])-1,int(value[1])-2]
+            value = [int(value[0])-1,int(value[1])-1]
             ann[id][key] = value
     return ann
 
@@ -425,6 +425,39 @@ if __name__ == '__main__':
                     sequence[i] = '<font color="blue">{}</font>'.format(sequence[i])
 
         merged_result = result_sequences
+
+        best_result = merged_result[0]
+        best_result_coverage_list = []
+        is_continue = False
+        for best_result_position in range(len(best_result)):
+            current = best_result[best_result_position]
+            if not is_continue and current != ' ':
+                start = best_result_position
+                is_continue = True
+            elif is_continue and current == ' ':
+                end = best_result_position-1
+                is_continue = False
+                best_result_coverage_list.append([start,end])
+            elif is_continue and len(best_result) == best_result_position + 1:
+                best_result_coverage_list.append([start,best_result_position])
+        print(best_result_coverage_list)
+        for ann_key in annotation.keys():
+            if template_id in ann_key:
+                break
+        print(template.id)
+        print(len(template.sequence),len(best_result))
+        print(ann_key,annotation[ann_key])
+        for key in annotation[ann_key].keys():
+            interval = annotation[ann_key][key]
+            print(key,end=',')
+            for i in range(interval[0],interval[1]+1):
+                print(template.sequence[i],end='')
+            print()
+        for contig_array in template.contigArrays:
+            for contig in contig_array:
+                print(contig.template_interval,end='')
+            print()
+        quit()
 
         step = 250
         html += '*' * 100 + 'Merged Result' + '*' * 100 + '<br>'

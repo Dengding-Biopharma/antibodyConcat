@@ -83,7 +83,7 @@ def read_ann(file_path):
             key = fragment[0]
             temp = fragment[1].rstrip()
             value = temp.split('-')
-            value = [int(value[0])-1,int(value[1])-2]
+            value = [int(value[0])-1,int(value[1])-1]
             ann[id][key] = value
     return ann
 

@@ -143,7 +143,10 @@ if __name__ == '__main__':
         os.system(f'rapsearch -q {froot}/{froot}_sorted.fasta -d {froot}/temp-db -o {froot}/region_rapsearch_outputs -z 6')
         os.system(
             f'python processRapsearchM8.py -input {froot}/region_rapsearch_outputs.m8 -output {froot}/region_rapsearch_outputs_refactor.m8')
-        df = pd.read_csv(f'{froot}/region_rapsearch_outputs_refactor.m8', delimiter='\t', header=None)
+        try:
+            df = pd.read_csv(f'{froot}/region_rapsearch_outputs_refactor.m8', delimiter='\t', header=None)
+        except:
+            continue
         df = df[df[2] >= 80]
         df = df.reset_index(drop=True)
         dfList = df.values
@@ -160,6 +163,7 @@ if __name__ == '__main__':
                 continue
             for i in range(value[6]-1,value[7]):
                 blank_sequence[i] = '1'
+
         coverage = blank_sequence.count('1')/len(blank_sequence)
         region_sequence_coverage_dic[region_sequence_key] = coverage
         print(region_sequence_key,coverage)

@@ -126,7 +126,7 @@ if __name__ == '__main__':
     chains = ['Heavy', 'Light']
     froot = args.froot
     template = args.template
-    best_template = open(f'{froot}/best_templates','w')
+    best_template = open(f'{froot}/best_templates.fasta','w')
     for region in regions:
         for chain in chains:
             region_file = f'templates/{region}_{template}_{chain}.fasta'
@@ -166,4 +166,6 @@ if __name__ == '__main__':
                 coverage = blank_sequence.count('1')/len(blank_sequence)
                 region_sequence_coverage_dic[region_sequence_key] = coverage
             region_sequence_coverage_dic = dict(sorted(region_sequence_coverage_dic.items(), key=lambda item: item[1],reverse=True))
-            best_template.write(f'>{list(region_sequence_coverage_dic.items())[0][0]}_{region}\n{list(region_sequence_coverage_dic.items())[0][1]}\n')
+            best_template_id = list(region_sequence_coverage_dic.items())[0][0]
+            best_coverage = list(region_sequence_coverage_dic.items())[0][1]
+            best_template.write(f'>{best_template_id}_{region}_{best_coverage}\n{region_sequence_dic[best_template_id]}\n')

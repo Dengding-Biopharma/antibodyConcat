@@ -167,6 +167,6 @@ if __name__ == '__main__':
                 coverage = blank_sequence.count('1')/len(blank_sequence)
                 region_sequence_coverage_dic[region_sequence_key] = coverage
                 region_sequence_coverage_dic = dict(
-                    sorted(region_sequence_coverage_dic.items(), key=lambda item: item[1]))
+                    sorted(region_sequence_coverage_dic.items(), key=lambda item: item[1],reverse=True))
                 print(region_sequence_coverage_dic)
             region_sequence_coverage_dic = dict(sorted(region_sequence_coverage_dic.items(), key=lambda item: item[1]))

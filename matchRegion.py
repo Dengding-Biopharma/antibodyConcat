@@ -160,3 +160,4 @@ if __name__ == '__main__':
             value = sequence_template_id_pair_dic[label]
             if value[5]-value[4] != (value[7]-value[6]):
                 continue
+        quit()

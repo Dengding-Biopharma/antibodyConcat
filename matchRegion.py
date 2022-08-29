@@ -153,7 +153,6 @@ if __name__ == '__main__':
             label = item[:2][0] + '+' + template_id
             value_list = list(item[2:])
             sequence_template_id_pair_dic[label] = value_list
-        print(sequence_template_id_pair_dic)
         blank_sequence = list('0'*len(region_sequence))
         for label in sequence_template_id_pair_dic.keys():
             value = sequence_template_id_pair_dic[label]
@@ -161,7 +160,5 @@ if __name__ == '__main__':
                 continue
             for i in range(value[6]-1,value[7]):
                 blank_sequence[i] = '1'
-        print(blank_sequence)
         coverage = blank_sequence.count('1')/len(blank_sequence)
-        print(coverage)
-        quit()
+        region_sequence_coverage_dic[region_sequence_key] = coverage

@@ -129,5 +129,7 @@ if __name__ == '__main__':
     froot = args.froot
     template = args.template
     region_file = f'templates/{region}_{template}_{chain}.fasta'
-    region_sequence = read_fasta(region_file)
-    pprint(region_sequence)
+    contig_file = f'{froot}/{froot}_sorted.fasta'
+    region_sequence_dic = read_fasta(region_file)
+    contigs_dic = read_fasta(contig_file)
+    pprint(contigs_dic)

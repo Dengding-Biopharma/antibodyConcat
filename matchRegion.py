@@ -154,10 +154,14 @@ if __name__ == '__main__':
             value_list = list(item[2:])
             sequence_template_id_pair_dic[label] = value_list
         print(sequence_template_id_pair_dic)
-        blank_sequence = list(' '*len(region_sequence))
-        print(blank_sequence)
+        blank_sequence = list('0'*len(region_sequence))
         for label in sequence_template_id_pair_dic.keys():
             value = sequence_template_id_pair_dic[label]
             if value[5]-value[4] != (value[7]-value[6]):
                 continue
+            for i in range(value[6]-1,value[7]):
+                blank_sequence[i] = '1'
+        print(blank_sequence)
+        coverage = blank_sequence.count('1')/len(blank_sequence)
+        print(coverage)
         quit()

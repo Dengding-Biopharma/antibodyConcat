@@ -156,6 +156,7 @@ if __name__ == '__main__':
         print(sequence_template_id_pair_dic)
         for label in sequence_template_id_pair_dic.keys():
             value = sequence_template_id_pair_dic[label]
+            print(value)
             if value[5]-value[4] != (value[7]-value[6]):
                 print(label)
                 continue

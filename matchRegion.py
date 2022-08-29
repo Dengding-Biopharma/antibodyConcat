@@ -134,7 +134,9 @@ if __name__ == '__main__':
     contigs_dic = read_fasta(contig_file)
     contigs = list(contigs_dic.keys())
     region_sequence_coverage_dic = {}
-    for region_sequence_key in region_sequence_dic.keys():
+    keys = list(region_sequence_dic.keys())
+    for index in trange(len(keys)):
+        region_sequence_key = keys[index]
         region_sequence = region_sequence_dic[region_sequence_key]
         template_name = f'{froot}/region_temp.fasta'
         with open(template_name,'w') as f:
@@ -166,4 +168,4 @@ if __name__ == '__main__':
 
         coverage = blank_sequence.count('1')/len(blank_sequence)
         region_sequence_coverage_dic[region_sequence_key] = coverage
-        print(region_sequence_key,coverage)
+    pprint(region_sequence_coverage_dic)

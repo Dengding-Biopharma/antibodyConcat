@@ -130,3 +130,4 @@ if __name__ == '__main__':
     template = args.template
     region_file = f'templates/{region}_{template}_{chain}.fasta'
     region_sequence = read_fasta(region_file)
+    pprint(region_sequence)

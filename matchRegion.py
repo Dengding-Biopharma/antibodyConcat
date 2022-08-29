@@ -107,6 +107,6 @@ if __name__ == '__main__':
     chain = args.chain
     froot = args.froot
     template = args.template
-    region_file = f'templates/{region}_{template}_{chain}'
+    region_file = f'templates/{region}_{template}_{chain}.fasta'
     region_sequence = read_fasta(region_file)
     print(region_sequence)

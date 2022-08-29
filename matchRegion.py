@@ -124,49 +124,49 @@ def read_fasta(path,species=None):
 
 if __name__ == '__main__':
     args = get_args()
-    region = 'constant' if args.region == 'c' else 'NonConstant'
-    chain = 'Heavy' if args.chain == 'h' else 'Light'
+    regions = ['constant','NonConstant']
+    chains = ['Heavy', 'Light']
     froot = args.froot
     template = args.template
-    region_file = f'templates/{region}_{template}_{chain}.fasta'
-    contig_file = f'{froot}/{froot}_sorted.fasta'
-    region_sequence_dic = read_fasta(region_file)
-    contigs_dic = read_fasta(contig_file)
-    contigs = list(contigs_dic.keys())
-    region_sequence_coverage_dic = {}
-    keys = list(region_sequence_dic.keys())
-    for index in trange(len(keys)):
-        region_sequence_key = keys[index]
-        region_sequence = region_sequence_dic[region_sequence_key]
-        template_name = f'{froot}/region_temp.fasta'
-        with open(template_name,'w') as f:
-            f.write(f'>{region_sequence_key}\n{region_sequence}')
-        os.system(f'prerapsearch -d {template_name} -n {froot}/temp-db')
-        os.system(f'rapsearch -q {froot}/{froot}_sorted.fasta -d {froot}/temp-db -o {froot}/region_rapsearch_outputs -z 6')
-        os.system(
-            f'python processRapsearchM8.py -input {froot}/region_rapsearch_outputs.m8 -output {froot}/region_rapsearch_outputs_refactor.m8')
-        try:
-            df = pd.read_csv(f'{froot}/region_rapsearch_outputs_refactor.m8', delimiter='\t', header=None)
-        except:
-            continue
-        df = df[df[2] >= 80]
-        df = df.reset_index(drop=True)
-        dfList = df.values
-        sequence_template_id_pair_dic = {}
-        for item in dfList:
-            template_id = item[:2][1]
-            label = item[:2][0] + '+' + template_id
-            value_list = list(item[2:])
-            sequence_template_id_pair_dic[label] = value_list
-        blank_sequence = list('0'*len(region_sequence))
-        for label in sequence_template_id_pair_dic.keys():
-            value = sequence_template_id_pair_dic[label]
-            if value[5]-value[4] != (value[7]-value[6]):
-                continue
-            for i in range(value[6]-1,value[7]):
-                blank_sequence[i] = '1'
-
-        coverage = blank_sequence.count('1')/len(blank_sequence)
-        region_sequence_coverage_dic[region_sequence_key] = coverage
-        print(region_sequence_key,coverage)
-    pprint(region_sequence_coverage_dic)
+    for region in regions:
+        for chain in chains:
+            region_file = f'templates/{region}_{template}_{chain}.fasta'
+            region_sequence_dic = read_fasta(region_file)
+            region_sequence_coverage_dic = {}
+            keys = list(region_sequence_dic.keys())
+            for index in trange(len(keys)):
+                region_sequence_key = keys[index]
+                region_sequence = region_sequence_dic[region_sequence_key]
+                template_name = f'{froot}/region_temp.fasta'
+                with open(template_name,'w') as f:
+                    f.write(f'>{region_sequence_key}\n{region_sequence}')
+                os.system(f'prerapsearch -d {template_name} -n {froot}/temp-db')
+                os.system(f'rapsearch -q {froot}/{froot}_sorted.fasta -d {froot}/temp-db -o {froot}/region_rapsearch_outputs -z 6')
+                os.system(
+                    f'python processRapsearchM8.py -input {froot}/region_rapsearch_outputs.m8 -output {froot}/region_rapsearch_outputs_refactor.m8')
+                try:
+                    df = pd.read_csv(f'{froot}/region_rapsearch_outputs_refactor.m8', delimiter='\t', header=None)
+                except:
+                    continue
+                df = df[df[2] >= 80]
+                df = df.reset_index(drop=True)
+                dfList = df.values
+                sequence_template_id_pair_dic = {}
+                for item in dfList:
+                    template_id = item[:2][1]
+                    label = item[:2][0] + '+' + template_id
+                    value_list = list(item[2:])
+                    sequence_template_id_pair_dic[label] = value_list
+                blank_sequence = list('0'*len(region_sequence))
+                for label in sequence_template_id_pair_dic.keys():
+                    value = sequence_template_id_pair_dic[label]
+                    if value[5]-value[4] != (value[7]-value[6]):
+                        continue
+                    for i in range(value[6]-1,value[7]):
+                        blank_sequence[i] = '1'
+                coverage = blank_sequence.count('1')/len(blank_sequence)
+                region_sequence_coverage_dic[region_sequence_key] = coverage
+                region_sequence_coverage_dic = dict(
+                    sorted(region_sequence_coverage_dic.items(), key=lambda item: item[1]))
+                print(region_sequence_coverage_dic)
+            region_sequence_coverage_dic = dict(sorted(region_sequence_coverage_dic.items(), key=lambda item: item[1]))

@@ -154,8 +154,9 @@ if __name__ == '__main__':
             value_list = list(item[2:])
             sequence_template_id_pair_dic[label] = value_list
         print(sequence_template_id_pair_dic)
-        quit()
-        for i in range(len(df)):
-            if (df[7][i] - df[6][i]) != (
-                    contig.template_interval[1] - contig.template_interval[0]):
+        for label in sequence_template_id_pair_dic.keys():
+            value = sequence_template_id_pair_dic[label]
+            if value[5]-value[4] != (value[7]-value[6]):
+                print(label)
                 continue
+        quit()

@@ -145,5 +145,17 @@ if __name__ == '__main__':
             f'python processRapsearchM8.py -input {froot}/region_rapsearch_outputs.m8 -output {froot}/region_rapsearch_outputs_refactor.m8')
         df = pd.read_csv(f'{froot}/region_rapsearch_outputs_refactor.m8', delimiter='\t', header=None)
         df = df[df[2] >= 80]
-        print(df)
+        df = df.reset_index(drop=True)
+        dfList = df.values
+        sequence_template_id_pair_dic = {}
+        for item in dfList:
+            template_id = item[:2][1]
+            label = item[:2][0] + '+' + template_id
+            value_list = list(item[2:])
+            sequence_template_id_pair_dic[label] = value_list
+        print(sequence_template_id_pair_dic)
         quit()
+        for i in range(len(df)):
+            if (df[7][i] - df[6][i]) != (
+                    contig.template_interval[1] - contig.template_interval[0]):
+                continue

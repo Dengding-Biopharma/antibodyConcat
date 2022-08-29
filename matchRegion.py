@@ -131,7 +131,7 @@ if __name__ == '__main__':
         for chain in chains:
             region_file = f'templates/{region}_{template}_{chain}.fasta'
             region_sequence_dic = read_fasta(region_file)
-            print(region_sequence_dic[0])
+            print(region_sequence_dic.items()[0])
             quit()
             region_sequence_coverage_dic = {}
             keys = list(region_sequence_dic.keys())

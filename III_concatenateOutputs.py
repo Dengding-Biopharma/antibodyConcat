@@ -54,7 +54,8 @@ if __name__ == '__main__':
     print('max length before concat: ', len(max(contigs, key=lambda x: len(x))))
 
     print(len(contigs))
-    ks = [i for i in range(20,5,-1)]
+    ks = [i for i in range(20,4,-1)]
+    print(ks)
     for k in ks:
         nonconcatenatable = [item for item in contigs if len(item) <= k]
         for index in trange(100000):

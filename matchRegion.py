@@ -124,7 +124,7 @@ def read_fasta(path,species=None):
 
 if __name__ == '__main__':
     args = get_args()
-    regions = ['constant','NonConstant']
+    regions = ['NonConstant','constant',]
     chains = ['Heavy', 'Light']
     froot = args.froot
     template = args.template

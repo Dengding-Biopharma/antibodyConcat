@@ -133,6 +133,7 @@ if __name__ == '__main__':
     region_sequence_dic = read_fasta(region_file)
     contigs_dic = read_fasta(contig_file)
     contigs = list(contigs_dic.keys())
+    region_sequence_coverage_dic = {}
     for region_sequence_key in region_sequence_dic.keys():
         region_sequence = region_sequence_dic[region_sequence_key]
         template_name = f'{froot}/region_temp.fasta'
@@ -143,5 +144,6 @@ if __name__ == '__main__':
         os.system(
             f'python processRapsearchM8.py -input {froot}/region_rapsearch_outputs.m8 -output {froot}/region_rapsearch_outputs_refactor.m8')
         df = pd.read_csv(f'{froot}/region_rapsearch_outputs_refactor.m8', delimiter='\t', header=None)
+        df = df[df[2] >= 80]
         print(df)
         quit()

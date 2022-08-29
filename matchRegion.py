@@ -162,3 +162,4 @@ if __name__ == '__main__':
                 blank_sequence[i] = '1'
         coverage = blank_sequence.count('1')/len(blank_sequence)
         region_sequence_coverage_dic[region_sequence_key] = coverage
+        print(region_sequence_key,coverage)

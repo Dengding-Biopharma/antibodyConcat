@@ -91,8 +91,6 @@ def get_args():
     # start
     parser.add_argument('-froot', type=str,required=True)
     parser.add_argument('-template', type=str,required=True)
-    parser.add_argument('-region', type=str,required=True)
-    parser.add_argument('-chain', type=str, required=True)
     args = parser.parse_args()
     return args
 
@@ -128,10 +126,13 @@ if __name__ == '__main__':
     chains = ['Heavy', 'Light']
     froot = args.froot
     template = args.template
+    best_template = open(f'{froot}/best_templates','w')
     for region in regions:
         for chain in chains:
             region_file = f'templates/{region}_{template}_{chain}.fasta'
             region_sequence_dic = read_fasta(region_file)
+            print(region_sequence_dic[0])
+            quit()
             region_sequence_coverage_dic = {}
             keys = list(region_sequence_dic.keys())
             for index in trange(len(keys)):
@@ -166,7 +167,5 @@ if __name__ == '__main__':
                         blank_sequence[i] = '1'
                 coverage = blank_sequence.count('1')/len(blank_sequence)
                 region_sequence_coverage_dic[region_sequence_key] = coverage
-                region_sequence_coverage_dic = dict(
-                    sorted(region_sequence_coverage_dic.items(), key=lambda item: item[1],reverse=True))
-                print(region_sequence_coverage_dic)
-            region_sequence_coverage_dic = dict(sorted(region_sequence_coverage_dic.items(), key=lambda item: item[1]))
+            region_sequence_coverage_dic = dict(sorted(region_sequence_coverage_dic.items(), key=lambda item: item[1],reverse=True))
+            best_template.write(f'>{region_sequence_coverage_dic.items()[0][0]}')

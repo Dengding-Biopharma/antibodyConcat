@@ -131,10 +131,6 @@ if __name__ == '__main__':
         for chain in chains:
             region_file = f'templates/{region}_{template}_{chain}.fasta'
             region_sequence_dic = read_fasta(region_file)
-            print(list(region_sequence_dic.items())[0])
-            print(list(region_sequence_dic.items())[0][0])
-            print(list(region_sequence_dic.items())[0][1])
-            quit()
             region_sequence_coverage_dic = {}
             keys = list(region_sequence_dic.keys())
             for index in trange(len(keys)):
@@ -170,4 +166,4 @@ if __name__ == '__main__':
                 coverage = blank_sequence.count('1')/len(blank_sequence)
                 region_sequence_coverage_dic[region_sequence_key] = coverage
             region_sequence_coverage_dic = dict(sorted(region_sequence_coverage_dic.items(), key=lambda item: item[1],reverse=True))
-            best_template.write(f'>{list(region_sequence_coverage_dic.items())[0][0]}_{region}\n{list(region_sequence_coverage_dic.items())[0][1]}')
+            best_template.write(f'>{list(region_sequence_coverage_dic.items())[0][0]}_{region}\n{list(region_sequence_coverage_dic.items())[0][1]}\n')

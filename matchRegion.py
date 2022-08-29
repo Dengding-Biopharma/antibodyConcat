@@ -124,8 +124,8 @@ def read_fasta(path,species=None):
 
 if __name__ == '__main__':
     args = get_args()
-    region = args.region
-    chain = args.chain
+    region = 'constant' if args.region == 'c' else 'NonConstant'
+    chain = 'Heavy' if args.chain == 'h' else 'Light'
     froot = args.froot
     template = args.template
     region_file = f'templates/{region}_{template}_{chain}.fasta'

@@ -10,7 +10,6 @@ import numpy as np
 import subprocess
 import pandas as pd
 from tqdm import trange
-from generateTemplatesBlastReport import read_fasta
 from IV_sortOutputs import findSupportReadScore
 
 
@@ -100,6 +99,28 @@ def get_args():
 def NormalizeData(data):
     return (data - np.min(data)) / (np.max(data) - np.min(data))
 
+def read_fasta(path,species=None):
+    f = open(path, 'r')
+    lines = f.readlines()
+    f.close()
+    dic = {}
+    if species:
+        for i in range(len(lines)):
+            line = lines[i]
+            if line[0] == '>' and species in line:
+                id = line.rstrip()[1:]
+                contig = lines[i + 1]
+                dic[id] = contig.rstrip()
+        return dic
+    else:
+        for i in range(len(lines)):
+            line = lines[i]
+            if line[0] == '>':
+                id = line.rstrip()[1:]
+                contig = lines[i + 1]
+                dic[id] = contig.rstrip()
+        return dic
+
 
 if __name__ == '__main__':
     args = get_args()
@@ -109,4 +130,3 @@ if __name__ == '__main__':
     template = args.template
     region_file = f'templates/{region}_{template}_{chain}.fasta'
     region_sequence = read_fasta(region_file)
-    print(region_sequence)

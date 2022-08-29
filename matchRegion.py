@@ -134,6 +134,8 @@ if __name__ == '__main__':
     contigs_dic = read_fasta(contig_file)
     contigs = list(contigs_dic.keys())
     for region_sequence_key in region_sequence_dic.keys():
+        print(region_sequence_key)
+        quit()
         region_sequence = region_sequence_dic[region_sequence_key]
         template_name = f'{froot}/region_temp.fasta'
         with open(template_name,'w') as f:

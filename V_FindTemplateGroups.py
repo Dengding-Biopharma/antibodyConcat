@@ -430,7 +430,6 @@ if __name__ == '__main__':
         for i in range(len(best_result)):
             best_result_position = best_result[i]
             if not counting and best_result_position != ' ':
-                print(best_result_position)
                 fragment = ''
                 counting = True
                 fragment += ''.join(c for c in best_result_position if c.isupper())
@@ -462,8 +461,16 @@ if __name__ == '__main__':
             os.system(f'rapsearch -q {tail_query} -d {froot}/contigs -o {froot}/{froot}_tail_best_contigs')
             os.system(f'python processRapsearchM8.py -input {froot}/{froot}_head_best_contigs.m8 -output {head_out}')
             os.system(f'python processRapsearchM8.py -input {froot}/{froot}_tail_best_contigs.m8 -output {tail_out}')
-            head_df = pd.read_csv(head_out, delimiter='\t', header=None)
-            tail_df = pd.read_csv(tail_out, delimiter='\t', header=None)
+            try:
+                head_df = pd.read_csv(head_out, delimiter='\t', header=None)
+            except:
+                print('head error:',head)
+                quit()
+            try:
+                tail_df = pd.read_csv(tail_out, delimiter='\t', header=None)
+            except:
+                print('tail error:',tail)
+                quit()
             head_df = head_df[head_df[2] >= 95]
             tail_df = tail_df[tail_df[2] >= 95]
             candidate_head_contigs_id = list(head_df[1].values)

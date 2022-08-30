@@ -439,23 +439,49 @@ if __name__ == '__main__':
                 best_result_fragments.append(fragment)
                 counting = False
 
+        k = 10
+        best_contigs = []
         for fragment in best_result_fragments:
-            print(fragment)
-        quit()
-        best_result_coverage_list = []
-        is_continue = False
-        for best_result_position in range(len(best_result)):
-            current = best_result[best_result_position]
-            if not is_continue and current != ' ':
-                start = best_result_position
-                is_continue = True
-            elif is_continue and current == ' ':
-                end = best_result_position-1
-                is_continue = False
-                best_result_coverage_list.append([start,end])
-            elif is_continue and len(best_result) == best_result_position + 1:
-                best_result_coverage_list.append([start,best_result_position])
-        print(best_result_coverage_list)
+            if len(fragment) <= k:
+                head = fragment
+                tail = fragment
+            else:
+                head = fragment[:k]
+                tail = fragment[len(fragment) - k:]
+            with open(f'{froot}/head.fasta','w') as f:
+                f.write(f'>head\n{head}')
+            with open(f'{froot}/tail.fasta', 'w') as f:
+                f.write(f'>tail\n{tail}')
+            head_out = f'{froot}/{froot}_head_best_contigs_refactor.m8'
+            tail_out = f'{froot}/{froot}_tail_best_contigs_refactor.m8'
+            head_query = f'{froot}/head.fasta'
+            tail_query = f'{froot}/tail.fasta'
+            os.system(f'prerapsearch -d {froot}/head.fasta -n {froot}/head')
+            os.system(f'prerapsearch -d {froot}/tail.fasta -n {froot}/tail')
+            os.system(f'rapsearch -q {head_query} -d {froot}/head -o {froot}/{froot}_head_best_contigs')
+            os.system(f'rapsearch -q {head_query} -d {froot}/tail -o {froot}/{froot}_tail_best_contigs')
+            os.system(f'python processRapsearchM8.py -input {froot}/{froot}_head_best_contigs.m8 -output {head_out}')
+            os.system(f'python processRapsearchM8.py -input {froot}/{froot}_tail_best_contigs.m8 -output {tail_out}')
+            head_df = pd.read_csv(head_out, delimiter='\t', header=None)
+            tail_df = pd.read_csv(tail_out, delimiter='\t', header=None)
+            print(head_df)
+            print(tail_df)
+            quit()
+
+        # best_result_coverage_list = []
+        # is_continue = False
+        # for best_result_position in range(len(best_result)):
+        #     current = best_result[best_result_position]
+        #     if not is_continue and current != ' ':
+        #         start = best_result_position
+        #         is_continue = True
+        #     elif is_continue and current == ' ':
+        #         end = best_result_position-1
+        #         is_continue = False
+        #         best_result_coverage_list.append([start,end])
+        #     elif is_continue and len(best_result) == best_result_position + 1:
+        #         best_result_coverage_list.append([start,best_result_position])
+        # print(best_result_coverage_list)
 
 
         step = 250

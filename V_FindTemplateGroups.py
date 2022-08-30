@@ -440,8 +440,6 @@ if __name__ == '__main__':
                 best_result_fragments.append(fragment)
                 counting = False
 
-        print(best_result_fragments)
-        quit()
         k = 10
         best_contigs_groups = []
         for fragment in best_result_fragments:

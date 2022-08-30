@@ -434,7 +434,7 @@ if __name__ == '__main__':
                 fragment = ''
                 counting = True
                 fragment += ''.join(c for c in best_result_position if c.isupper())
-            elif counting and best_result_position != ' ':
+            elif counting and best_result_position != ' ' and i != (len(best_result) - 1):
                 fragment += ''.join(c for c in best_result_position if c.isupper())
             elif (counting and best_result_position == ' ') or i == (len(best_result) - 1):
                 best_result_fragments.append(fragment)

@@ -438,7 +438,7 @@ if __name__ == '__main__':
             elif (counting and best_result_position == ' ') and i != (len(best_result) - 1):
                 best_result_fragments.append(fragment)
                 counting = False
-            elif i != (len(best_result) - 1):
+            elif i == (len(best_result) - 1):
                 best_result_fragments.append(fragment)
                 counting = False
         print(best_result_fragments)

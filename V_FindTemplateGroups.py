@@ -425,6 +425,21 @@ if __name__ == '__main__':
         merged_result = result_sequences
 
         best_result = merged_result[0]
+        best_result_fragments = []
+        counting = False
+        for best_result_position in best_result:
+            if not counting and best_result_position != ' ':
+                fragment = ''
+                counting = True
+                fragment+=''.join(c for c in best_result_position if c.isupper())
+            if counting and best_result_position != ' ':
+                fragment+=''.join(c for c in best_result_position if c.isupper())
+            if counting and best_result_position == ' ':
+                print(fragment)
+                quit()
+                best_result_fragments.append(fragment)
+                counting = False
+
         best_result_coverage_list = []
         is_continue = False
         for best_result_position in range(len(best_result)):
@@ -439,6 +454,7 @@ if __name__ == '__main__':
             elif is_continue and len(best_result) == best_result_position + 1:
                 best_result_coverage_list.append([start,best_result_position])
         print(best_result_coverage_list)
+
 
         step = 250
         html += '*' * 100 + 'Merged Result' + '*' * 100 + '<br>'

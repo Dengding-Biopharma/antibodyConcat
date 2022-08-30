@@ -430,6 +430,7 @@ if __name__ == '__main__':
         for i in range(len(best_result)):
             best_result_position = best_result[i]
             if not counting and best_result_position != ' ':
+                print(best_result_position)
                 fragment = ''
                 counting = True
                 fragment += ''.join(c for c in best_result_position if c.isupper())
@@ -440,6 +441,7 @@ if __name__ == '__main__':
                 counting = False
 
         print(best_result_fragments)
+        quit()
         k = 10
         best_contigs_groups = []
         for fragment in best_result_fragments:

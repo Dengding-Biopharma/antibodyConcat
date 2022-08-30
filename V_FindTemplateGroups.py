@@ -435,6 +435,7 @@ if __name__ == '__main__':
             if counting and best_result_position != ' ':
                 fragment+=''.join(c for c in best_result_position if c.isupper())
             if counting and best_result_position == ' ':
+                print(template.sequence)
                 print(fragment)
                 quit()
                 best_result_fragments.append(fragment)

@@ -440,7 +440,7 @@ if __name__ == '__main__':
                 counting = False
 
         k = 10
-        best_contigs_group = []
+        best_contigs_groups = []
         for fragment in best_result_fragments:
             if len(fragment) <= k:
                 head = fragment
@@ -466,9 +466,11 @@ if __name__ == '__main__':
             head_df = head_df[head_df[2] >= 95]
             tail_df = tail_df[tail_df[2] >= 95]
             candidate_head_contigs = head_df[1].values
-            print(candidate_head_contigs)
-
-            quit()
+            candidate_tail_contigs = tail_df[1].values
+            best_contigs_groups.append(candidate_head_contigs)
+            best_contigs_groups.append(candidate_tail_contigs)
+        print(best_contigs_groups)
+        quit()
 
         # best_result_coverage_list = []
         # is_continue = False

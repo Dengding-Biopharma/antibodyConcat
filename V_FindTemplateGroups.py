@@ -487,8 +487,7 @@ if __name__ == '__main__':
 
             best_contigs.append(best_head_contig)
             best_contigs.append(best_tail_contig)
-        print(best_contigs)
-        quit()
+
 
         # best_result_coverage_list = []
         # is_continue = False
@@ -526,6 +525,9 @@ if __name__ == '__main__':
                     continue
                 html += '<pre>' + sub_sequence + '</pre>'
             html += '<br>'
+        for best_contig in best_contigs:
+            html += '<pre>' + best_contig + '</pre>'
+        html += '<br>'
         html += 'Minimum Contigs Array (Blue part): ' + '<br>'
         for index in range(len(minimum_contigs_array)):
             contig = minimum_contigs_array[index]

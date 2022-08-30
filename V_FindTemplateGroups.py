@@ -456,10 +456,9 @@ if __name__ == '__main__':
             tail_out = f'{froot}/{froot}_tail_best_contigs_refactor.m8'
             head_query = f'{froot}/head.fasta'
             tail_query = f'{froot}/tail.fasta'
-            os.system(f'prerapsearch -d {froot}/head.fasta -n {froot}/head')
-            os.system(f'prerapsearch -d {froot}/tail.fasta -n {froot}/tail')
-            os.system(f'rapsearch -q {head_query} -d {froot}/head -o {froot}/{froot}_head_best_contigs')
-            os.system(f'rapsearch -q {head_query} -d {froot}/tail -o {froot}/{froot}_tail_best_contigs')
+            os.system(f'prerapsearch -d {contig_filepath} -n {froot}/contigs')
+            os.system(f'rapsearch -q {head_query} -d {froot}/contigs -o {froot}/{froot}_head_best_contigs')
+            os.system(f'rapsearch -q {head_query} -d {froot}/contigs -o {froot}/{froot}_tail_best_contigs')
             os.system(f'python processRapsearchM8.py -input {froot}/{froot}_head_best_contigs.m8 -output {head_out}')
             os.system(f'python processRapsearchM8.py -input {froot}/{froot}_tail_best_contigs.m8 -output {tail_out}')
             head_df = pd.read_csv(head_out, delimiter='\t', header=None)

@@ -91,7 +91,6 @@ def get_args():
     parser = argparse.ArgumentParser()
     # start
     parser.add_argument('-froot', type=str,required=True)
-    parser.add_argument('-template', type=str,required=True)
     parser.add_argument('-source', type=str,required=True)
     args = parser.parse_args()
     return args

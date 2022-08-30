@@ -472,7 +472,7 @@ if __name__ == '__main__':
             best_head_contig_score = 0
             for id in candidate_head_contigs_id:
                 head_contig = contig_dic[id]
-                score = findSupportReadScore(head_contig)
+                score = findSupportReadScore(head_contig,sequences_scores)
                 if score > best_head_contig_score:
                     best_head_contig = head_contig
                     best_head_contig_score = score
@@ -480,7 +480,7 @@ if __name__ == '__main__':
             best_tail_contig_score = 0
             for id in candidate_tail_contigs_id:
                 tail_contig = contig_dic[id]
-                score = findSupportReadScore(tail_contig)
+                score = findSupportReadScore(tail_contig,sequences_scores)
                 if score > best_tail_contig_score:
                     best_tail_contig = tail_contig
                     best_tail_contig_score = score

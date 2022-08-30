@@ -447,6 +447,9 @@ if __name__ == '__main__':
                 tail = fragment
             else:
                 head = fragment[:k]
+                print(fragment)
+                print(head)
+                quit()
                 tail = fragment[len(fragment) - k:]
             with open(f'{froot}/head.fasta','w') as f:
                 f.write(f'>head\n{head}')

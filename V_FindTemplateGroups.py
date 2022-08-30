@@ -427,17 +427,18 @@ if __name__ == '__main__':
         best_result = merged_result[0]
         best_result_fragments = []
         counting = False
-        for best_result_position in best_result:
+        for i in range(len(best_result)):
+            best_result_position = best_result[i]
             if not counting and best_result_position != ' ':
-                print(''.join(c for c in best_result_position if c.isupper()))
                 fragment = ''
                 counting = True
                 fragment+=''.join(c for c in best_result_position if c.isupper())
             if counting and best_result_position != ' ':
                 fragment+=''.join(c for c in best_result_position if c.isupper())
-            if counting and best_result_position == ' ':
+            if (counting and best_result_position == ' ') or i == (len(best_result) - 1):
                 best_result_fragments.append(fragment)
                 counting = False
+
         for fragment in best_result_fragments:
             print(fragment)
         quit()

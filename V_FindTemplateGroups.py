@@ -429,7 +429,7 @@ if __name__ == '__main__':
         counting = False
         for best_result_position in best_result:
             if not counting and best_result_position != ' ':
-                print(c for c in best_result_position if c.isupper())
+                print(''.join(c for c in best_result_position if c.isupper()))
                 fragment = ''
                 counting = True
                 fragment+=''.join(c for c in best_result_position if c.isupper())

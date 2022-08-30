@@ -446,11 +446,7 @@ if __name__ == '__main__':
         k = 15
         best_contigs = []
         for fragment in best_result_fragments:
-            if 'GQGTTVTVS' in fragment:
-                print(1,fragment)
             if len(fragment) <= k:
-                if 'GQGTTVTVS' in fragment:
-                    print(2,fragment)
                 head = fragment
                 tail = fragment
             else:
@@ -481,7 +477,8 @@ if __name__ == '__main__':
                     if score > best_head_contig_score:
                         best_head_contig = head_contig
                         best_head_contig_score = score
-                best_contigs.append(best_head_contig)
+                if best_head_contig not in best_contigs:
+                    best_contigs.append(best_head_contig)
             except:
                 print('head error:',head)
 
@@ -497,7 +494,8 @@ if __name__ == '__main__':
                     if score > best_tail_contig_score:
                         best_tail_contig = tail_contig
                         best_tail_contig_score = score
-                best_contigs.append(best_tail_contig)
+                if best_tail_contig not in best_contigs:
+                    best_contigs.append(best_tail_contig)
             except:
                 print('tail error:',tail)
                 quit()

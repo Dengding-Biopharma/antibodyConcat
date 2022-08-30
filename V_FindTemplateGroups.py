@@ -440,7 +440,7 @@ if __name__ == '__main__':
                 counting = False
 
         k = 10
-        best_contigs = []
+        best_contigs_group = []
         for fragment in best_result_fragments:
             if len(fragment) <= k:
                 head = fragment
@@ -463,8 +463,11 @@ if __name__ == '__main__':
             os.system(f'python processRapsearchM8.py -input {froot}/{froot}_tail_best_contigs.m8 -output {tail_out}')
             head_df = pd.read_csv(head_out, delimiter='\t', header=None)
             tail_df = pd.read_csv(tail_out, delimiter='\t', header=None)
-            print(head_df)
-            print(tail_df)
+            head_df = head_df[head_df[2] >= 95]
+            tail_df = tail_df[tail_df[2] >= 95]
+            candidate_head_contigs = head_df[1].values
+            print(candidate_head_contigs)
+
             quit()
 
         # best_result_coverage_list = []

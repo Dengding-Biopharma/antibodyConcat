@@ -441,7 +441,7 @@ if __name__ == '__main__':
                 counting = False
 
         k = 10
-        best_contigs_groups = []
+        best_contigs = []
         for fragment in best_result_fragments:
             if len(fragment) <= k:
                 head = fragment
@@ -466,11 +466,28 @@ if __name__ == '__main__':
             tail_df = pd.read_csv(tail_out, delimiter='\t', header=None)
             head_df = head_df[head_df[2] >= 95]
             tail_df = tail_df[tail_df[2] >= 95]
-            candidate_head_contigs = head_df[1].values
-            candidate_tail_contigs = tail_df[1].values
-            best_contigs_groups.append(candidate_head_contigs)
-            best_contigs_groups.append(candidate_tail_contigs)
-        print(best_contigs_groups)
+            candidate_head_contigs_id = list(head_df[1].values)
+            candidate_tail_contigs_id = list(tail_df[1].values)
+            best_head_contig = None
+            best_head_contig_score = 0
+            for id in candidate_head_contigs_id:
+                head_contig = contig_dic[id]
+                score = findSupportReadScore(head_contig)
+                if score > best_head_contig_score:
+                    best_head_contig = head_contig
+                    best_head_contig_score = score
+            best_tail_contig = None
+            best_tail_contig_score = 0
+            for id in candidate_tail_contigs_id:
+                tail_contig = contig_dic[id]
+                score = findSupportReadScore(tail_contig)
+                if score > best_tail_contig_score:
+                    best_tail_contig = tail_contig
+                    best_tail_contig_score = score
+
+            best_contigs.append(best_head_contig)
+            best_contigs.append(best_tail_contig)
+        print(best_contigs)
         quit()
 
         # best_result_coverage_list = []

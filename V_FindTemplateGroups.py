@@ -439,10 +439,10 @@ if __name__ == '__main__':
                 best_result_fragments.append(fragment)
                 counting = False
             elif i == (len(best_result) - 1):
+                fragment += ''.join(c for c in best_result_position if c.isupper())
                 best_result_fragments.append(fragment)
                 counting = False
-        print(best_result_fragments)
-        quit()
+
         k = 15
         best_contigs = []
         for fragment in best_result_fragments:

@@ -7,11 +7,12 @@ from debruijn import get_graph_from_reads
 
 
 
-def construct_naive_debruijn_graph(reads,k):
+def construct_naive_debruijn_graph(reads,k,pruning):
     vertices, edges = get_graph_from_reads(reads, k)
 
-    edges = pruningEdges(edges,2)
-    
+    if pruning:
+        edges = pruningEdges(edges,2)
+
     branch_kmer = []
     count = 0
     for edge in list(edges):

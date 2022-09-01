@@ -467,7 +467,7 @@ if __name__ == '__main__':
             os.system(f'python processRapsearchM8.py -input {froot}/{froot}_tail_best_contigs.m8 -output {tail_out}')
             try:
                 head_df = pd.read_csv(head_out, delimiter='\t', header=None)
-                head_df = head_df[head_df[2] >= 95]
+                head_df = head_df[head_df[2] >= 90]
                 candidate_head_contigs_id = list(head_df[1].values)
                 candidate_head_contigs = [contig_dic[x] for x in candidate_head_contigs_id]
                 valueable_contigs.extend(candidate_head_contigs)
@@ -487,7 +487,7 @@ if __name__ == '__main__':
 
             try:
                 tail_df = pd.read_csv(tail_out, delimiter='\t', header=None)
-                tail_df = tail_df[tail_df[2] >= 95]
+                tail_df = tail_df[tail_df[2] >= 90]
                 candidate_tail_contigs_id = list(tail_df[1].values)
                 candidate_tail_contigs = [contig_dic[x] for x in candidate_tail_contigs_id]
                 valueable_contigs.extend(candidate_tail_contigs)
@@ -614,7 +614,7 @@ if __name__ == '__main__':
             # html += '<pre>' + ''.join(read_sequence) + '</pre>'
 
     valueable_contigs = list(Counter(valueable_contigs).keys())
-    graph = naive_db.construct_naive_debruijn_graph(valueable_contigs,4,False)
+    graph = naive_db.construct_naive_debruijn_graph(valueable_contigs,5,False)
     outputs = naive_db.output_contigs(graph,[],[])
     outputs = sorted(outputs,key=lambda x:findSupportReadScore(x,sequences_scores),reverse=True)
     for output in outputs:

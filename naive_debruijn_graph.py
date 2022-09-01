@@ -9,8 +9,9 @@ from debruijn import get_graph_from_reads
 
 def construct_naive_debruijn_graph(reads,k):
     vertices, edges = get_graph_from_reads(reads, k)
-    for edge in edges:
-        edges[edge] = list(Counter(edges[edge]).keys())
+
+    edges = pruningEdges(edges,2)
+    
     branch_kmer = []
     count = 0
     for edge in list(edges):
@@ -73,3 +74,20 @@ def DFS(current, E, vec, output, contig_copy, branch_kmer, already_pull_out):
         DFS(E[current][i], E, vec, output, contig_copy, branch_kmer, already_pull_out)
     vec.pop()
 
+def pruningEdges(edges, threshold):
+    for edge in edges:
+        previous = edges[edge]
+        counter = Counter(previous)
+        if len(counter) == 0:
+            continue
+        if len(counter) == 1:
+            edges[edge] = list(counter)
+        else:
+            maxCountKmer = [counter.most_common(1)[0][0]]
+            maxCount = counter.most_common(1)[0][1]
+            for i in range(1, len(counter)):
+                nextCount = counter.most_common()[i][1]
+                if nextCount >= maxCount / threshold:
+                    maxCountKmer += [counter.most_common()[i][0]]
+            edges[edge] = maxCountKmer
+    return edges

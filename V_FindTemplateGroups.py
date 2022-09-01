@@ -226,7 +226,7 @@ if __name__ == '__main__':
             f.write('{}\n'.format(unused_reads[i]))
 
     for template_id in template_contig_group.keys():
-        template = Template(template_id, template_dic[template_id])
+        template = Template(template_id, template_dic[template_id].replace('I','L'))
         for contig_id in template_contig_group[template_id]:
             label = contig_id + '+' + template_id
             value = sequence_template_id_pair_dic[label]

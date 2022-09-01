@@ -467,7 +467,7 @@ if __name__ == '__main__':
             os.system(f'python processRapsearchM8.py -input {froot}/{froot}_tail_best_contigs.m8 -output {tail_out}')
             try:
                 head_df = pd.read_csv(head_out, delimiter='\t', header=None)
-                head_df = head_df[head_df[2] >= 95]
+                head_df = head_df[head_df[2] >= 90]
                 candidate_head_contigs_id = list(head_df[1].values)
                 best_head_contig = None
                 best_head_contig_score = 0
@@ -485,7 +485,7 @@ if __name__ == '__main__':
 
             try:
                 tail_df = pd.read_csv(tail_out, delimiter='\t', header=None)
-                tail_df = tail_df[tail_df[2] >= 95]
+                tail_df = tail_df[tail_df[2] >= 90]
                 candidate_tail_contigs_id = list(tail_df[1].values)
                 best_tail_contig = None
                 best_tail_contig_score = 0

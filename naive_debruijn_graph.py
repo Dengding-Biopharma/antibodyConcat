@@ -7,6 +7,8 @@ from debruijn import get_graph_from_reads
 
 def construct_naive_debruijn_graph(reads,k):
     vertices, edges = get_graph_from_reads(reads, k)
+    for edge in edges:
+        edges[edge] = list(Counter(edges[edge]).keys())
     return (vertices, edges)
 
 def output_contigs(g, branch_kmer, already_pull_out):
@@ -61,3 +63,4 @@ def DFS(current, E, vec, output, contig_copy, branch_kmer, already_pull_out):
     for i in range(len(E[current])):
         DFS(E[current][i], E, vec, output, contig_copy, branch_kmer, already_pull_out)
     vec.pop()
+

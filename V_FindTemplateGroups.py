@@ -618,7 +618,7 @@ if __name__ == '__main__':
     edges = graph[1]
     for edge in edges:
         print(edge,edges[edge])
-    
+
     html += '''
     </body>
     </html>

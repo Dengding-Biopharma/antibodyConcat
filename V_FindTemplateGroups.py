@@ -511,7 +511,8 @@ if __name__ == '__main__':
             except Exception as e:
                 print(e)
                 quit()
-
+        print(best_contigs)
+        quit()
         # best_result_coverage_list = []
         # is_continue = False
         # for best_result_position in range(len(best_result)):

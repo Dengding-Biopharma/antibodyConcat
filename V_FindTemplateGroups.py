@@ -496,9 +496,22 @@ if __name__ == '__main__':
                         best_tail_contig_score = score
                 if best_tail_contig not in best_contigs:
                     best_contigs.append(best_tail_contig)
+                hook = best_tail_contig[len(best_tail_contig) - 3:]
+                hook_out = f'{froot}/hook_refactor.m8'
+                with open(f'{froot}/hook.fasta','w') as f:
+                    f.write(f'>tail_hook\n{hook}')
+                os.system(f'rapsearch -q {froot}/hook.fasta -d {froot}/contigs -o {froot}/{froot}_hook')
+                os.system(
+                    f'python processRapsearchM8.py -input {froot}/{froot}_hook.m8 -output {hook_out}')
+                hook_df = pd.read_csv(hook_out, delimiter='\t', header=None)
+                print(hook_df)
+                raise Exception
+                
+
             except:
                 print('tail error:',tail)
                 quit()
+
 
 
 

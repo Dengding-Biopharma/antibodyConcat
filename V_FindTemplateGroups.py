@@ -511,8 +511,7 @@ if __name__ == '__main__':
             except Exception as e:
                 print(e)
                 quit()
-        if not best_contigs:
-            raise Exception
+
         # best_result_coverage_list = []
         # is_continue = False
         # for best_result_position in range(len(best_result)):
@@ -549,6 +548,7 @@ if __name__ == '__main__':
                 html += '<pre>' + sub_sequence + '</pre>'
             html += '<br>'
         for best_contig in best_contigs:
+            print(12341234,best_contig)
             html += '<pre>' + best_contig + '</pre>'
         html += '<br>'
         html += 'Minimum Contigs Array (Blue part): ' + '<br>'

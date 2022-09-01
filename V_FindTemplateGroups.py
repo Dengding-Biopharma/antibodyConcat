@@ -614,7 +614,7 @@ if __name__ == '__main__':
             # html += '<pre>' + ''.join(read_sequence) + '</pre>'
 
     valueable_contigs = list(Counter(valueable_contigs).keys())
-    graph = naive_db.construct_naive_debruijn_graph(valueable_contigs,3)
+    graph = naive_db.construct_naive_debruijn_graph(valueable_contigs,4)
     outputs = naive_db.output_contigs(graph,[],[])
     outputs = sorted(outputs,key=lambda x:findSupportReadScore(x,sequences_scores),reverse=True)
     for output in outputs:

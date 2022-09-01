@@ -46,10 +46,10 @@ if __name__ == '__main__':
             temp = temp[temp['PPM Difference'] < 50]
             temp.reset_index(inplace=True)
             for i in range(len(temp)):
-                if temp['DENOVO'][i] not in sequences_scores.keys():
-                    sequences_scores[temp['DENOVO'][i]] = temp['Score'][i]
+                if temp['DENOVO'][i].replace('I','L') not in sequences_scores.keys():
+                    sequences_scores[temp['DENOVO'][i].replace('I','L')] = temp['Score'][i]
                 else:
-                    sequences_scores[temp['DENOVO'][i]] = temp['Score'][i] + sequences_scores[temp['DENOVO'][i]]
+                    sequences_scores[temp['DENOVO'][i].replace('I','L')] = temp['Score'][i] + sequences_scores[temp['DENOVO'][i].replace('I','L')]
 
     print('max length before concat: ', len(max(contigs, key=lambda x: len(x))))
 

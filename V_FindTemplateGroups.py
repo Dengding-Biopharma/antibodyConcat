@@ -129,10 +129,10 @@ if __name__ == '__main__':
             temp = temp[temp['PPM Difference'] < 50]
             temp.reset_index(inplace=True, drop=True)
             for i in range(len(temp)):
-                if temp['DENOVO'][i] not in sequences_scores.keys():
-                    sequences_scores[temp['DENOVO'][i]] = temp['Score'][i]
+                if temp['DENOVO'][i].replace('I','L') not in sequences_scores.keys():
+                    sequences_scores[temp['DENOVO'][i].replace('I','L')] = temp['Score'][i]
                 else:
-                    sequences_scores[temp['DENOVO'][i]] = temp['Score'][i] + sequences_scores[temp['DENOVO'][i]]
+                    sequences_scores[temp['DENOVO'][i].replace('I','L')] = temp['Score'][i] + sequences_scores[temp['DENOVO'][i].replace('I','L')]
             DF = DF.append(temp)
 
     DF.reset_index(inplace=True, drop=True)
@@ -616,6 +616,7 @@ if __name__ == '__main__':
     valueable_contigs = list(Counter(valueable_contigs).keys())
     graph = naive_db.construct_naive_debruijn_graph(valueable_contigs,3)
     outputs = naive_db.output_contigs(graph,[],[])
+    outputs = sorted(outputs,key=lambda x:findSupportReadScore(x,sequences_scores),reverse=True)
     for output in outputs:
         print(output)
 

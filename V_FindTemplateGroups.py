@@ -503,13 +503,16 @@ if __name__ == '__main__':
                 os.system(f'rapsearch -q {froot}/hook.fasta -d {froot}/contigs -o {froot}/{froot}_hook')
                 os.system(
                     f'python processRapsearchM8.py -input {froot}/{froot}_hook.m8 -output {hook_out}')
-                hook_df = pd.read_csv(hook_out, delimiter='\t', header=None)
+                try:
+                    hook_df = pd.read_csv(hook_out, delimiter='\t', header=None)
+                except:
+                    raise Exception
                 print(hook_df)
-                raise Exception
-                
 
-            except:
-                print('tail error:',tail)
+
+
+            except Exception as e:
+                print(e)
                 quit()
 
 

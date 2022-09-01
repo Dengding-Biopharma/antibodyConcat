@@ -615,9 +615,10 @@ if __name__ == '__main__':
 
     valueable_contigs = list(Counter(valueable_contigs).keys())
     graph = naive_db.construct_naive_debruijn_graph(valueable_contigs,3)
-    edges = graph[1]
-    for edge in edges:
-        print(edge,edges[edge])
+    outputs = naive_db.output_contigs(graph,[],[])
+    for output in outputs:
+        print(output)
+
 
     html += '''
     </body>

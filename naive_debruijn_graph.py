@@ -1,6 +1,8 @@
 import copy
 from collections import Counter
 
+from tqdm import trange
+
 from debruijn import get_graph_from_reads
 
 
@@ -23,7 +25,7 @@ def output_contigs(g, branch_kmer, already_pull_out):
 
     print('Number of kmers have no income edges: ', len(starts))
     contig = []
-    for i in range(len(starts)):
+    for i in trange(len(starts)):
         start = starts[i]
         current = start
         vec = []

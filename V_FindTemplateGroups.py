@@ -12,7 +12,7 @@ import pandas as pd
 from tqdm import trange
 from generateTemplatesBlastReport import read_fasta
 from IV_sortOutputs import findSupportReadScore
-
+import naive_debruijn_graph as naive_db
 
 class Template:
     def __init__(self, template_id, template_sequence):
@@ -467,8 +467,11 @@ if __name__ == '__main__':
             os.system(f'python processRapsearchM8.py -input {froot}/{froot}_tail_best_contigs.m8 -output {tail_out}')
             try:
                 head_df = pd.read_csv(head_out, delimiter='\t', header=None)
-                head_df = head_df[head_df[2] >= 90]
+                head_df = head_df[head_df[2] >= 80]
                 candidate_head_contigs_id = list(head_df[1].values)
+                candidate_head_contigs = [contig_dic[x] for x in candidate_head_contigs_id]
+                print(candidate_head_contigs)
+                raise Exception
                 best_head_contig = None
                 best_head_contig_score = 0
                 for id in candidate_head_contigs_id:
@@ -485,7 +488,7 @@ if __name__ == '__main__':
 
             try:
                 tail_df = pd.read_csv(tail_out, delimiter='\t', header=None)
-                tail_df = tail_df[tail_df[2] >= 90]
+                tail_df = tail_df[tail_df[2] >= 80]
                 candidate_tail_contigs_id = list(tail_df[1].values)
                 best_tail_contig = None
                 best_tail_contig_score = 0

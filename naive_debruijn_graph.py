@@ -11,6 +11,13 @@ def construct_naive_debruijn_graph(reads,k):
     vertices, edges = get_graph_from_reads(reads, k)
     for edge in edges:
         edges[edge] = list(Counter(edges[edge]).keys())
+    branch_kmer = []
+    count = 0
+    for edge in list(edges):
+        if len(edges[edge]) > 1:
+            count += 1
+            branch_kmer.append(edge)
+    print('branch number: ', count)
     return (vertices, edges)
 
 def output_contigs(g, branch_kmer, already_pull_out):

@@ -65,12 +65,11 @@ def checkOverlap(contig_array, contig):
     return False
 
 
-
 def read_ann(file_path):
     f = open(file_path, 'r')
     lines = f.readlines()
     f.close()
-    ann={}
+    ann = {}
 
     for i in range(len(lines)):
         line = lines[i]
@@ -83,17 +82,19 @@ def read_ann(file_path):
             key = fragment[0]
             temp = fragment[1].rstrip()
             value = temp.split('-')
-            value = [int(value[0])-1,int(value[1])-1]
+            value = [int(value[0]) - 1, int(value[1]) - 1]
             ann[id][key] = value
     return ann
+
 
 def get_args():
     parser = argparse.ArgumentParser()
     # start
-    parser.add_argument('-froot', type=str,required=True)
-    parser.add_argument('-source', type=str,required=True)
+    parser.add_argument('-froot', type=str, required=True)
+    parser.add_argument('-source', type=str, required=True)
     args = parser.parse_args()
     return args
+
 
 def NormalizeData(data):
     return (data - np.min(data)) / (np.max(data) - np.min(data))
@@ -135,12 +136,13 @@ if __name__ == '__main__':
             DF = DF.append(temp)
 
     DF.reset_index(inplace=True, drop=True)
-    unused_reads.reset_index(inplace=True,drop=True)
+    unused_reads.reset_index(inplace=True, drop=True)
 
     os.system(f'prerapsearch -d {template_name} -n templates/temp-db')
     os.system(f'rapsearch -q {froot}/{froot}_sorted.fasta -d templates/temp-db -o {froot}/rapsearch_outputs -z 6')
-    os.system(f'python processRapsearchM8.py -input {froot}/rapsearch_outputs.m8 -output {froot}/rapsearch_outputs_refactor.m8')
-    df = pd.read_csv(f'{froot}/rapsearch_outputs_refactor.m8',delimiter='\t',header=None)
+    os.system(
+        f'python processRapsearchM8.py -input {froot}/rapsearch_outputs.m8 -output {froot}/rapsearch_outputs_refactor.m8')
+    df = pd.read_csv(f'{froot}/rapsearch_outputs_refactor.m8', delimiter='\t', header=None)
     # df = pd.read_csv(f'{froot}/{froot}_blasthomoTemplate.m8',delimiter='\t',header=None)
     df = df[df[2] >= 80]
     df = df.sort_values(by=0)
@@ -261,7 +263,7 @@ if __name__ == '__main__':
         minimum_contigs_array = []
         start_contig = template.contigArrays[0][0]
         for i in range(1, len(template.contigArrays)):
-            if template.contigArrays[i][0].template_interval[0]<start_contig.template_interval[0] \
+            if template.contigArrays[i][0].template_interval[0] < start_contig.template_interval[0] \
                     and \
                     template.contigArrays[i][0].template_interval[1] > start_contig.template_interval[1]:
                 start_contig = template.contigArrays[i][0]
@@ -273,7 +275,8 @@ if __name__ == '__main__':
                 contig_array = template.contigArrays[array_index]
                 for contig_index in range(len(contig_array)):
                     contig = contig_array[contig_index]
-                    if current_contig.template_interval[0] < contig.template_interval[0] < current_contig.template_interval[1] < \
+                    if current_contig.template_interval[0] < contig.template_interval[0] < \
+                            current_contig.template_interval[1] < \
                             contig.template_interval[1]:
                         candidate_contigs.append(contig)
             if len(candidate_contigs) == 0:
@@ -294,7 +297,6 @@ if __name__ == '__main__':
                 current_contig = candidate_contigs[0]
                 minimum_contigs_array.append(current_contig)
                 candidate_contigs = []
-
 
         # print()
         # print('*' * 500)
@@ -351,13 +353,11 @@ if __name__ == '__main__':
             f.write('>{}\n'.format(template.id))
             f.write(template.sequence)
 
-
         out = f'{froot}/{froot}_unusedReadsBlastTemplate_refactor.m8'
         query = f'{froot}/unusedReads.fasta'
         os.system(f'prerapsearch -d {froot}/temp.fasta -n {froot}/temp')
         os.system(f'rapsearch -q {query} -d {froot}/temp -o {froot}/{froot}_unusedReadsBlastTemplate')
         os.system(f'python processRapsearchM8.py -input {froot}/{froot}_unusedReadsBlastTemplate.m8 -output {out}')
-
 
         unusedReadsTemplateResults = pd.read_csv(out, delimiter='\t', header=None)
         unusedReadsTemplateResults = unusedReadsTemplateResults[unusedReadsTemplateResults[2] >= 90]
@@ -377,7 +377,8 @@ if __name__ == '__main__':
             template_right = item[8]
             if (read_right - read_left) != (template_right - template_left):
                 continue
-            unused_reads_intervals[unusedReads_dic[unusedRead]] = [[template_left,template_right],[read_left,read_right]]
+            unused_reads_intervals[unusedReads_dic[unusedRead]] = [[template_left, template_right],
+                                                                   [read_left, read_right]]
             matchedReadSeq = unusedReads_dic[unusedRead][read_left - 1:read_right]
             for i in range(template_left - 1, template_right):
                 current_read_letter = matchedReadSeq[i - (template_left - 1)]
@@ -399,10 +400,9 @@ if __name__ == '__main__':
             if template.letters_errorRate[i] or template.unusedReads_match[i]:
                 matched_length += 1
 
-        coverage = matched_length/len(template.sequence)
+        coverage = matched_length / len(template.sequence)
         if coverage < 0.5:
             continue
-
 
         merged_result = []
         while len(result_sequences) < max(len(result_sequences), len(unusedReadsResultSequence)):
@@ -452,7 +452,7 @@ if __name__ == '__main__':
             else:
                 head = fragment[:k]
                 tail = fragment[len(fragment) - k:]
-            with open(f'{froot}/head.fasta','w') as f:
+            with open(f'{froot}/head.fasta', 'w') as f:
                 f.write(f'>head\n{head}')
             with open(f'{froot}/tail.fasta', 'w') as f:
                 f.write(f'>tail\n{tail}')
@@ -480,7 +480,7 @@ if __name__ == '__main__':
                 if best_head_contig not in best_contigs:
                     best_contigs.append(best_head_contig)
             except:
-                print('head error:',head)
+                print('head error:', head)
 
             try:
                 tail_df = pd.read_csv(tail_out, delimiter='\t', header=None)
@@ -498,15 +498,13 @@ if __name__ == '__main__':
                     best_contigs.append(best_tail_contig)
                 hook = best_tail_contig[len(best_tail_contig) - 3:]
                 hook_out = f'{froot}/hook_refactor.m8'
-                with open(f'{froot}/hook.fasta','w') as f:
+                with open(f'{froot}/hook.fasta', 'w') as f:
                     f.write(f'>tail_hook\n{hook}')
                 os.system(f'rapsearch -q {froot}/hook.fasta -d {froot}/contigs -o {froot}/{froot}_hook')
                 os.system(
                     f'python processRapsearchM8.py -input {froot}/{froot}_hook.m8 -output {hook_out}')
-                try:
-                    hook_df = pd.read_csv(hook_out, delimiter='\t', header=None)
-                except:
-                    raise Exception
+                hook_df = pd.read_csv(hook_out, delimiter='\t', header=None)
+
                 print(hook_df)
 
 
@@ -514,9 +512,6 @@ if __name__ == '__main__':
             except Exception as e:
                 print(e)
                 quit()
-
-
-
 
         # best_result_coverage_list = []
         # is_continue = False
@@ -532,7 +527,6 @@ if __name__ == '__main__':
         #     elif is_continue and len(best_result) == best_result_position + 1:
         #         best_result_coverage_list.append([start,best_result_position])
         # print(best_result_coverage_list)
-
 
         step = 250
         html += '*' * 100 + 'Merged Result' + '*' * 100 + '<br>'
@@ -562,9 +556,10 @@ if __name__ == '__main__':
             contig = minimum_contigs_array[index]
             id = uuid.uuid4()
             colored_contig = list(contig.sequence)
-            for i in range(contig.contig_interval[0] - 1,contig.contig_interval[1]):
+            for i in range(contig.contig_interval[0] - 1, contig.contig_interval[1]):
                 colored_contig[i] = '<font color="blue">{}</font>'.format(colored_contig[i])
-            html += '<pre>' + 'Template interval: '+ str(contig.template_interval) + ' | ' + 'Contig score: ' + str(round(findSupportReadScore(contig.sequence,sequences_scores),2)) + '</pre>'
+            html += '<pre>' + 'Template interval: ' + str(contig.template_interval) + ' | ' + 'Contig score: ' + str(
+                round(findSupportReadScore(contig.sequence, sequences_scores), 2)) + '</pre>'
             html += '<pre>' + ''.join(colored_contig) + '</pre>'
             y = list(contig.rates.values())
             y = list(NormalizeData(y))
@@ -601,15 +596,17 @@ if __name__ == '__main__':
         html += 'unused Reads (Green part): ' + '<br>'
         for read in unused_reads_intervals.keys():
             count = 0
-            for i in range(unused_reads_intervals[read][0][0]-1,unused_reads_intervals[read][0][1]):
+            for i in range(unused_reads_intervals[read][0][0] - 1, unused_reads_intervals[read][0][1]):
                 if 'green' in merged_result[0][i]:
                     count += 1
             if count == 0:
                 continue
             read_sequence = list(read)
-            for i in range(unused_reads_intervals[read][1][0]-1,unused_reads_intervals[read][1][1]):
+            for i in range(unused_reads_intervals[read][1][0] - 1, unused_reads_intervals[read][1][1]):
                 read_sequence[i] = '<font color="green">{}</font>'.format(read_sequence[i])
-            html += '<pre>' + 'Template interval: ' + str(unused_reads_intervals[read][0]) + ' | ' + 'Read Count: ' + str(reads_count[read]) + ' | ' + ''.join(read_sequence) + '</pre>'
+            html += '<pre>' + 'Template interval: ' + str(
+                unused_reads_intervals[read][0]) + ' | ' + 'Read Count: ' + str(reads_count[read]) + ' | ' + ''.join(
+                read_sequence) + '</pre>'
             # html += '<pre>' + ''.join(read_sequence) + '</pre>'
 
     html += '''

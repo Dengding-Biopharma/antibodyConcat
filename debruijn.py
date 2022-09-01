@@ -96,34 +96,13 @@ def get_graph_from_kmers(kmers, k):
 
 
 def get_graph_from_reads(reads, k):
-    # a = k-1
-    # short_sequences = []
-    # for sequence in reads:
-    #     if len(sequence) <= k:
-    #         short_sequences.append(sequence)
-    # for sequence in short_sequences:
-    #     reads.remove(sequence)
-    #
-    # for short_sequence in short_sequences:
-    #     concat = False
-    #     for i in range(len(reads)):
-    #         sequence = reads[i]
-    #         if sequence[len(sequence)-a:] == short_sequence[:a]:
-    #             reads[i] = sequence + short_sequence[a:]
-    #             concat = True
-    #         elif short_sequence[len(short_sequence)-a:] == sequence[:a]:
-    #             reads[i] = short_sequence + sequence[a:]
-    #             concat = True
-    #     if concat:
-    #         short_sequences.remove(short_sequence)
-
-    # print('inputs before: ',reads)
     edges = dict()
     vertices = dict()
     for index in range(len(reads)):
         read = reads[index]
         i = 0
         while i + k < len(read):
+            read = read.replace('I', 'L')
             v1 = read[i:i + k]
             v2 = read[i + 1:i + k + 1]
             if v1 in edges.keys():

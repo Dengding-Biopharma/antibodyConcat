@@ -224,7 +224,7 @@ if __name__ == '__main__':
         for i in range(len(unused_reads)):
             f.write('>unused_reads_{}\n'.format(i))
             f.write('{}\n'.format(unused_reads[i]))
-
+    valueable_contigs = []
     for template_id in template_contig_group.keys():
         template = Template(template_id, template_dic[template_id].replace('I','L'))
         for contig_id in template_contig_group[template_id]:
@@ -470,8 +470,7 @@ if __name__ == '__main__':
                 head_df = head_df[head_df[2] >= 80]
                 candidate_head_contigs_id = list(head_df[1].values)
                 candidate_head_contigs = [contig_dic[x] for x in candidate_head_contigs_id]
-                print(candidate_head_contigs)
-                raise Exception
+                valueable_contigs.extend(candidate_head_contigs)
                 best_head_contig = None
                 best_head_contig_score = 0
                 for id in candidate_head_contigs_id:
@@ -490,6 +489,8 @@ if __name__ == '__main__':
                 tail_df = pd.read_csv(tail_out, delimiter='\t', header=None)
                 tail_df = tail_df[tail_df[2] >= 80]
                 candidate_tail_contigs_id = list(tail_df[1].values)
+                candidate_tail_contigs = [contig_dic[x] for x in candidate_tail_contigs_id]
+                valueable_contigs.extend(candidate_tail_contigs)
                 best_tail_contig = None
                 best_tail_contig_score = 0
                 for id in candidate_tail_contigs_id:
@@ -612,6 +613,12 @@ if __name__ == '__main__':
                 read_sequence) + '</pre>'
             # html += '<pre>' + ''.join(read_sequence) + '</pre>'
 
+    valueable_contigs = list(Counter(valueable_contigs).keys())
+    graph = naive_db.construct_naive_debruijn_graph(valueable_contigs,3)
+    edges = graph[1]
+    for edge in edges:
+        print(edge,edges[edge])
+    
     html += '''
     </body>
     </html>

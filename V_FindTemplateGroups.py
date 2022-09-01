@@ -497,6 +497,7 @@ if __name__ == '__main__':
                 if best_tail_contig not in best_contigs:
                     best_contigs.append(best_tail_contig)
                 hook = best_tail_contig[len(best_tail_contig) - 3:]
+                print(best_tail_contig,hook)
                 hook_out = f'{froot}/hook_refactor.m8'
                 with open(f'{froot}/hook.fasta', 'w') as f:
                     f.write(f'>tail_hook\n{hook}')

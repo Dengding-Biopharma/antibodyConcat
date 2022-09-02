@@ -574,8 +574,6 @@ if __name__ == '__main__':
         for best_contig in best_contigs:
             print(12341234, best_contig)
             # html += '<pre>' + best_contig + '</pre>'
-        if template.type =='nc':
-            template.best_fragments = template.best_fragments[1:]
         for best_fragment in template.best_fragments:
             html += '<pre>' + best_fragment + '</pre>'
         html += '<br>'

@@ -489,7 +489,7 @@ if __name__ == '__main__':
                             best_head_contig_score = score
                     if best_head_contig not in best_contigs:
                         best_contigs.append(best_head_contig)
-                    template.best_fragments.append([candidate_head_contigs])
+                    template.best_fragments.append(candidate_head_contigs)
                 else:
                     template.best_fragments.append(fragment)
             except Exception as e:
@@ -512,7 +512,7 @@ if __name__ == '__main__':
                         best_tail_contig_score = score
                 if best_tail_contig not in best_contigs:
                     best_contigs.append(best_tail_contig)
-                template.best_fragments.append([candidate_tail_contigs])
+                template.best_fragments.append(candidate_tail_contigs)
                 # hook = best_tail_contig[len(best_tail_contig) - 3:]
                 # print(best_tail_contig,hook)
                 # hook_out = f'{froot}/hook_refactor.m8'

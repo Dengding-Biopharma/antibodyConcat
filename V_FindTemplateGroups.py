@@ -472,26 +472,26 @@ if __name__ == '__main__':
             os.system(f'python processRapsearchM8.py -input {froot}/{froot}_head_best_contigs.m8 -output {head_out}')
             os.system(f'python processRapsearchM8.py -input {froot}/{froot}_tail_best_contigs.m8 -output {tail_out}')
             try:
-                if not template.ignore:
-                    template.ignore = False
-                    head_df = pd.read_csv(head_out, delimiter='\t', header=None)
-                    head_df = head_df[head_df[2] >= 90]
-                    candidate_head_contigs_id = list(head_df[1].values)
-                    candidate_head_contigs = [contig_dic[x] for x in candidate_head_contigs_id]
-                    # valueable_contigs.extend(candidate_head_contigs)
-                    best_head_contig = None
-                    best_head_contig_score = 0
-                    for id in candidate_head_contigs_id:
-                        head_contig = contig_dic[id]
-                        score = findSupportReadScore(head_contig, sequences_scores)
-                        if score > best_head_contig_score:
-                            best_head_contig = head_contig
-                            best_head_contig_score = score
-                    if best_head_contig not in best_contigs:
-                        best_contigs.append(best_head_contig)
-                    template.best_fragments.append(candidate_head_contigs)
-                else:
-                    template.best_fragments.append(fragment)
+                # if not template.ignore:
+                template.ignore = False
+                head_df = pd.read_csv(head_out, delimiter='\t', header=None)
+                head_df = head_df[head_df[2] >= 90]
+                candidate_head_contigs_id = list(head_df[1].values)
+                candidate_head_contigs = [contig_dic[x] for x in candidate_head_contigs_id]
+                # valueable_contigs.extend(candidate_head_contigs)
+                best_head_contig = None
+                best_head_contig_score = 0
+                for id in candidate_head_contigs_id:
+                    head_contig = contig_dic[id]
+                    score = findSupportReadScore(head_contig, sequences_scores)
+                    if score > best_head_contig_score:
+                        best_head_contig = head_contig
+                        best_head_contig_score = score
+                if best_head_contig not in best_contigs:
+                    best_contigs.append(best_head_contig)
+                template.best_fragments.append(candidate_head_contigs)
+                # else:
+                #     template.best_fragments.append(fragment)
             except Exception as e:
                 print(e)
                 quit()

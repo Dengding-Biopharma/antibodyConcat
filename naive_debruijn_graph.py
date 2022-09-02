@@ -16,6 +16,9 @@ def construct_naive_debruijn_graph(reads,k,pruning):
         for edge in edges:
             edges[edge] = list(Counter(edges[edge]).keys())
 
+    for edge in edges:
+        print(edge,edges[edge])
+    quit()
     branch_kmer = []
     count = 0
     for edge in list(edges):
@@ -52,19 +55,7 @@ def DFS(current, E, vec, output, contig_copy, branch_kmer, already_pull_out):
     if current in vec:
         return
     vec.append(current)
-    if current in already_pull_out:
-        if len(vec) == 1:
-            vec.pop()
-            return
-        vec.pop()
-        if vec not in output:
-            result = vec[0]
-            for i in range(1, len(vec)):
-                result += vec[i][-1]
-            output.append(copy.deepcopy(vec))
-            contig_copy.append(result)
-        return
-    if current in branch_kmer or len(E[current]) == 0:
+    if len(E[current]) == 0:
         if vec not in output:
             result = vec[0]
             for i in range(1, len(vec)):

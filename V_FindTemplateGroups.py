@@ -15,8 +15,9 @@ from IV_sortOutputs import findSupportReadScore
 import naive_debruijn_graph as naive_db
 
 class Template:
-    def __init__(self, template_id, template_sequence):
+    def __init__(self, template_id, template_sequence,template_type):
         self.sequence = template_sequence
+        self.type = template_type
         self.id = template_id
         self.contigArrays = []
         self.different_position = []
@@ -26,6 +27,7 @@ class Template:
         self.unusedReads_match = {}
         for i in range(len(self.sequence)):
             self.unusedReads_match[i] = []
+        self.best_contigs = []
 
 
 class Contig:
@@ -226,6 +228,8 @@ if __name__ == '__main__':
             f.write('{}\n'.format(unused_reads[i]))
     valueable_contigs = []
     for template_id in template_contig_group.keys():
+        print(template_id)
+        quit()
         template = Template(template_id, template_dic[template_id].replace('I','L'))
         for contig_id in template_contig_group[template_id]:
             label = contig_id + '+' + template_id
@@ -470,7 +474,7 @@ if __name__ == '__main__':
                 head_df = head_df[head_df[2] >= 90]
                 candidate_head_contigs_id = list(head_df[1].values)
                 candidate_head_contigs = [contig_dic[x] for x in candidate_head_contigs_id]
-                valueable_contigs.extend(candidate_head_contigs)
+                # valueable_contigs.extend(candidate_head_contigs)
                 best_head_contig = None
                 best_head_contig_score = 0
                 for id in candidate_head_contigs_id:
@@ -490,7 +494,7 @@ if __name__ == '__main__':
                 tail_df = tail_df[tail_df[2] >= 90]
                 candidate_tail_contigs_id = list(tail_df[1].values)
                 candidate_tail_contigs = [contig_dic[x] for x in candidate_tail_contigs_id]
-                valueable_contigs.extend(candidate_tail_contigs)
+                # valueable_contigs.extend(candidate_tail_contigs)
                 best_tail_contig = None
                 best_tail_contig_score = 0
                 for id in candidate_tail_contigs_id:
@@ -613,12 +617,12 @@ if __name__ == '__main__':
                 read_sequence) + '</pre>'
             # html += '<pre>' + ''.join(read_sequence) + '</pre>'
 
-    valueable_contigs = list(Counter(valueable_contigs).keys())
-    graph = naive_db.construct_naive_debruijn_graph(valueable_contigs,4,False)
-    outputs = naive_db.output_contigs(graph,[],[])
-    outputs = sorted(outputs,key=lambda x:findSupportReadScore(x,sequences_scores),reverse=True)
-    for output in outputs:
-        print(output)
+    # valueable_contigs = list(Counter(valueable_contigs).keys())
+    # graph = naive_db.construct_naive_debruijn_graph(valueable_contigs,4,False)
+    # outputs = naive_db.output_contigs(graph,[],[])
+    # outputs = sorted(outputs,key=lambda x:findSupportReadScore(x,sequences_scores),reverse=True)
+    # for output in outputs:
+    #     print(output)
 
 
     html += '''

@@ -230,9 +230,11 @@ if __name__ == '__main__':
             f.write('>unused_reads_{}\n'.format(i))
             f.write('{}\n'.format(unused_reads[i]))
 
+    Templates = []
     for template_id in template_contig_group.keys():
         type = 'nc' if 'NonConstant' in template_id else 'c'
         template = Template(template_id, template_dic[template_id].replace('I', 'L'), type)
+        Templates.append(template)
         for contig_id in template_contig_group[template_id]:
             label = contig_id + '+' + template_id
             value = sequence_template_id_pair_dic[label]
@@ -624,22 +626,34 @@ if __name__ == '__main__':
                 unused_reads_intervals[read][0]) + ' | ' + 'Read Count: ' + str(reads_count[read]) + ' | ' + ''.join(
                 read_sequence) + '</pre>'
             # html += '<pre>' + ''.join(read_sequence) + '</pre>'
-        print('*'*50)
-        template.best_fragments = list(Counter(template.best_fragments).keys())
-        graph = naive_db.construct_naive_debruijn_graph(template.best_fragments,3,True)
-        outputs = naive_db.output_contigs(graph,[],[])
-        outputs = sorted(outputs, key=lambda x: findSupportReadScore(x, sequences_scores), reverse=True)
-        for output in outputs:
-            print(output)
-        print('*' * 50)
-        quit()
+
     # valueable_contigs = list(Counter(valueable_contigs).keys())
     # graph = naive_db.construct_naive_debruijn_graph(valueable_contigs,4,False)
     # outputs = naive_db.output_contigs(graph,[],[])
     # outputs = sorted(outputs,key=lambda x:findSupportReadScore(x,sequences_scores),reverse=True)
     # for output in outputs:
     #     print(output)
-
+    light = ['','']
+    heavy = ['','']
+    for Template in Templates:
+        if 'Light' in Template.id:
+            if 'NonConstant' in Template.id:
+                light[0] = Template
+            else:
+                light[1] = Template
+        else:
+            if 'NonConstant' in Template.id:
+                heavy[0] = Template
+            else:
+                heavy[1] = Template
+    for chain in light:
+        inputs = list(Counter(chain.best_fragments).keys())
+        graph = naive_db.construct_naive_debruijn_graph(inputs,3,False)
+        outputs = naive_db.output_contigs(graph,[],[])
+        outputs = sorted(outputs,key=lambda x:findSupportReadScore(x,sequences_scores),reverse=True)
+        for output in outputs:
+            print(output)
+    quit()
     html += '''
     </body>
     </html>

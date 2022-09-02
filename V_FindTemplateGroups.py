@@ -151,6 +151,8 @@ if __name__ == '__main__':
     df = df.reset_index(drop=True)
 
     template_dic = read_fasta(template_name)
+    print(template_dic)
+    quit()
     templates = list(template_dic.keys())
     contig_dic = read_fasta(contig_filepath)
     contigs = list(contig_dic.keys())
@@ -159,8 +161,6 @@ if __name__ == '__main__':
     dfList = df.values
     sequence_template_id_pair_dic = {}
     for item in dfList:
-        print(item)
-        quit()
         template_id = item[:2][1]
         label = item[:2][0] + '+' + template_id
         value_list = list(item[2:])

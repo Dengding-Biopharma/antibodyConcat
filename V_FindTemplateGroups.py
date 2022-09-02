@@ -159,14 +159,11 @@ if __name__ == '__main__':
     dfList = df.values
     sequence_template_id_pair_dic = {}
     for item in dfList:
-        print(item)
-        quit()
         template_id = item[:2][1]
         label = item[:2][0] + '+' + template_id
         value_list = list(item[2:])
         sequence_template_id_pair_dic[label] = value_list
-    print(sequence_template_id_pair_dic)
-    quit()
+
     template_contig_group = {}
     while len(contigs) != 0:
         current_contig = contigs[0]
@@ -207,8 +204,8 @@ if __name__ == '__main__':
         for item in remove:
             contigs.remove(item)
 
-    pprint(template_contig_group)
-    quit()
+    # pprint(template_contig_group)
+    # quit()
     report_path = f'{froot}/{froot}_TemplateMatchReport.txt'
     outFile = open(report_path, 'w')
     message = ''
@@ -231,8 +228,6 @@ if __name__ == '__main__':
             f.write('{}\n'.format(unused_reads[i]))
     valueable_contigs = []
     for template_id in template_contig_group.keys():
-        print(template_id)
-        quit()
         template = Template(template_id, template_dic[template_id].replace('I','L'))
         for contig_id in template_contig_group[template_id]:
             label = contig_id + '+' + template_id

@@ -626,6 +626,7 @@ if __name__ == '__main__':
             # html += '<pre>' + ''.join(read_sequence) + '</pre>'
         print('*'*50)
         print(template.best_fragments)
+        print(template.type)
         print('*' * 50)
     # valueable_contigs = list(Counter(valueable_contigs).keys())
     # graph = naive_db.construct_naive_debruijn_graph(valueable_contigs,4,False)

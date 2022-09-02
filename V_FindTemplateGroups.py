@@ -650,18 +650,17 @@ if __name__ == '__main__':
                 heavy[1] = Template
     for chain in light:
         inputs = chain.best_fragments
-        print(inputs)
-        for i in range(0,len(inputs),2):
-            print(i)
-            # try:
-            #     print(inputs[i],'\n',inputs[i+1])
-            # except:
-            #     print(inputs[i])
-            print()
+        start_inputs = inputs[0]
+        start_inputs.append(inputs[1])
+        inputs.remove(inputs[0])
+        inputs.remove(inputs[1])
+        graph = naive_db.construct_naive_debruijn_graph(start_inputs, 3, False)
+        outputs = naive_db.output_contigs(graph, [], [])
+        outputs = sorted(outputs, key=lambda x: findSupportReadScore(x, sequences_scores), reverse=True)
+        for output in outputs:
+            print(output)
         quit()
-        graph = naive_db.construct_naive_debruijn_graph(inputs,3,False)
-        outputs = naive_db.output_contigs(graph,[],[])
-        outputs = sorted(outputs,key=lambda x:findSupportReadScore(x,sequences_scores),reverse=True)
+
         for output in outputs:
             print(output)
         quit()

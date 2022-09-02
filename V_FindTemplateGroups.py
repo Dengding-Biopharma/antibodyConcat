@@ -491,8 +491,8 @@ if __name__ == '__main__':
                         best_head_contig_score = score
                 if best_head_contig not in best_contigs:
                     best_contigs.append(best_head_contig)
-                template.best_fragments.append(candidate_head_contigs)
-                template.best_fragments.append([fragment])
+                template.best_fragments.append(best_head_contig)
+                template.best_fragments.append(fragment)
                 # else:
                 #     template.best_fragments.append(fragment)
             except Exception as e:
@@ -515,8 +515,8 @@ if __name__ == '__main__':
                         best_tail_contig_score = score
                 if best_tail_contig not in best_contigs:
                     best_contigs.append(best_tail_contig)
-                template.best_fragments.append([fragment])
-                template.best_fragments.append(candidate_tail_contigs)
+                template.best_fragments.append(fragment)
+                template.best_fragments.append(best_tail_contig)
                 # hook = best_tail_contig[len(best_tail_contig) - 3:]
                 # print(best_tail_contig,hook)
                 # hook_out = f'{froot}/hook_refactor.m8'
@@ -569,7 +569,10 @@ if __name__ == '__main__':
             html += '<br>'
         for best_contig in best_contigs:
             print(12341234, best_contig)
-            html += '<pre>' + best_contig + '</pre>'
+            # html += '<pre>' + best_contig + '</pre>'
+        for best_fragment in template.best_fragments:
+            print(best_fragment)
+            html += '<pre>' + best_fragment + '</pre>'
         html += '<br>'
         html += 'Minimum Contigs Array (Blue part): ' + '<br>'
         for index in range(len(minimum_contigs_array)):
@@ -648,25 +651,22 @@ if __name__ == '__main__':
                 heavy[0] = Template
             else:
                 heavy[1] = Template
-    for chain in light:
-        inputs = chain.best_fragments
-        print(inputs)
-        start_inputs = inputs[0]
-        start_inputs.extend(inputs[1])
-        print(start_inputs)
+    # for chain in light:
+    #     inputs = chain.best_fragments
+    #     print(inputs)
+    #     start_inputs = inputs[0]
+    #     start_inputs.extend(inputs[1])
+    #     print(start_inputs)
+    #
+    #     inputs.remove(inputs[0])
+    #     inputs.remove(inputs[1])
+    #     graph = naive_db.construct_naive_debruijn_graph(start_inputs, 5, False)
+    #     outputs = naive_db.output_contigs(graph)
+    #     outputs = sorted(outputs, key=lambda x: findSupportReadScore(x, sequences_scores), reverse=True)
+    #     for output in outputs:
+    #         print(output)
+    #     quit()
 
-        inputs.remove(inputs[0])
-        inputs.remove(inputs[1])
-        graph = naive_db.construct_naive_debruijn_graph(start_inputs, 5, False)
-        outputs = naive_db.output_contigs(graph)
-        outputs = sorted(outputs, key=lambda x: findSupportReadScore(x, sequences_scores), reverse=True)
-        for output in outputs:
-            print(output)
-        quit()
-
-        for output in outputs:
-            print(output)
-        quit()
     html += '''
     </body>
     </html>

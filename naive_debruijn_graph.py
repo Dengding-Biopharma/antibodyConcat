@@ -16,6 +16,9 @@ def construct_naive_debruijn_graph(reads,k,pruning):
         for edge in edges:
             edges[edge] = list(Counter(edges[edge]).keys())
 
+    for edge in edges:
+        print(edge,edges[edge])
+    quit()
     branch_kmer = []
     count = 0
     for edge in list(edges):
@@ -25,7 +28,7 @@ def construct_naive_debruijn_graph(reads,k,pruning):
     print('branch number: ', count)
     return (vertices, edges)
 
-def output_contigs(g, branch_kmer, already_pull_out):
+def output_contigs(g):
     """ Perform searching for Eulerian path in the graph to output genome assembly"""
     V = g[0]
     E = g[1]
@@ -43,12 +46,12 @@ def output_contigs(g, branch_kmer, already_pull_out):
         vec = []
         output = []
         contig_copy = []
-        DFS(current, E, vec, output, contig_copy, branch_kmer, already_pull_out)
+        DFS(current, E, vec, output, contig_copy)
         contig.extend(contig_copy)
 
     return contig
 
-def DFS(current, E, vec, output, contig_copy, branch_kmer, already_pull_out):
+def DFS(current, E, vec, output, contig_copy):
     if current in vec:
         return
     vec.append(current)
@@ -64,7 +67,7 @@ def DFS(current, E, vec, output, contig_copy, branch_kmer, already_pull_out):
         vec.pop()
         return
     for i in range(len(E[current])):
-        DFS(E[current][i], E, vec, output, contig_copy, branch_kmer, already_pull_out)
+        DFS(E[current][i], E, vec, output, contig_copy)
     vec.pop()
 
 def pruningEdges(edges, threshold):

@@ -14,10 +14,12 @@ from generateTemplatesBlastReport import read_fasta
 from IV_sortOutputs import findSupportReadScore
 import naive_debruijn_graph as naive_db
 
+
 class Template:
-    def __init__(self, template_id, template_sequence,template_type):
+    def __init__(self, template_id, template_sequence, template_type):
         self.sequence = template_sequence
         self.type = template_type
+        self.ignore = True if type == 'nc'
         self.id = template_id
         self.contigArrays = []
         self.different_position = []
@@ -27,7 +29,7 @@ class Template:
         self.unusedReads_match = {}
         for i in range(len(self.sequence)):
             self.unusedReads_match[i] = []
-        self.best_contigs = []
+        self.best_fragments = []
 
 
 class Contig:
@@ -131,10 +133,11 @@ if __name__ == '__main__':
             temp = temp[temp['PPM Difference'] < 50]
             temp.reset_index(inplace=True, drop=True)
             for i in range(len(temp)):
-                if temp['DENOVO'][i].replace('I','L') not in sequences_scores.keys():
-                    sequences_scores[temp['DENOVO'][i].replace('I','L')] = temp['Score'][i]
+                if temp['DENOVO'][i].replace('I', 'L') not in sequences_scores.keys():
+                    sequences_scores[temp['DENOVO'][i].replace('I', 'L')] = temp['Score'][i]
                 else:
-                    sequences_scores[temp['DENOVO'][i].replace('I','L')] = temp['Score'][i] + sequences_scores[temp['DENOVO'][i].replace('I','L')]
+                    sequences_scores[temp['DENOVO'][i].replace('I', 'L')] = temp['Score'][i] + sequences_scores[
+                        temp['DENOVO'][i].replace('I', 'L')]
             DF = DF.append(temp)
 
     DF.reset_index(inplace=True, drop=True)
@@ -226,9 +229,10 @@ if __name__ == '__main__':
         for i in range(len(unused_reads)):
             f.write('>unused_reads_{}\n'.format(i))
             f.write('{}\n'.format(unused_reads[i]))
-    valueable_contigs = []
+
     for template_id in template_contig_group.keys():
-        template = Template(template_id, template_dic[template_id].replace('I','L'))
+        type = 'nc' if 'NonConstant' in template_id else 'c'
+        template = Template(template_id, template_dic[template_id].replace('I', 'L'), type)
         for contig_id in template_contig_group[template_id]:
             label = contig_id + '+' + template_id
             value = sequence_template_id_pair_dic[label]
@@ -468,21 +472,26 @@ if __name__ == '__main__':
             os.system(f'python processRapsearchM8.py -input {froot}/{froot}_head_best_contigs.m8 -output {head_out}')
             os.system(f'python processRapsearchM8.py -input {froot}/{froot}_tail_best_contigs.m8 -output {tail_out}')
             try:
-                head_df = pd.read_csv(head_out, delimiter='\t', header=None)
-                head_df = head_df[head_df[2] >= 90]
-                candidate_head_contigs_id = list(head_df[1].values)
-                candidate_head_contigs = [contig_dic[x] for x in candidate_head_contigs_id]
-                # valueable_contigs.extend(candidate_head_contigs)
-                best_head_contig = None
-                best_head_contig_score = 0
-                for id in candidate_head_contigs_id:
-                    head_contig = contig_dic[id]
-                    score = findSupportReadScore(head_contig, sequences_scores)
-                    if score > best_head_contig_score:
-                        best_head_contig = head_contig
-                        best_head_contig_score = score
-                if best_head_contig not in best_contigs:
-                    best_contigs.append(best_head_contig)
+                if not template.ignore:
+                    template.ignore = False
+                    head_df = pd.read_csv(head_out, delimiter='\t', header=None)
+                    head_df = head_df[head_df[2] >= 90]
+                    candidate_head_contigs_id = list(head_df[1].values)
+                    candidate_head_contigs = [contig_dic[x] for x in candidate_head_contigs_id]
+                    # valueable_contigs.extend(candidate_head_contigs)
+                    best_head_contig = None
+                    best_head_contig_score = 0
+                    for id in candidate_head_contigs_id:
+                        head_contig = contig_dic[id]
+                        score = findSupportReadScore(head_contig, sequences_scores)
+                        if score > best_head_contig_score:
+                            best_head_contig = head_contig
+                            best_head_contig_score = score
+                    if best_head_contig not in best_contigs:
+                        best_contigs.append(best_head_contig)
+                    template.best_fragments.append([candidate_head_contigs])
+                else:
+                    template.best_fragments.append(fragment)
             except Exception as e:
                 print(e)
                 quit()
@@ -503,6 +512,7 @@ if __name__ == '__main__':
                         best_tail_contig_score = score
                 if best_tail_contig not in best_contigs:
                     best_contigs.append(best_tail_contig)
+                template.best_fragments.append([candidate_tail_contigs])
                 # hook = best_tail_contig[len(best_tail_contig) - 3:]
                 # print(best_tail_contig,hook)
                 # hook_out = f'{froot}/hook_refactor.m8'
@@ -554,7 +564,7 @@ if __name__ == '__main__':
                 html += '<pre>' + sub_sequence + '</pre>'
             html += '<br>'
         for best_contig in best_contigs:
-            print(12341234,best_contig)
+            print(12341234, best_contig)
             html += '<pre>' + best_contig + '</pre>'
         html += '<br>'
         html += 'Minimum Contigs Array (Blue part): ' + '<br>'
@@ -614,14 +624,15 @@ if __name__ == '__main__':
                 unused_reads_intervals[read][0]) + ' | ' + 'Read Count: ' + str(reads_count[read]) + ' | ' + ''.join(
                 read_sequence) + '</pre>'
             # html += '<pre>' + ''.join(read_sequence) + '</pre>'
-
+        print('*'*50)
+        print(template.best_fragments)
+        print('*' * 50)
     # valueable_contigs = list(Counter(valueable_contigs).keys())
     # graph = naive_db.construct_naive_debruijn_graph(valueable_contigs,4,False)
     # outputs = naive_db.output_contigs(graph,[],[])
     # outputs = sorted(outputs,key=lambda x:findSupportReadScore(x,sequences_scores),reverse=True)
     # for output in outputs:
     #     print(output)
-
 
     html += '''
     </body>

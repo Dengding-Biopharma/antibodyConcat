@@ -151,8 +151,6 @@ if __name__ == '__main__':
     df = df.reset_index(drop=True)
 
     template_dic = read_fasta(template_name)
-    print(template_dic)
-    quit()
     templates = list(template_dic.keys())
     contig_dic = read_fasta(contig_filepath)
     contigs = list(contig_dic.keys())
@@ -174,6 +172,8 @@ if __name__ == '__main__':
         longest_length = 0
         for template_id in templates:
             label = current_contig + '+' + template_id
+            print(label)
+            quit()
             try:
                 identity = sequence_template_id_pair_dic[label][0]
             except:

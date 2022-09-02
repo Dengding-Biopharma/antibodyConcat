@@ -654,7 +654,7 @@ if __name__ == '__main__':
         start_inputs = inputs[0]
         start_inputs.extend(inputs[1])
         print(start_inputs)
-        quit()
+
         inputs.remove(inputs[0])
         inputs.remove(inputs[1])
         graph = naive_db.construct_naive_debruijn_graph(start_inputs, 3, False)

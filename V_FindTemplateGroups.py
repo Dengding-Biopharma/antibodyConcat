@@ -19,7 +19,7 @@ class Template:
     def __init__(self, template_id, template_sequence, template_type):
         self.sequence = template_sequence
         self.type = template_type
-        self.ignore = True if type == 'nc'
+        self.ignore = True if type == 'nc' else False
         self.id = template_id
         self.contigArrays = []
         self.different_position = []

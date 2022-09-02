@@ -52,6 +52,7 @@ def DFS(current, E, vec, output, contig_copy, branch_kmer, already_pull_out):
     if current in vec:
         return
     vec.append(current)
+    print(111,vec)
     if len(E[current]) == 0:
         if vec not in output:
             result = vec[0]

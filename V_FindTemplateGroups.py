@@ -650,8 +650,10 @@ if __name__ == '__main__':
                 heavy[1] = Template
     for chain in light:
         inputs = chain.best_fragments
+        print(inputs)
         start_inputs = inputs[0]
-        start_inputs.append(inputs[1])
+        print(start_inputs)
+        quit()
         inputs.remove(inputs[0])
         inputs.remove(inputs[1])
         graph = naive_db.construct_naive_debruijn_graph(start_inputs, 3, False)

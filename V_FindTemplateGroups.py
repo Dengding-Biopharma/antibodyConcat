@@ -652,10 +652,11 @@ if __name__ == '__main__':
         inputs = chain.best_fragments
         print(inputs)
         for i in range(0,len(inputs),2):
-            try:
-                print(inputs[i],'\n',inputs[i+1])
-            except:
-                print(inputs[i])
+            print(i)
+            # try:
+            #     print(inputs[i],'\n',inputs[i+1])
+            # except:
+            #     print(inputs[i])
             print()
         quit()
         graph = naive_db.construct_naive_debruijn_graph(inputs,3,False)

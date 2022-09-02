@@ -626,7 +626,7 @@ if __name__ == '__main__':
             # html += '<pre>' + ''.join(read_sequence) + '</pre>'
         print('*'*50)
         template.best_fragments = list(Counter(template.best_fragments).keys())
-        graph = naive_db.construct_naive_debruijn_graph(template.best_fragments,3,False)
+        graph = naive_db.construct_naive_debruijn_graph(template.best_fragments,4,False)
         outputs = naive_db.output_contigs(graph,[],[])
         outputs = sorted(outputs, key=lambda x: findSupportReadScore(x, sequences_scores), reverse=True)
         for output in outputs:

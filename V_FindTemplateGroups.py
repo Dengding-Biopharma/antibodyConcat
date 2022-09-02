@@ -163,7 +163,8 @@ if __name__ == '__main__':
         label = item[:2][0] + '+' + template_id
         value_list = list(item[2:])
         sequence_template_id_pair_dic[label] = value_list
-
+    print(sequence_template_id_pair_dic)
+    quit()
     template_contig_group = {}
     while len(contigs) != 0:
         current_contig = contigs[0]

@@ -151,6 +151,8 @@ if __name__ == '__main__':
     df = df.reset_index(drop=True)
 
     template_dic = read_fasta(template_name)
+    print(template_dic)
+    quit()
     templates = list(template_dic.keys())
     contig_dic = read_fasta(contig_filepath)
     contigs = list(contig_dic.keys())

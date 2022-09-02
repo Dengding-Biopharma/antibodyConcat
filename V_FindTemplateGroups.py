@@ -491,8 +491,10 @@ if __name__ == '__main__':
                         best_head_contig_score = score
                 if best_head_contig not in best_contigs:
                     best_contigs.append(best_head_contig)
-                template.best_fragments.append(best_head_contig)
-                template.best_fragments.append(fragment)
+                if best_head_contig not in template.best_fragments:
+                    template.best_fragments.append(best_head_contig)
+                if fragment not in template.best_fragments:
+                    template.best_fragments.append(fragment)
                 # else:
                 #     template.best_fragments.append(fragment)
             except Exception as e:
@@ -515,8 +517,10 @@ if __name__ == '__main__':
                         best_tail_contig_score = score
                 if best_tail_contig not in best_contigs:
                     best_contigs.append(best_tail_contig)
-                template.best_fragments.append(fragment)
-                template.best_fragments.append(best_tail_contig)
+                if fragment not in template.best_fragments:
+                    template.best_fragments.append(fragment)
+                if best_tail_contig not in template.best_fragments:
+                    template.best_fragments.append(best_tail_contig)
                 # hook = best_tail_contig[len(best_tail_contig) - 3:]
                 # print(best_tail_contig,hook)
                 # hook_out = f'{froot}/hook_refactor.m8'
@@ -571,7 +575,6 @@ if __name__ == '__main__':
             print(12341234, best_contig)
             # html += '<pre>' + best_contig + '</pre>'
         for best_fragment in template.best_fragments:
-            print(best_fragment)
             html += '<pre>' + best_fragment + '</pre>'
         html += '<br>'
         html += 'Minimum Contigs Array (Blue part): ' + '<br>'

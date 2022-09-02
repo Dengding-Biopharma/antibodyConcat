@@ -489,7 +489,7 @@ if __name__ == '__main__':
                         best_head_contig_score = score
                 if best_head_contig not in best_contigs:
                     best_contigs.append(best_head_contig)
-                template.best_fragments.append(candidate_head_contigs)
+                template.best_fragments.extend(candidate_head_contigs)
                 # else:
                 #     template.best_fragments.append(fragment)
             except Exception as e:
@@ -512,7 +512,7 @@ if __name__ == '__main__':
                         best_tail_contig_score = score
                 if best_tail_contig not in best_contigs:
                     best_contigs.append(best_tail_contig)
-                template.best_fragments.append(candidate_tail_contigs)
+                template.best_fragments.extend(candidate_tail_contigs)
                 # hook = best_tail_contig[len(best_tail_contig) - 3:]
                 # print(best_tail_contig,hook)
                 # hook_out = f'{froot}/hook_refactor.m8'
@@ -625,9 +625,14 @@ if __name__ == '__main__':
                 read_sequence) + '</pre>'
             # html += '<pre>' + ''.join(read_sequence) + '</pre>'
         print('*'*50)
-        print(template.best_fragments)
-        print(template.type)
+        template.best_fragments = list(Counter(template.best_fragments).keys())
+        graph = naive_db.construct_naive_debruijn_graph(template.best_fragments,3,False)
+        outputs = naive_db.output_contigs(graph,[],[])
+        outputs = sorted(outputs, key=lambda x: findSupportReadScore(x, sequences_scores), reverse=True)
+        for output in outputs:
+            print(output)
         print('*' * 50)
+        quit()
     # valueable_contigs = list(Counter(valueable_contigs).keys())
     # graph = naive_db.construct_naive_debruijn_graph(valueable_contigs,4,False)
     # outputs = naive_db.output_contigs(graph,[],[])

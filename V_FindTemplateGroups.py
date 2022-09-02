@@ -492,6 +492,7 @@ if __name__ == '__main__':
                 if best_head_contig not in best_contigs:
                     best_contigs.append(best_head_contig)
                 template.best_fragments.extend(candidate_head_contigs)
+                template.best_fragments.append([fragment])
                 # else:
                 #     template.best_fragments.append(fragment)
             except Exception as e:
@@ -514,6 +515,7 @@ if __name__ == '__main__':
                         best_tail_contig_score = score
                 if best_tail_contig not in best_contigs:
                     best_contigs.append(best_tail_contig)
+                template.best_fragments.append([fragment])
                 template.best_fragments.extend(candidate_tail_contigs)
                 # hook = best_tail_contig[len(best_tail_contig) - 3:]
                 # print(best_tail_contig,hook)
@@ -647,13 +649,15 @@ if __name__ == '__main__':
             else:
                 heavy[1] = Template
     for chain in light:
-        inputs = list(Counter(chain.best_fragments).keys())
+        inputs = chain.best_fragments
+        print(inputs)
+        quit()
         graph = naive_db.construct_naive_debruijn_graph(inputs,3,False)
         outputs = naive_db.output_contigs(graph,[],[])
         outputs = sorted(outputs,key=lambda x:findSupportReadScore(x,sequences_scores),reverse=True)
         for output in outputs:
             print(output)
-    quit()
+        quit()
     html += '''
     </body>
     </html>

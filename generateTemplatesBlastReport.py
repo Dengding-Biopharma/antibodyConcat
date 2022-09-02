@@ -40,7 +40,7 @@ def read_fasta(path,species=None):
         for i in range(len(lines)):
             line = lines[i]
             if line[0] == '>' and species in line:
-                id = line.split(' ')[0][1:].rstrip()
+                id = line.split('>')[1].rstrip()
                 contig = lines[i + 1]
                 dic[id] = contig.rstrip()
         return dic
@@ -49,8 +49,6 @@ def read_fasta(path,species=None):
             line = lines[i]
             if line[0] == '>':
                 id = line.split('>')[1].rstrip()
-                print(id)
-                quit()
                 contig = lines[i + 1]
                 dic[id] = contig.rstrip()
         return dic

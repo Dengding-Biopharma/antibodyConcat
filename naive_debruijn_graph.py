@@ -16,9 +16,6 @@ def construct_naive_debruijn_graph(reads,k,pruning):
         for edge in edges:
             edges[edge] = list(Counter(edges[edge]).keys())
 
-    for edge in edges:
-        print(edge,edges[edge])
-    quit()
     branch_kmer = []
     count = 0
     for edge in list(edges):

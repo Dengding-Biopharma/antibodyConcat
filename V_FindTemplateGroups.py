@@ -652,7 +652,7 @@ if __name__ == '__main__':
         inputs = chain.best_fragments
         print(inputs)
         start_inputs = inputs[0]
-        start_inputs = start_inputs.extend(inputs[1])
+        start_inputs.extend(inputs[1])
         print(start_inputs)
         quit()
         inputs.remove(inputs[0])

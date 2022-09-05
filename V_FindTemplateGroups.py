@@ -683,7 +683,9 @@ if __name__ == '__main__':
     with open(f'{froot}/{args.source}_best_heavy_fragments.fasta', 'w+') as f:
         for template in heavy:
             for fragment in template.best_fragments:
-                f.write(f'>heavy fragment_{findSupportReadScore(fragment,sequences_scores)}\n{fragment}\n')
+                if fragment not in temp:
+                    temp.append(fragment)
+                    f.write(f'>heavy fragment_{findSupportReadScore(fragment,sequences_scores)}\n{fragment}\n')
     # for chain in light:
     #     inputs = chain.best_fragments
     #     print(inputs)

@@ -492,9 +492,13 @@ if __name__ == '__main__':
                 if best_head_contig not in best_contigs:
                     best_contigs.append(best_head_contig)
                 if best_head_contig not in template.best_fragments:
-                    template.best_fragments.append(best_head_contig)
+                    for item in template.best_fragments:
+                        if best_head_contig not in item:
+                            template.best_fragments.append(best_head_contig)
                 if fragment not in template.best_fragments:
-                    template.best_fragments.append(fragment)
+                    for item in template.best_fragments:
+                        if fragment not in item:
+                            template.best_fragments.append(fragment)
                 # else:
                 #     template.best_fragments.append(fragment)
             except Exception as e:
@@ -518,9 +522,13 @@ if __name__ == '__main__':
                 if best_tail_contig not in best_contigs:
                     best_contigs.append(best_tail_contig)
                 if fragment not in template.best_fragments:
-                    template.best_fragments.append(fragment)
+                    for item in template.best_fragments:
+                        if fragment not in item:
+                            template.best_fragments.append(fragment)
                 if best_tail_contig not in template.best_fragments:
-                    template.best_fragments.append(best_tail_contig)
+                    for item in template.best_fragments:
+                        if best_tail_contig not in item:
+                            template.best_fragments.append(best_tail_contig)
                 # hook = best_tail_contig[len(best_tail_contig) - 3:]
                 # print(best_tail_contig,hook)
                 # hook_out = f'{froot}/hook_refactor.m8'

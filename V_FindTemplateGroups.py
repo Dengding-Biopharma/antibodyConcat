@@ -454,6 +454,7 @@ if __name__ == '__main__':
 
         k = 25
         best_contigs = []
+        best_fragments_file = open(f'{froot}/best_fragments.fasta', 'w')
         for fragment in best_result_fragments:
             if len(fragment) <= k:
                 head = fragment
@@ -567,9 +568,8 @@ if __name__ == '__main__':
                     showed_fragments.append(fragment)
             template.best_fragments = showed_fragments
 
-        with open(f'{froot}/best_fragments.fasta','w') as f:
-            for fragment in template.best_fragments:
-                f.write(f'>fragmentScore_{findSupportReadScore(fragment,sequences_scores)}\n{fragment}\n')
+        for fragment in template.best_fragments:
+            best_fragments_file.write(f'>fragmentScore_{findSupportReadScore(fragment,sequences_scores)}\n{fragment}\n')
 
         step = 250
         html += '*' * 100 + 'Merged Result' + '*' * 100 + '<br>'

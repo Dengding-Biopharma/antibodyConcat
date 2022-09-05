@@ -552,8 +552,7 @@ if __name__ == '__main__':
         # print(best_result_coverage_list)
         template.best_fragments = sorted(template.best_fragments, key=len)
         template.best_fragments = [j for i, j in enumerate(template.best_fragments) if all(j == k or (j not in k) for k in template.best_fragments[i + 1:])]
-        print(template.best_fragments)
-        quit()
+
         step = 250
         html += '*' * 100 + 'Merged Result' + '*' * 100 + '<br>'
         html += 'Template ID: {}<br>'.format(template.id)

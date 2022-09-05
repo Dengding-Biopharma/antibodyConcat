@@ -558,7 +558,8 @@ if __name__ == '__main__':
         #     elif is_continue and len(best_result) == best_result_position + 1:
         #         best_result_coverage_list.append([start,best_result_position])
         # print(best_result_coverage_list)
-
+        print(template.best_fragments)
+        quit()
         step = 250
         html += '*' * 100 + 'Merged Result' + '*' * 100 + '<br>'
         html += 'Template ID: {}<br>'.format(template.id)

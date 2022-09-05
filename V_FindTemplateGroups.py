@@ -454,7 +454,7 @@ if __name__ == '__main__':
 
         k = 25
         best_contigs = []
-        best_fragments_file = open(f'{froot}/{args.source}_best_fragments.fasta', 'w')
+        best_fragments_file = open(f'{froot}/{args.source}_best_fragments.fasta', 'w+')
         for fragment in best_result_fragments:
             if len(fragment) <= k:
                 head = fragment

@@ -22,6 +22,7 @@ if __name__ == '__main__':
 
     base = list(best_fragments.values())[0]
     best_fragments.pop(list(best_fragments.keys())[0])
+    print(base)
 
     with open(f'{froot}/query.fasta','w') as f:
         f.write(f'>base\n{base}\n')

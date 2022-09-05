@@ -1,4 +1,5 @@
 import argparse
+import copy
 import json
 import os
 import re
@@ -551,7 +552,21 @@ if __name__ == '__main__':
         #         best_result_coverage_list.append([start,best_result_position])
         # print(best_result_coverage_list)
 
-        template.best_fragments = [j for i, j in enumerate(template.best_fragments) if all(j == k or (j not in k) for k in template.best_fragments[i + 1:])]
+        if len(template.best_fragments) > 1:
+            showed_fragments = []
+            copy_fragments = copy.deepcopy(template.best_fragments)
+            for fragment in copy_fragments:
+                substring = False
+                for item in template.best_fragments:
+                    if fragment == item:
+                        continue
+                    else:
+                        if fragment in item:
+                            substring = True
+                if not substring:
+                    showed_fragments.append(fragment)
+            template.best_fragments = showed_fragments
+
 
         step = 250
         html += '*' * 100 + 'Merged Result' + '*' * 100 + '<br>'

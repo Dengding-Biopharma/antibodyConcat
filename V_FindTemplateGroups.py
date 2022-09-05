@@ -567,6 +567,9 @@ if __name__ == '__main__':
                     showed_fragments.append(fragment)
             template.best_fragments = showed_fragments
 
+        with open(f'{froot}/best_fragments.fasta','w') as f:
+            for fragment in template.best_fragments:
+                f.write(f'>fragmentScore_{findSupportReadScore(fragment,sequences_scores)}\n{fragment}\n')
 
         step = 250
         html += '*' * 100 + 'Merged Result' + '*' * 100 + '<br>'

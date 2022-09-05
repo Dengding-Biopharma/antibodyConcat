@@ -1,6 +1,8 @@
 import argparse
 import os
 
+import pandas as pd
+
 from generateTemplatesBlastReport import read_fasta
 
 
@@ -32,5 +34,7 @@ if __name__ == '__main__':
     os.system(f'prerapsearch -d {froot}/rest.fasta -n {froot}/rest-db')
     os.system(f'rapsearch -q {query} -d {froot}/rest-db -o {froot}/{froot}_temp')
     os.system(f'python processRapsearchM8.py -input {froot}/{froot}_temp.m8 -output {out}')
+    df = pd.read_csv(out, delimiter='\t', header=None)
+    print(df)
 
 

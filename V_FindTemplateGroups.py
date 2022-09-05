@@ -550,7 +550,7 @@ if __name__ == '__main__':
         #     elif is_continue and len(best_result) == best_result_position + 1:
         #         best_result_coverage_list.append([start,best_result_position])
         # print(best_result_coverage_list)
-        template.best_fragments = sorted(template.best_fragments, key=len)
+
         template.best_fragments = [j for i, j in enumerate(template.best_fragments) if all(j == k or (j not in k) for k in template.best_fragments[i + 1:])]
 
         step = 250

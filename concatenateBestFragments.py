@@ -104,7 +104,8 @@ if __name__ == '__main__':
 
                 if (value[1][1] - value[1][0]) < len(best_fragments[candidate_fragment]):  # fragment可以往后延申
                     for i in range(value[1][1], len(best_fragments[candidate_fragment])):
-                        print(i)
+                        if i not in line.positions.keys():
+                            line.positions[i] = []
                         if best_fragments[candidate_fragment][i] not in line.positions[i + shift]:
                             line.positions[i + shift].append(best_fragments[candidate_fragment][i])
         print(line.positions)

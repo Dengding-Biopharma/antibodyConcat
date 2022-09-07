@@ -1,4 +1,5 @@
 import argparse
+import copy
 import os
 
 import pandas as pd
@@ -83,14 +84,15 @@ if __name__ == '__main__':
                     candidate_bases[i].append(candidate_letters[0])
                 continue
             if num_candidates_letters > 1:
-                step = len(candidate_bases)
-                for i in range(num_candidates_letters-1):
-                    candidate_bases = candidate_bases + candidate_bases
-                for i in range(len(candidate_letters)):
-                    candidate_letter = candidate_letters[i]
-                    for j in range(i,len(candidate_bases),step):
-                        print(i,j)
-                        candidate_bases[j].append(candidate_letter)
+                candidate_bases_copy = copy.deepcopy(candidate_bases)
+                temp = []
+                for candidate_letter in candidate_letters:
+                    for candidate_base in candidate_bases_copy:
+                        candidate_base.append(candidate_letter)
+                    temp.extend(candidate_bases_copy)
+                    candidate_bases_copy = copy.deepcopy(candidate_bases)
+                print(temp)
+                quit()
             print(candidate_bases)
         print(candidate_bases)
         quit()

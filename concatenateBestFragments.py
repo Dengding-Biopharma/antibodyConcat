@@ -113,7 +113,7 @@ if __name__ == '__main__':
                 candidate_bases = temp
         for i in range(len(candidate_bases)):
             candidate_bases[i] = ''.join(candidate_bases[i])
-            print(findSupportReadScore(candidate_bases[i],sequences_scores))
+            print(candidate_bases[i],findSupportReadScore(candidate_bases[i],sequences_scores))
         quit()
         candidate_bases = sorted(candidate_bases,key=lambda x:findSupportReadScore(x,sequences_scores),reverse=True)
         base = candidate_bases[0]

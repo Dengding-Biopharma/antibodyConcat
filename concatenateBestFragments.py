@@ -25,16 +25,21 @@ if __name__ == '__main__':
     best_fragments.pop(list(best_fragments.keys())[0])
     print(base)
 
-    with open(f'{froot}/query.fasta', 'w') as f:
-        f.write(f'>base\n{base}\n')
-    with open(f'{froot}/rest.fasta', 'w') as f:
-        for fragment_key in best_fragments.keys():
-            f.write(f'>{fragment_key}\n{best_fragments[fragment_key]}\n')
+    while len(best_fragments) != 0:
+        with open(f'{froot}/query.fasta', 'w') as f:
+            f.write(f'>base\n{base}\n')
+        with open(f'{froot}/rest.fasta', 'w') as f:
+            for fragment_key in best_fragments.keys():
+                f.write(f'>{fragment_key}\n{best_fragments[fragment_key]}\n')
 
-    out = f'{froot}/temp_refactor.m8'
-    query = f'{froot}/query.fasta'
-    os.system(f'prerapsearch -d {froot}/rest.fasta -n {froot}/rest-db')
-    os.system(f'rapsearch -q {query} -d {froot}/rest-db -o {froot}/{froot}_temp')
-    os.system(f'python processRapsearchM8.py -input {froot}/{froot}_temp.m8 -output {out}')
-    df = pd.read_csv(out, delimiter='\t', header=None)
-    print(df)
+        out = f'{froot}/temp_refactor.m8'
+        query = f'{froot}/query.fasta'
+        os.system(f'prerapsearch -d {froot}/rest.fasta -n {froot}/rest-db')
+        os.system(f'rapsearch -q {query} -d {froot}/rest-db -o {froot}/{froot}_temp')
+        os.system(f'python processRapsearchM8.py -input {froot}/{froot}_temp.m8 -output {out}')
+        df = pd.read_csv(out, delimiter='\t', header=None)
+        print(df)
+        candidate_fragments_dic = {}
+        for i in range(len(df)):
+            print(df[i])
+            quit()

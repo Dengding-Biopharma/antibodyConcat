@@ -682,7 +682,7 @@ if __name__ == '__main__':
                     temp.append(fragment)
                     f.write(f'>light_fragment_{findSupportReadScore(fragment,sequences_scores)}\n{fragment}\n')
     temp = []
-    with open(f'{froot}/{args.source}_best_heavy_fragments.fasta', 'w+') as f:
+    with open(f'{froot}/{args.source}_best_heavy_fragments.fasta', 'w') as f:
         for template in heavy:
             for fragment in template.best_fragments:
                 if fragment not in temp:

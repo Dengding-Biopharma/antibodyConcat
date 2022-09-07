@@ -54,7 +54,8 @@ if __name__ == '__main__':
     best_fragments.pop(list(best_fragments.keys())[0])
 
     while len(best_fragments) != 0:
-        for k in range(20,3,1):
+        ks = [i for i in range(20, 3, -1)]
+        for k in ks:
             print(k)
             quit()
             for fragment_key in best_fragments.keys():

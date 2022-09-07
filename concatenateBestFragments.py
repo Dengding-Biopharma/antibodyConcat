@@ -57,6 +57,7 @@ if __name__ == '__main__':
             value = candidate_fragments_dic[candidate_fragment]
             if (value[0][1] - value[0][0]) == (value[1][1] - value[1][0]):  # 长度匹配上了
                 for i in range(value[0][0],value[0][1]):
+                    print(i)
                     if candidate_fragment[i] not in line.position[i]:
                         line.position[i].append(candidate_fragment[i])
         print(line.position)

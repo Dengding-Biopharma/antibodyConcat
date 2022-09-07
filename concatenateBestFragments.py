@@ -54,6 +54,7 @@ if __name__ == '__main__':
     best_fragments.pop(list(best_fragments.keys())[0])
 
     while len(best_fragments) != 0:
+        current_length = len(best_fragments)
         delete_table = []
         ks = [i for i in range(20, 3, -1)]
         for k in ks:
@@ -140,5 +141,9 @@ if __name__ == '__main__':
         base = candidate_bases[0]
         for candidate_fragment in candidate_fragments_dic.keys():
             best_fragments.pop(candidate_fragment)
-
+        if len(best_fragments) == current_length:
+            break
     print(base)
+    for key in best_fragments.keys():
+        print(best_fragments[key])
+    

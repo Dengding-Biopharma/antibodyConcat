@@ -208,8 +208,8 @@ if __name__ == '__main__':
         for item in remove:
             contigs.remove(item)
 
-    pprint(template_contig_group)
-    quit()
+    # pprint(template_contig_group)
+    # quit()
 
     report_path = f'{froot}/{froot}_TemplateMatchReport.txt'
     outFile = open(report_path, 'w')
@@ -663,7 +663,6 @@ if __name__ == '__main__':
     light = ['','']
     heavy = ['','']
     for Template in Templates:
-        print(12341234123,Template.id)
         if 'Light' in Template.id:
             if Template.type == 'c':
                 light[0] = Template

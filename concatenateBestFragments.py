@@ -14,11 +14,12 @@ def get_args():
     args = parser.parse_args()
     return args
 
-class Aline():
-    def __int__(self,base):
+
+class Aline:
+    def __init__(self, sequence):
         self.position = {}
-        for i in range(len(base)):
-            self.position[i] = [base[i]]
+        for i in range(len(sequence)):
+            self.position[i] = [sequence[i]]
 
 
 if __name__ == '__main__':
@@ -44,18 +45,18 @@ if __name__ == '__main__':
         os.system(f'rapsearch -q {query} -d {froot}/rest-db -o {froot}/{froot}_temp')
         os.system(f'python processRapsearchM8.py -input {froot}/{froot}_temp.m8 -output {out}')
         df = pd.read_csv(out, delimiter='\t', header=None)
-        df = df[df[2]>90]
+        df = df[df[2] > 90]
         dfList = df.values
         candidate_fragments_dic = {}
         for item in dfList:
             fragment_id = item[1]
-            candidate_fragments_dic[fragment_id] = [[item[6]-1,item[7]],[item[8]-1,item[9]]]
+            candidate_fragments_dic[fragment_id] = [[item[6] - 1, item[7]], [item[8] - 1, item[9]]]
         line = Aline(base)
         print(line.position)
         quit()
         for candidate_fragment in candidate_fragments_dic.keys():
             value = candidate_fragments_dic[candidate_fragment]
-            if (value[0][1] - value[0][0]) == (value[1][1] - value[1][0]): # 长度匹配上了
+            if (value[0][1] - value[0][0]) == (value[1][1] - value[1][0]):  # 长度匹配上了
                 pass
 
         quit()

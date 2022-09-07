@@ -56,8 +56,6 @@ if __name__ == '__main__':
     while len(best_fragments) != 0:
         ks = [i for i in range(20, 3, -1)]
         for k in ks:
-            print(k)
-            quit()
             for fragment_key in best_fragments.keys():
                 fragment = best_fragments[fragment_key]
                 print(fragment[:k],base[len(base)-k:])

@@ -233,7 +233,6 @@ if __name__ == '__main__':
 
     Templates = []
     for template_id in template_contig_group.keys():
-        print(123412341234,template_id)
         type = 'nc' if 'NonConstant' in template_id else 'c'
         template = Template(template_id, template_dic[template_id].replace('I', 'L'), type)
         Templates.append(template)
@@ -663,13 +662,14 @@ if __name__ == '__main__':
     light = ['','']
     heavy = ['','']
     for Template in Templates:
+        print(12341234123,Template.id)
         if 'Light' in Template.id:
-            if 'NonConstant' in Template.id:
+            if Template.type == 'c':
                 light[0] = Template
             else:
                 light[1] = Template
         else:
-            if 'NonConstant' in Template.id:
+            if Template.type == 'nc':
                 heavy[0] = Template
             else:
                 heavy[1] = Template

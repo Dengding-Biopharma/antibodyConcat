@@ -71,8 +71,6 @@ if __name__ == '__main__':
         print(line.positions)
         candidate_bases = []
         for position in line.positions.keys():
-            if position == 4:
-                quit()
             candidate_letters = line.positions[position]
             num_candidates_letters = len(candidate_letters)
             if len(candidate_bases) == 0:
@@ -91,8 +89,7 @@ if __name__ == '__main__':
                         candidate_base.append(candidate_letter)
                     temp.extend(candidate_bases_copy)
                     candidate_bases_copy = copy.deepcopy(candidate_bases)
-                print(temp)
-                quit()
-            print(candidate_bases)
+                candidate_bases = temp
+
         print(candidate_bases)
         quit()

@@ -39,7 +39,7 @@ if __name__ == '__main__':
         for file in files:
             filename = root + file
             data = pd.read_csv(filename, delimiter='\t')
-            temp = data[data['Score'] >= 0.1]
+            temp = data[data['Score'] >= 0]
             temp = temp[-50 < temp['PPM Difference']]
             temp = temp[temp['PPM Difference'] < 50]
             temp.reset_index(inplace=True)

@@ -1,17 +1,18 @@
 import argparse
 import copy
+import json
 import os
 
 import pandas as pd
 
 from generateTemplatesBlastReport import read_fasta
+from IV_sortOutputs import findSupportReadScore
 
 
 def get_args():
     parser = argparse.ArgumentParser()
     # start
     parser.add_argument('-froot', type=str, required=True)
-    # parser.add_argument('-source', type=str, required=True)
     args = parser.parse_args()
     return args
 
@@ -26,7 +27,27 @@ class Aline:
 if __name__ == '__main__':
     args = get_args()
     froot = args.froot
+    f = open(f'{froot}/setting.json')
+    setting = json.load(f)
+    print(setting)
+    filePath = setting['source']
+    score_cut = setting['score_cut']
     best_fragments = read_fasta(f'{froot}/avastin_best_light_fragments.fasta')
+    sequences_scores = dict()
+    for root, dir, files in os.walk(filePath):
+        root = root + '/'
+        for file in files:
+            filename = root + file
+            data = pd.read_csv(filename, delimiter='\t')
+            temp = data[data['Score'] >= score_cut]
+            temp = temp[-50 < temp['PPM Difference']]
+            temp = temp[temp['PPM Difference'] < 50]
+            temp.reset_index(inplace=True)
+            for i in range(len(temp)):
+                if temp['DENOVO'][i].replace('I','L') not in sequences_scores.keys():
+                    sequences_scores[temp['DENOVO'][i].replace('I','L')] = temp['Score'][i]
+                else:
+                    sequences_scores[temp['DENOVO'][i].replace('I','L')] = temp['Score'][i] + sequences_scores[temp['DENOVO'][i].replace('I','L')]
     print(best_fragments)
 
     base = list(best_fragments.values())[0]
@@ -92,5 +113,6 @@ if __name__ == '__main__':
                 candidate_bases = temp
         for i in range(len(candidate_bases)):
             candidate_bases[i] = ''.join(candidate_bases[i])
+
+        candidate_bases = sorted(candidate_bases,key=lambda x:findSupportReadScore(x,sequences_scores),reverse=True)
         print(candidate_bases)
-        quit()

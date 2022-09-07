@@ -50,7 +50,8 @@ if __name__ == '__main__':
             if (value[0][1] - value[0][0]) == (value[1][1] - value[1][0]): # 长度匹配上
                 if len(best_fragments[candidate_fragment]) == (value[0][1] - value[0][0]): # 在base上与一块区域重合，包含关系，现在只是continue
                     continue
-                elif value[0][1] == len(base): #在tail上match到了，往后拼接
-                    print(best_fragments[candidate_fragment])
+                # elif value[0][1] == len(base): #在tail上match到了，往后拼接
+                #     print(best_fragments[candidate_fragment])
+                print(value[0][1], len(base))
 
         quit()

@@ -153,11 +153,11 @@ if __name__ == '__main__':
     df = df[df[2] >= 80]
     df = df.sort_values(by=0)
     df = df.reset_index(drop=True)
-    print(df)
-    quit()
 
     template_dic = read_fasta(template_name)
     templates = list(template_dic.keys())
+    print(templates)
+    quit()
     contig_dic = read_fasta(contig_filepath)
     contigs = list(contig_dic.keys())
     annotation = read_ann(annotation_name)

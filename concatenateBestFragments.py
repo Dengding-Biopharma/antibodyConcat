@@ -48,7 +48,6 @@ if __name__ == '__main__':
                     sequences_scores[temp['DENOVO'][i].replace('I','L')] = temp['Score'][i]
                 else:
                     sequences_scores[temp['DENOVO'][i].replace('I','L')] = temp['Score'][i] + sequences_scores[temp['DENOVO'][i].replace('I','L')]
-    print(best_fragments)
 
     base = list(best_fragments.values())[0]
     best_fragments.pop(list(best_fragments.keys())[0])
@@ -91,11 +90,9 @@ if __name__ == '__main__':
             fragment_id = item[1]
             candidate_fragments_dic[fragment_id] = [[item[6] - 1, item[7]], [item[8] - 1, item[9]]]
         line = Aline(base)
-        print(line.positions)
         for candidate_fragment in candidate_fragments_dic.keys():
             value = candidate_fragments_dic[candidate_fragment]
             if (value[0][1] - value[0][0]) == (value[1][1] - value[1][0]):  # 长度匹配上了
-                print(value)
                 shift = value[0][0]
                 for i in range(value[1][0], value[1][1]):
                     if best_fragments[candidate_fragment][i] not in line.positions[i + shift]:
@@ -107,7 +104,6 @@ if __name__ == '__main__':
                             line.positions[i + shift] = []
                         if best_fragments[candidate_fragment][i] not in line.positions[i + shift]:
                             line.positions[i + shift].append(best_fragments[candidate_fragment][i])
-        print(line.positions)
         candidate_bases = []
         for position in line.positions.keys():
             candidate_letters = line.positions[position]
@@ -143,6 +139,8 @@ if __name__ == '__main__':
             break
 
     print(base)
-    for key in best_fragments.keys():
-        print(best_fragments[key])
+    if len(best_fragments) != 0:
+        print('Fragments left! ')
+        for key in best_fragments.keys():
+            print(best_fragments[key])
 

@@ -85,7 +85,6 @@ if __name__ == '__main__':
         os.system(f'rapsearch -q {query} -d {froot}/rest-db -o {froot}/{froot}_temp')
         os.system(f'python processRapsearchM8.py -input {froot}/{froot}_temp.m8 -output {out}')
         df = pd.read_csv(out, delimiter='\t', header=None)
-        df = df[df[2] > 90]
         dfList = df.values
         candidate_fragments_dic = {}
         for item in dfList:
@@ -97,7 +96,6 @@ if __name__ == '__main__':
             value = candidate_fragments_dic[candidate_fragment]
             if (value[0][1] - value[0][0]) == (value[1][1] - value[1][0]):  # 长度匹配上了
                 print(value)
-
                 shift = value[0][0]
                 for i in range(value[1][0], value[1][1]):
                     if best_fragments[candidate_fragment][i] not in line.positions[i + shift]:
@@ -143,7 +141,8 @@ if __name__ == '__main__':
             best_fragments.pop(candidate_fragment)
         if len(best_fragments) == current_length:
             break
+
     print(base)
     for key in best_fragments.keys():
         print(best_fragments[key])
-    
+

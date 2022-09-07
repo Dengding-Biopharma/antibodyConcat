@@ -57,9 +57,18 @@ if __name__ == '__main__':
             value = candidate_fragments_dic[candidate_fragment]
             if (value[0][1] - value[0][0]) == (value[1][1] - value[1][0]):  # 长度匹配上了
                 print(value)
+
+
                 shift = value[0][0]
                 for i in range(value[1][0],value[1][1]):
                     if best_fragments[candidate_fragment][i] not in line.position[i+shift]:
                         line.position[i+shift].append(best_fragments[candidate_fragment][i])
+
+                if (value[1][1] - value[1][0]) < len(best_fragments[candidate_fragment]): # fragment可以往后延申
+                    for i in range(value[1][1]+shift,len(best_fragments[candidate_fragment])+shift)
+                        print(i)
+                        quit()
+
+
         print(line.position)
         quit()

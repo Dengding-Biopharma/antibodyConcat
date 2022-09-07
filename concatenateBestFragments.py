@@ -90,6 +90,7 @@ if __name__ == '__main__':
                     temp.extend(candidate_bases_copy)
                     candidate_bases_copy = copy.deepcopy(candidate_bases)
                 candidate_bases = temp
-
+        for i in range(len(candidate_bases)):
+            candidate_bases[i] = ''.join(candidate_bases[i])
         print(candidate_bases)
         quit()

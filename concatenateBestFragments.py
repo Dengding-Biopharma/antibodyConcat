@@ -39,7 +39,7 @@ if __name__ == '__main__':
         for file in files:
             filename = root + file
             data = pd.read_csv(filename, delimiter='\t')
-            temp = data[data['Score'] >= 0]
+            temp = data[data['Score'] >= 0.1]
             temp = temp[-50 < temp['PPM Difference']]
             temp = temp[temp['PPM Difference'] < 50]
             temp.reset_index(inplace=True)
@@ -55,6 +55,13 @@ if __name__ == '__main__':
     print(base)
 
     while len(best_fragments) != 0:
+        for k in range(20,3,1):
+            for fragment_key in best_fragments.keys():
+                fragment = best_fragments[fragment_key]
+                print(fragment[:k],base[len(base)-k:])
+                quit()
+                if fragment[:k] == base[len(base)-k:]:
+                    pass
         with open(f'{froot}/query.fasta', 'w') as f:
             f.write(f'>base\n{base}\n')
         with open(f'{froot}/rest.fasta', 'w') as f:

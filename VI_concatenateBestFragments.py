@@ -132,8 +132,8 @@ if __name__ == '__main__':
 
 
         candidate_bases = sorted(candidate_bases,key=lambda x:findSupportReadScore(x,sequences_scores),reverse=True)
-        # for candidate_base in candidate_bases:
-            # print(candidate_base,findSupportReadScore(candidate_base,sequences_scores))
+        for candidate_base in candidate_bases:
+            print(candidate_base,findSupportReadScore(candidate_base,sequences_scores))
         base = candidate_bases[0]
         for candidate_fragment in candidate_fragments_dic.keys():
             best_fragments.pop(candidate_fragment)

@@ -58,8 +58,6 @@ if __name__ == '__main__':
             if (value[0][1] - value[0][0]) == (value[1][1] - value[1][0]):  # 长度匹配上了
                 print(value)
                 for i in range(value[0][0],value[0][1]):
-                    print(i)
-                    print(best_fragments[candidate_fragment][i],line.position[i])
                     if best_fragments[candidate_fragment][i] not in line.position[i]:
                         line.position[i].append(candidate_fragment[i])
         print(line.position)

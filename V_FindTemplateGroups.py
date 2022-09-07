@@ -153,6 +153,8 @@ if __name__ == '__main__':
     df = df[df[2] >= 80]
     df = df.sort_values(by=0)
     df = df.reset_index(drop=True)
+    print(df)
+    quit()
 
     template_dic = read_fasta(template_name)
     templates = list(template_dic.keys())
@@ -210,7 +212,7 @@ if __name__ == '__main__':
 
     pprint(template_contig_group)
     quit()
-    
+
     report_path = f'{froot}/{froot}_TemplateMatchReport.txt'
     outFile = open(report_path, 'w')
     message = ''

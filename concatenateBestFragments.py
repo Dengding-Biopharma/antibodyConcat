@@ -79,6 +79,7 @@ if __name__ == '__main__':
             if num_candidates_letters == 1:
                 for i in range(len(candidate_bases)):
                     candidate_bases[i].append(candidate_letters[0])
+                continue
             if num_candidates_letters > 1:
                 step = len(candidate_bases)
                 for i in range(num_candidates_letters-1):

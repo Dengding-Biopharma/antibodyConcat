@@ -38,13 +38,15 @@ if __name__ == '__main__':
         os.system(f'rapsearch -q {query} -d {froot}/rest-db -o {froot}/{froot}_temp')
         os.system(f'python processRapsearchM8.py -input {froot}/{froot}_temp.m8 -output {out}')
         df = pd.read_csv(out, delimiter='\t', header=None)
-        print(df)
+        df = df[df[2]>90]
         dfList = df.values
         candidate_fragments_dic = {}
         for item in dfList:
-            print(item)
-            quit()
-            fragment_id = item[:2][1]
-            label = item[:2][0] + '+' + template_id
-            value_list = list(item[2:])
-            sequence_template_id_pair_dic[label] = value_list
+            fragment_id = item[1]
+            candidate_fragments_dic[fragment_id] = [[item[6]-1,item[7]],[item[8]-1,item[9]]]
+
+        for candidate_fragment in candidate_fragments_dic.keys():
+            value = candidate_fragments_dic[candidate_fragment]
+            if (value[0][1] - value[0][0]) == (value[1][1] - value[1][0]):
+                print(value)
+        quit()

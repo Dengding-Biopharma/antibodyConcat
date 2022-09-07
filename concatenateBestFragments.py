@@ -48,6 +48,6 @@ if __name__ == '__main__':
         for candidate_fragment in candidate_fragments_dic.keys():
             value = candidate_fragments_dic[candidate_fragment]
             if (value[0][1] - value[0][0]) == (value[1][1] - value[1][0]): # 长度匹配上
-                if len(best_fragments[candidate_fragment]) >= (value[0][1] - value[0][0]):
+                if len(best_fragments[candidate_fragment]) == (value[0][1] - value[0][0]):
                     print(value)
         quit()

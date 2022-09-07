@@ -53,10 +53,9 @@ if __name__ == '__main__':
             candidate_fragments_dic[fragment_id] = [[item[6] - 1, item[7]], [item[8] - 1, item[9]]]
         line = Aline(base)
         print(line.position)
-        quit()
         for candidate_fragment in candidate_fragments_dic.keys():
             value = candidate_fragments_dic[candidate_fragment]
             if (value[0][1] - value[0][0]) == (value[1][1] - value[1][0]):  # 长度匹配上了
-                pass
+                print(value)
 
         quit()

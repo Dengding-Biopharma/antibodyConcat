@@ -67,8 +67,8 @@ if __name__ == '__main__':
                 else:
                     base_tail = base[len(base)-k:]
                 if base_tail == fragment_head:
-                    print(base_tail)
-                    print(fragment_head)
+                    base = base + fragment[k:]
+                    print(base)
                     quit()
         with open(f'{froot}/query.fasta', 'w') as f:
             f.write(f'>base\n{base}\n')

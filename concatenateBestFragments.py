@@ -54,6 +54,7 @@ if __name__ == '__main__':
     best_fragments.pop(list(best_fragments.keys())[0])
 
     while len(best_fragments) != 0:
+        delete_table = []
         ks = [i for i in range(20, 3, -1)]
         for k in ks:
             for fragment_key in best_fragments.keys():
@@ -68,7 +69,9 @@ if __name__ == '__main__':
                     base_tail = base[len(base)-k:]
                 if base_tail == fragment_head:
                     base = base + fragment[k:]
-                    best_fragments.pop(fragment_key)
+                    delete_table.append(fragment_key)
+        for key in delete_table:
+            best_fragments.pop(key)
         with open(f'{froot}/query.fasta', 'w') as f:
             f.write(f'>base\n{base}\n')
         with open(f'{froot}/rest.fasta', 'w') as f:

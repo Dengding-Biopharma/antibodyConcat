@@ -70,6 +70,8 @@ if __name__ == '__main__':
         print(line.positions)
         candidate_bases = []
         for position in line.positions.keys():
+            if position == 4:
+                quit()
             candidate_letters = line.positions[position]
             num_candidates_letters = len(candidate_letters)
             if len(candidate_bases) == 0:
@@ -84,12 +86,10 @@ if __name__ == '__main__':
                 step = len(candidate_bases)
                 for i in range(num_candidates_letters-1):
                     candidate_bases = candidate_bases + candidate_bases
-                print(candidate_bases)
-                quit()
                 for i in range(len(candidate_letters)):
                     candidate_letter = candidate_letters[i]
                     for j in range(i,len(candidate_bases),step):
                         candidate_bases[j].append(candidate_letter)
-
+            print(candidate_bases)
         print(candidate_bases)
         quit()

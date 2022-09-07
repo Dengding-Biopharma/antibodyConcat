@@ -95,6 +95,8 @@ if __name__ == '__main__':
             if (value[0][1] - value[0][0]) == (value[1][1] - value[1][0]):  # 长度匹配上了
                 shift = value[0][0]
                 for i in range(value[1][0], value[1][1]):
+                    if (i + shift) not in line.positions.keys():
+                        line.positions[i + shift] = []
                     if best_fragments[candidate_fragment][i] not in line.positions[i + shift]:
                         line.positions[i + shift].append(best_fragments[candidate_fragment][i])
 

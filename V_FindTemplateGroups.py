@@ -156,8 +156,6 @@ if __name__ == '__main__':
 
     template_dic = read_fasta(template_name)
     templates = list(template_dic.keys())
-    print(templates)
-    quit()
     contig_dic = read_fasta(contig_filepath)
     contigs = list(contig_dic.keys())
     annotation = read_ann(annotation_name)
@@ -184,7 +182,7 @@ if __name__ == '__main__':
                 continue
             # if identity > 90:
             #     template_length_record[template_id] = len(template_dic[template_id])
-            if identity >= best_identity and identity > 90 and len(template_dic[template_id]) > longest_length:
+            if identity >= best_identity and identity > 90:
                 longest_length = len(template_dic[template_id])
                 best_identity = identity
                 best_template = template_id

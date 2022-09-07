@@ -58,10 +58,18 @@ if __name__ == '__main__':
         for k in ks:
             for fragment_key in best_fragments.keys():
                 fragment = best_fragments[fragment_key]
-                print(fragment[:k],base[len(base)-k:])
-                quit()
-                if fragment[:k] == base[len(base)-k:]:
-                    pass
+                if len(fragment) < k:
+                    fragment_head = fragment
+                else:
+                    fragment_head = fragment[:k]
+                if len(base) < k:
+                    base_tail = base
+                else:
+                    base_tail = base[len(base)-k:]
+                if base_tail == fragment_head:
+                    print(base_tail)
+                    print(fragment_head)
+                    quit()
         with open(f'{froot}/query.fasta', 'w') as f:
             f.write(f'>base\n{base}\n')
         with open(f'{froot}/rest.fasta', 'w') as f:

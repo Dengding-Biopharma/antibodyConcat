@@ -12,7 +12,7 @@ import subprocess
 import pandas as pd
 from tqdm import trange
 from generateTemplatesBlastReport import read_fasta
-from IV_sortOutputs import findSupportReadScore
+from III_sortOutputs import findSupportReadScore
 import naive_debruijn_graph as naive_db
 
 

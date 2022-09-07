@@ -6,7 +6,7 @@ import os
 import pandas as pd
 
 from generateTemplatesBlastReport import read_fasta
-from IV_sortOutputs import findSupportReadScore
+from III_sortOutputs import findSupportReadScore
 
 
 def get_args():
@@ -32,7 +32,7 @@ if __name__ == '__main__':
     print(setting)
     filePath = setting['source']
     score_cut = setting['score_cut']
-    best_fragments = read_fasta(f'{froot}/avastin_best_heavy_fragments.fasta')
+    best_fragments = read_fasta(f'{froot}/avastin_best_light_fragments.fasta')
     sequences_scores = dict()
     for root, dir, files in os.walk(filePath):
         root = root + '/'

@@ -10,7 +10,7 @@ import numpy as np
 import subprocess
 import pandas as pd
 from tqdm import trange
-from IV_sortOutputs import findSupportReadScore
+from III_sortOutputs import findSupportReadScore
 
 
 class Template:

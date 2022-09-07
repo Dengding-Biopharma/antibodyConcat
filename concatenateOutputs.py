@@ -8,7 +8,7 @@ import pandas as pd
 from tqdm import trange
 
 from debruijn import read_reads
-from IV_sortOutputs import findSupportReadScore
+from III_sortOutputs import findSupportReadScore
 
 def checkSubSequence(contig, output):
     for o in output:

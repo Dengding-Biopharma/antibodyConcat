@@ -39,7 +39,12 @@ if __name__ == '__main__':
         os.system(f'python processRapsearchM8.py -input {froot}/{froot}_temp.m8 -output {out}')
         df = pd.read_csv(out, delimiter='\t', header=None)
         print(df)
+        dfList = df.values
         candidate_fragments_dic = {}
-        for i in range(len(df)):
-            print(df[i])
+        for item in dfList:
+            print(item)
             quit()
+            fragment_id = item[:2][1]
+            label = item[:2][0] + '+' + template_id
+            value_list = list(item[2:])
+            sequence_template_id_pair_dic[label] = value_list

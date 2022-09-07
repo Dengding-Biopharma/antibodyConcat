@@ -233,6 +233,7 @@ if __name__ == '__main__':
 
     Templates = []
     for template_id in template_contig_group.keys():
+        print(123412341234,template_id)
         type = 'nc' if 'NonConstant' in template_id else 'c'
         template = Template(template_id, template_dic[template_id].replace('I', 'L'), type)
         Templates.append(template)
@@ -672,6 +673,7 @@ if __name__ == '__main__':
                 heavy[0] = Template
             else:
                 heavy[1] = Template
+
     temp = []
     with open(f'{froot}/{args.source}_best_light_fragments.fasta', 'w') as f:
         for template in light:

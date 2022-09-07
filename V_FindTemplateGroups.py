@@ -664,7 +664,7 @@ if __name__ == '__main__':
     heavy = ['','']
     for Template in Templates:
         if 'Light' in Template.id:
-            if Template.type == 'c':
+            if Template.type == 'nc':
                 light[0] = Template
             else:
                 light[1] = Template

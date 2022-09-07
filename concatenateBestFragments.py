@@ -14,6 +14,7 @@ def get_args():
     args = parser.parse_args()
     return args
 
+
 if __name__ == '__main__':
     args = get_args()
     froot = args.froot
@@ -24,9 +25,9 @@ if __name__ == '__main__':
     best_fragments.pop(list(best_fragments.keys())[0])
     print(base)
 
-    with open(f'{froot}/query.fasta','w') as f:
+    with open(f'{froot}/query.fasta', 'w') as f:
         f.write(f'>base\n{base}\n')
-    with open(f'{froot}/rest.fasta','w') as f:
+    with open(f'{froot}/rest.fasta', 'w') as f:
         for fragment_key in best_fragments.keys():
             f.write(f'>{fragment_key}\n{best_fragments[fragment_key]}\n')
 
@@ -37,5 +38,3 @@ if __name__ == '__main__':
     os.system(f'python processRapsearchM8.py -input {froot}/{froot}_temp.m8 -output {out}')
     df = pd.read_csv(out, delimiter='\t', header=None)
     print(df)
-
-

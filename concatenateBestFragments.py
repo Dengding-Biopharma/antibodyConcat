@@ -116,3 +116,4 @@ if __name__ == '__main__':
 
         candidate_bases = sorted(candidate_bases,key=lambda x:findSupportReadScore(x,sequences_scores),reverse=True)
         print(candidate_bases)
+        quit()

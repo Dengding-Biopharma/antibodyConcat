@@ -84,9 +84,12 @@ if __name__ == '__main__':
                 step = len(candidate_bases)
                 for i in range(num_candidates_letters-1):
                     candidate_bases = candidate_bases + candidate_bases
+                print(candidate_bases)
+                quit()
                 for i in range(len(candidate_letters)):
                     candidate_letter = candidate_letters[i]
                     for j in range(i,len(candidate_bases),step):
                         candidate_bases[j].append(candidate_letter)
+
         print(candidate_bases)
         quit()

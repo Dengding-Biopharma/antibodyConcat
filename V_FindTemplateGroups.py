@@ -208,8 +208,9 @@ if __name__ == '__main__':
         for item in remove:
             contigs.remove(item)
 
-    # pprint(template_contig_group)
-    # quit()
+    pprint(template_contig_group)
+    quit()
+    
     report_path = f'{froot}/{froot}_TemplateMatchReport.txt'
     outFile = open(report_path, 'w')
     message = ''

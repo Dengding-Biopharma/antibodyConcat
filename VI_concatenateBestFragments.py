@@ -32,7 +32,7 @@ if __name__ == '__main__':
     print(setting)
     filePath = setting['source']
     score_cut = setting['score_cut']
-    best_fragments = read_fasta(f'{froot}/avastin_best_light_fragments.fasta')
+    best_fragments = read_fasta(f'{froot}/WDM_best_light_fragments.fasta')
     sequences_scores = dict()
     for root, dir, files in os.walk(filePath):
         root = root + '/'

@@ -17,9 +17,9 @@ def get_args():
 
 class Aline:
     def __init__(self, sequence):
-        self.position = {}
+        self.positions = {}
         for i in range(len(sequence)):
-            self.position[i] = [sequence[i]]
+            self.positions[i] = [sequence[i]]
 
 
 if __name__ == '__main__':
@@ -52,24 +52,32 @@ if __name__ == '__main__':
             fragment_id = item[1]
             candidate_fragments_dic[fragment_id] = [[item[6] - 1, item[7]], [item[8] - 1, item[9]]]
         line = Aline(base)
-        print(line.position)
+        print(line.positions)
         for candidate_fragment in candidate_fragments_dic.keys():
             value = candidate_fragments_dic[candidate_fragment]
             if (value[0][1] - value[0][0]) == (value[1][1] - value[1][0]):  # 长度匹配上了
                 print(value)
 
-
                 shift = value[0][0]
-                for i in range(value[1][0],value[1][1]):
-                    if best_fragments[candidate_fragment][i] not in line.position[i+shift]:
-                        line.position[i+shift].append(best_fragments[candidate_fragment][i])
+                for i in range(value[1][0], value[1][1]):
+                    if best_fragments[candidate_fragment][i] not in line.positions[i + shift]:
+                        line.positions[i + shift].append(best_fragments[candidate_fragment][i])
 
-                if (value[1][1] - value[1][0]) < len(best_fragments[candidate_fragment]): # fragment可以往后延申
-                    for i in range(value[1][1],len(best_fragments[candidate_fragment])):
-                        if best_fragments[candidate_fragment][i] not in line.position[i+shift]:
-                            line.position[i+shift].append(best_fragments[candidate_fragment][i])
+                if (value[1][1] - value[1][0]) < len(best_fragments[candidate_fragment]):  # fragment可以往后延申
+                    for i in range(value[1][1], len(best_fragments[candidate_fragment])):
+                        if best_fragments[candidate_fragment][i] not in line.positions[i + shift]:
+                            line.positions[i + shift].append(best_fragments[candidate_fragment][i])
+        print(line.positions)
+        candidate_bases = []
+        for position in line.positions.keys():
+            candidate_letters = line.positions[position]
+            num_candidates_letters = len(candidate_letters)
+            if len(candidate_bases) == 0:
+                for i in range(num_candidates_letters):
+                    candidate_bases.append([[candidate_letters[i]]])
+                print(candidate_bases)
+                quit()
+            if num_candidates_letters <= 1:
+                pass
 
-
-
-        print(line.position)
         quit()

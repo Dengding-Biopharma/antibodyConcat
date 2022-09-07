@@ -115,7 +115,7 @@ if __name__ == '__main__':
             candidate_bases[i] = ''.join(candidate_bases[i])
 
         candidate_bases = sorted(candidate_bases,key=lambda x:findSupportReadScore(x,sequences_scores),reverse=True)
-        base = candidate_bases[0]
+        base = candidate_bases[1]
         for candidate_fragment in candidate_fragments_dic.keys():
             best_fragments.pop(candidate_fragment)
 

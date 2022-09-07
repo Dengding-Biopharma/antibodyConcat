@@ -74,7 +74,7 @@ if __name__ == '__main__':
             num_candidates_letters = len(candidate_letters)
             if len(candidate_bases) == 0:
                 for i in range(num_candidates_letters):
-                    candidate_bases.append([[candidate_letters[i]]])
+                    candidate_bases.append([candidate_letters[i]])
                 print(candidate_bases)
                 quit()
             if num_candidates_letters <= 1:

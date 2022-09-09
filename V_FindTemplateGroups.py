@@ -178,51 +178,49 @@ if __name__ == '__main__':
             except:
                 continue
             if value:
-                print(value)
-                quit()
-                template_contig_group[best_template] += [contig]
-                remove.append(contig)
-    while len(contigs) != 0:
-        current_contig = contigs[0]
-        best_identity = 0
-        best_template = None
-        longest_length = 0
-        for template_id in templates:
-            label = current_contig + '+' + template_id
-            try:
-                identity = sequence_template_id_pair_dic[label][0]
-            except:
-                continue
-            # if identity > 90:
-            #     template_length_record[template_id] = len(template_dic[template_id])
-            if identity >= best_identity and identity > 90:
-                longest_length = len(template_dic[template_id])
-                best_identity = identity
-                best_template = template_id
-        # if len(template_length_record) == 0:
-        if not best_template:
-            contigs.remove(current_contig)
-            continue
-        # candidate_templates = sorted(list(template_length_record.items()), key=lambda x: x[1], reverse=True)
-        # best_template = candidate_templates[0][0]
-        template_contig_group[best_template] = [current_contig]
-        contigs.remove(current_contig)
+                template_contig_group[template] += [contig]
 
-        remove = []
-        for contig in contigs:
-            label = contig + '+' + best_template
-            try:
-                value = sequence_template_id_pair_dic[label]
-            except:
-                continue
-            if value:
-                template_contig_group[best_template] += [contig]
-                remove.append(contig)
-        for item in remove:
-            contigs.remove(item)
+    # while len(contigs) != 0:
+    #     current_contig = contigs[0]
+    #     best_identity = 0
+    #     best_template = None
+    #     longest_length = 0
+    #     for template_id in templates:
+    #         label = current_contig + '+' + template_id
+    #         try:
+    #             identity = sequence_template_id_pair_dic[label][0]
+    #         except:
+    #             continue
+    #         # if identity > 90:
+    #         #     template_length_record[template_id] = len(template_dic[template_id])
+    #         if identity >= best_identity and identity > 90:
+    #             longest_length = len(template_dic[template_id])
+    #             best_identity = identity
+    #             best_template = template_id
+    #     # if len(template_length_record) == 0:
+    #     if not best_template:
+    #         contigs.remove(current_contig)
+    #         continue
+    #     # candidate_templates = sorted(list(template_length_record.items()), key=lambda x: x[1], reverse=True)
+    #     # best_template = candidate_templates[0][0]
+    #     template_contig_group[best_template] = [current_contig]
+    #     contigs.remove(current_contig)
+    #
+    #     remove = []
+    #     for contig in contigs:
+    #         label = contig + '+' + best_template
+    #         try:
+    #             value = sequence_template_id_pair_dic[label]
+    #         except:
+    #             continue
+    #         if value:
+    #             template_contig_group[best_template] += [contig]
+    #             remove.append(contig)
+    #     for item in remove:
+    #         contigs.remove(item)
 
-    # pprint(template_contig_group)
-    # quit()
+    pprint(template_contig_group)
+    quit()
 
     report_path = f'{froot}/{froot}_TemplateMatchReport.txt'
     outFile = open(report_path, 'w')

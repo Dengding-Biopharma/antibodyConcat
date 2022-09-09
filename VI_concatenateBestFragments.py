@@ -85,63 +85,66 @@ if __name__ == '__main__':
         os.system(f'prerapsearch -d {froot}/rest.fasta -n {froot}/rest-db')
         os.system(f'rapsearch -q {query} -d {froot}/rest-db -o {froot}/{froot}_temp')
         os.system(f'python processRapsearchM8.py -input {froot}/{froot}_temp.m8 -output {out}')
-        df = pd.read_csv(out, delimiter='\t', header=None)
-        dfList = df.values
-        candidate_fragments_dic = {}
-        for item in dfList:
-            fragment_id = item[1]
-            candidate_fragments_dic[fragment_id] = [[item[6] - 1, item[7]], [item[8] - 1, item[9]]]
-        line = Aline(base)
-        for candidate_fragment in candidate_fragments_dic.keys():
-            value = candidate_fragments_dic[candidate_fragment]
-            if (value[0][1] - value[0][0]) == (value[1][1] - value[1][0]):  # 长度匹配上了
-                shift = value[0][0]
-                for i in range(value[1][0], value[1][1]):
-                    if (i + shift) not in line.positions.keys():
-                        line.positions[i + shift] = []
-                    if best_fragments[candidate_fragment][i] not in line.positions[i + shift]:
-                        line.positions[i + shift].append(best_fragments[candidate_fragment][i])
-
-                if (value[1][1] - value[1][0]) < len(best_fragments[candidate_fragment]):  # fragment可以往后延申
-                    for i in range(value[1][1], len(best_fragments[candidate_fragment])):
+        try:
+            df = pd.read_csv(out, delimiter='\t', header=None)
+            dfList = df.values
+            candidate_fragments_dic = {}
+            for item in dfList:
+                fragment_id = item[1]
+                candidate_fragments_dic[fragment_id] = [[item[6] - 1, item[7]], [item[8] - 1, item[9]]]
+            line = Aline(base)
+            for candidate_fragment in candidate_fragments_dic.keys():
+                value = candidate_fragments_dic[candidate_fragment]
+                if (value[0][1] - value[0][0]) == (value[1][1] - value[1][0]):  # 长度匹配上了
+                    shift = value[0][0]
+                    for i in range(value[1][0], value[1][1]):
                         if (i + shift) not in line.positions.keys():
                             line.positions[i + shift] = []
                         if best_fragments[candidate_fragment][i] not in line.positions[i + shift]:
                             line.positions[i + shift].append(best_fragments[candidate_fragment][i])
-        candidate_bases = []
-        for position in line.positions.keys():
-            candidate_letters = line.positions[position]
-            num_candidates_letters = len(candidate_letters)
-            if len(candidate_bases) == 0:
-                for i in range(num_candidates_letters):
-                    candidate_bases.append([candidate_letters[i]])
-                continue
-            if num_candidates_letters == 1:
-                for i in range(len(candidate_bases)):
-                    candidate_bases[i].append(candidate_letters[0])
-                continue
-            if num_candidates_letters > 1:
-                candidate_bases_copy = copy.deepcopy(candidate_bases)
-                temp = []
-                for candidate_letter in candidate_letters:
-                    for candidate_base in candidate_bases_copy:
-                        candidate_base.append(candidate_letter)
-                    temp.extend(candidate_bases_copy)
+
+                    if (value[1][1] - value[1][0]) < len(best_fragments[candidate_fragment]):  # fragment可以往后延申
+                        for i in range(value[1][1], len(best_fragments[candidate_fragment])):
+                            if (i + shift) not in line.positions.keys():
+                                line.positions[i + shift] = []
+                            if best_fragments[candidate_fragment][i] not in line.positions[i + shift]:
+                                line.positions[i + shift].append(best_fragments[candidate_fragment][i])
+            candidate_bases = []
+            for position in line.positions.keys():
+                candidate_letters = line.positions[position]
+                num_candidates_letters = len(candidate_letters)
+                if len(candidate_bases) == 0:
+                    for i in range(num_candidates_letters):
+                        candidate_bases.append([candidate_letters[i]])
+                    continue
+                if num_candidates_letters == 1:
+                    for i in range(len(candidate_bases)):
+                        candidate_bases[i].append(candidate_letters[0])
+                    continue
+                if num_candidates_letters > 1:
                     candidate_bases_copy = copy.deepcopy(candidate_bases)
-                candidate_bases = temp
-        for i in range(len(candidate_bases)):
-            candidate_bases[i] = ''.join(candidate_bases[i])
+                    temp = []
+                    for candidate_letter in candidate_letters:
+                        for candidate_base in candidate_bases_copy:
+                            candidate_base.append(candidate_letter)
+                        temp.extend(candidate_bases_copy)
+                        candidate_bases_copy = copy.deepcopy(candidate_bases)
+                    candidate_bases = temp
+            for i in range(len(candidate_bases)):
+                candidate_bases[i] = ''.join(candidate_bases[i])
 
 
-        candidate_bases = sorted(candidate_bases,key=lambda x:findSupportReadScore(x,sequences_scores),reverse=True)
-        for candidate_base in candidate_bases:
-            print(candidate_base,findSupportReadScore(candidate_base,sequences_scores))
-        base = candidate_bases[0]
-        for candidate_fragment in candidate_fragments_dic.keys():
-            best_fragments.pop(candidate_fragment)
-        if len(best_fragments) == current_length:
+            candidate_bases = sorted(candidate_bases,key=lambda x:findSupportReadScore(x,sequences_scores),reverse=True)
+            for candidate_base in candidate_bases:
+                print(candidate_base,findSupportReadScore(candidate_base,sequences_scores))
+            base = candidate_bases[0]
+            for candidate_fragment in candidate_fragments_dic.keys():
+                best_fragments.pop(candidate_fragment)
+        except:
+            print('current fragments is up to limit')
+            print(base)
             break
-
+    quit()
     print(base)
     if len(best_fragments) != 0:
         print('Fragments left! ')

@@ -171,6 +171,7 @@ if __name__ == '__main__':
     template_contig_group = {}
 
     for template in templates:
+        template_contig_group[template] = []
         for contig in contigs:
             label = contig + '+' + template
             try:

@@ -4,6 +4,7 @@ import json
 import os
 
 import pandas as pd
+from tqdm import trange
 
 from generateTemplatesBlastReport import read_fasta
 from III_sortOutputs import findSupportReadScore
@@ -110,7 +111,9 @@ if __name__ == '__main__':
                             if best_fragments[candidate_fragment][i] not in line.positions[i + shift]:
                                 line.positions[i + shift].append(best_fragments[candidate_fragment][i])
             candidate_bases = []
-            for position in line.positions.keys():
+            line_keys = list(line.positions.keys())
+            for position_index in trange(len(line_keys)):
+                position = line_keys[position_index]
                 candidate_letters = line.positions[position]
                 num_candidates_letters = len(candidate_letters)
                 if len(candidate_bases) == 0:

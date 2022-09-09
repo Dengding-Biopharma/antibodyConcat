@@ -146,9 +146,9 @@ if __name__ == '__main__':
             print('left fragments:')
             for best_fragment in best_fragments.keys():
                 print(best_fragments[best_fragment])
-            base = best_fragments.values()[0]
+            base = best_fragments.values()
             print(base)
-            
+
             break
     quit()
     print(base)

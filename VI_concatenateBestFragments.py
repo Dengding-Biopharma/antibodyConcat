@@ -143,6 +143,9 @@ if __name__ == '__main__':
         except:
             print('current fragments is up to limit')
             print(base)
+            print('left fragments:')
+            for best_fragment in best_fragments.keys():
+                print(best_fragments[best_fragment])
             break
     quit()
     print(base)

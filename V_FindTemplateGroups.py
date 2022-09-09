@@ -169,6 +169,19 @@ if __name__ == '__main__':
         sequence_template_id_pair_dic[label] = value_list
 
     template_contig_group = {}
+
+    for template in templates:
+        for contig in contigs:
+            label = contig + '+' + template
+            try:
+                value = sequence_template_id_pair_dic[label]
+            except:
+                continue
+            if value:
+                print(value)
+                quit()
+                template_contig_group[best_template] += [contig]
+                remove.append(contig)
     while len(contigs) != 0:
         current_contig = contigs[0]
         best_identity = 0

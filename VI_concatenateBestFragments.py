@@ -53,8 +53,8 @@ if __name__ == '__main__':
 
     base = list(best_fragments.values())[0]
     best_fragments.pop(list(best_fragments.keys())[0])
-
-    while len(best_fragments) != 0:
+    bases = []
+    for index in range(1000):
         current_length = len(best_fragments)
         delete_table = []
         ks = [i for i in range(20, 3, -1)]
@@ -141,19 +141,22 @@ if __name__ == '__main__':
             for candidate_fragment in candidate_fragments_dic.keys():
                 best_fragments.pop(candidate_fragment)
         except:
-            print('current fragments is up to limit')
+            print('current fragments is up to limit!')
             print(base)
-            print('left fragments:')
-            for best_fragment in best_fragments.keys():
-                print(best_fragments[best_fragment])
-            base = list(best_fragments.values())[0]
-            print(base)
+            bases.append(base)
+            if len(best_fragments) != 0:
+                print('left fragments:')
+                for best_fragment in best_fragments.keys():
+                    print(best_fragments[best_fragment])
+                base = list(best_fragments.values())[0]
+                best_fragments.pop(list(best_fragments.keys())[0])
+                print('new base: ')
+                print(base)
+            else:
+                print('finish!')
+                break
+    for base in bases:
+        print(base)
 
-            break
-    quit()
-    print(base)
-    if len(best_fragments) != 0:
-        print('Fragments left! ')
-        for key in best_fragments.keys():
-            print(best_fragments[key])
+
 

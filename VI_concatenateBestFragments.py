@@ -126,8 +126,6 @@ if __name__ == '__main__':
                 if num_candidates_letters == 1:
                     for i in range(len(candidate_bases)):
                         candidate_bases[i] = candidate_bases[i] + candidate_letters[0]
-                    print(candidate_bases)
-                    quit()
                     continue
                 if num_candidates_letters > 1:
                     candidate_bases_copy = copy.deepcopy(candidate_bases)
@@ -136,7 +134,7 @@ if __name__ == '__main__':
                         for candidate_base in candidate_bases_copy:
                             print(candidate_base)
                             quit()
-                            print(candidate_bases.shape)
+
 
             candidate_bases = sorted(candidate_bases,key=lambda x:findSupportReadScore(x,sequences_scores),reverse=True)
             print('number of candidate bases: ',len(candidate_bases))

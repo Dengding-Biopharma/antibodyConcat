@@ -158,6 +158,7 @@ if __name__ == '__main__':
             else:
                 print('finish!')
                 break
+    print('##########################final result#########################')
     for base in bases:
         print(base)
 

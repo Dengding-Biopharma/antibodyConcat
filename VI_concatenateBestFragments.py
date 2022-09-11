@@ -132,9 +132,8 @@ if __name__ == '__main__':
                     for candidate_letter in candidate_letters:
                         new_bases = np.char.add(candidate_bases_copy,candidate_letter)
                         candidate_bases = np.append(candidate_bases,new_bases)
-                        print(candidate_letters)
-                        print(candidate_bases)
-                        quit()
+                    print(candidate_bases)
+                    quit()
             for i in range(len(candidate_bases)):
                 candidate_bases[i] = ''.join(candidate_bases[i])
 

@@ -129,16 +129,16 @@ if __name__ == '__main__':
                     continue
                 if num_candidates_letters > 1:
                     candidate_bases_copy = copy.deepcopy(candidate_bases)
-                    print(num_candidates_letters,len(candidate_bases_copy))
+                    # print(num_candidates_letters,len(candidate_bases_copy))
                     candidate_bases = []
                     for candidate_letter in candidate_letters:
                         for candidate_base in candidate_bases_copy:
                             candidate_bases.append(candidate_base+candidate_letter)
-                    print('before',len(candidate_bases))
-                    if len(candidate_bases) > 100:
+                    # print('before',len(candidate_bases))
+                    if len(candidate_bases) > 128:
                         candidate_bases = sorted(candidate_bases,
                                                  key=lambda x: findSupportReadScore(x, sequences_scores), reverse=True)[:len(candidate_bases)//2]
-                    print('after', len(candidate_bases))
+                    # print('after', len(candidate_bases))
             candidate_bases = sorted(candidate_bases,key=lambda x:findSupportReadScore(x,sequences_scores),reverse=True)
             print('number of candidate bases: ',len(candidate_bases))
             base = candidate_bases[0]
@@ -161,7 +161,7 @@ if __name__ == '__main__':
                 break
     print('##########################final result#########################')
     for base in bases:
-        print(base)
+        print('fragment: ',base)
 
 
 

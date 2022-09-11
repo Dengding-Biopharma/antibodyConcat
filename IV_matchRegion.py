@@ -133,8 +133,6 @@ if __name__ == '__main__':
             region_sequence_dic = read_fasta(region_file)
             region_sequence_coverage_dic = {}
             keys = list(region_sequence_dic.keys())
-            print(keys)
-            quit()
             for index in trange(len(keys)):
                 region_sequence_key = keys[index]
                 region_sequence = region_sequence_dic[region_sequence_key]

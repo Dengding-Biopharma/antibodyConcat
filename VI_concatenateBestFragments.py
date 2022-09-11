@@ -133,9 +133,9 @@ if __name__ == '__main__':
                         new_bases = np.char.add(candidate_bases_copy,candidate_letter)
                         candidate_bases = np.append(candidate_bases,new_bases)
 
+            candidate_bases = sorted(candidate_bases,key=lambda x:findSupportReadScore(x,sequences_scores),reverse=True)
             print(candidate_bases)
             quit()
-            candidate_bases = sorted(candidate_bases,key=lambda x:findSupportReadScore(x,sequences_scores),reverse=True)
             print('number of candidate bases: ',len(candidate_bases))
             base = candidate_bases[0]
             for candidate_fragment in candidate_fragments_dic.keys():

@@ -134,9 +134,11 @@ if __name__ == '__main__':
                     for candidate_letter in candidate_letters:
                         for candidate_base in candidate_bases_copy:
                             candidate_bases.append(candidate_base+candidate_letter)
-                    if len(candidate_bases) > 100:
+                    print('before',len(candidate_base))
+                    if len(candidate_bases) > 100000:
                         candidate_bases = sorted(candidate_bases,
                                                  key=lambda x: findSupportReadScore(x, sequences_scores), reverse=True)[:len(candidate_bases)//2]
+                    print('after', len(candidate_base))
             candidate_bases = sorted(candidate_bases,key=lambda x:findSupportReadScore(x,sequences_scores),reverse=True)
             print('number of candidate bases: ',len(candidate_bases))
             base = candidate_bases[0]

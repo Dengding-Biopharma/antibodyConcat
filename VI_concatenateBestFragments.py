@@ -134,14 +134,11 @@ if __name__ == '__main__':
                         candidate_bases = np.append(candidate_bases,new_bases)
 
             candidate_bases = sorted(candidate_bases,key=lambda x:findSupportReadScore(x,sequences_scores),reverse=True)
-            print(candidate_bases)
-            quit()
             print('number of candidate bases: ',len(candidate_bases))
             base = candidate_bases[0]
             for candidate_fragment in candidate_fragments_dic.keys():
                 best_fragments.pop(candidate_fragment)
         except:
-            quit()
             print('current fragments is up to limit!')
             print(base)
             bases.append(base)

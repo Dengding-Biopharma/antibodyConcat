@@ -119,21 +119,14 @@ if __name__ == '__main__':
             for candidate_letter in candidate_letters:
                 start_base.append(candidate_letter)
             candidate_bases = np.array(start_base)
-            candidate_bases = np.char.add(candidate_bases,'c')
-            print(candidate_bases)
-            quit()
             for position_index in trange(1,len(line_keys)):
                 position = line_keys[position_index]
                 candidate_letters = line.positions[position]
                 num_candidates_letters = len(candidate_letters)
-                if candidate_bases.shape[0] == 0:
-                    new_array = np.chararray((num_candidates_letters,1))
-                    for i in range(num_candidates_letters):
-                        candidate_bases.append([candidate_letters[i]])
-                    continue
                 if num_candidates_letters == 1:
-                    for i in range(len(candidate_bases)):
-                        candidate_bases[i].append(candidate_letters[0])
+                    candidate_bases = np.char.add(candidate_bases,candidate_letters[0])
+                    print(candidate_bases)
+                    quit()
                     continue
                 if num_candidates_letters > 1:
                     candidate_bases_copy = copy.deepcopy(candidate_bases)

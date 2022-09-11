@@ -115,20 +115,19 @@ if __name__ == '__main__':
             position = line_keys[0]
             candidate_letters = line.positions[position]
             num_candidates_letters = len(candidate_letters)
-            candidate_bases = []
             start_base = []
             for candidate_letter in candidate_letters:
                 start_base.append(candidate_letter)
-            candidate_bases.append(start_base)
+            candidate_bases=start_base
             for position_index in trange(1,len(line_keys)):
                 position = line_keys[position_index]
                 candidate_letters = line.positions[position]
                 num_candidates_letters = len(candidate_letters)
                 if num_candidates_letters == 1:
                     for i in range(len(candidate_bases)):
-                        print(candidate_bases[i])
-                        quit()
                         candidate_bases[i] = candidate_bases[i] + candidate_letters[0]
+                    print(candidate_bases)
+                    quit()
                     continue
                 if num_candidates_letters > 1:
                     candidate_bases_copy = copy.deepcopy(candidate_bases)

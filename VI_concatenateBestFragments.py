@@ -120,7 +120,7 @@ if __name__ == '__main__':
                 start_base.append(candidate_letter)
             candidate_bases = np.array(start_base)
             print(candidate_bases)
-            quit()
+            breakpoint()
             for position_index in trange(1,len(line_keys)):
                 position = line_keys[position_index]
                 candidate_letters = line.positions[position]

@@ -135,7 +135,7 @@ if __name__ == '__main__':
                         for candidate_base in candidate_bases_copy:
                             candidate_bases.append(candidate_base+candidate_letter)
                     print('before',len(candidate_bases))
-                    if len(candidate_bases) > 100000:
+                    if len(candidate_bases) > 10000:
                         candidate_bases = sorted(candidate_bases,
                                                  key=lambda x: findSupportReadScore(x, sequences_scores), reverse=True)[:len(candidate_bases)//2]
                     print('after', len(candidate_bases))

@@ -3,6 +3,7 @@ import copy
 import json
 import os
 
+import numpy as np
 import pandas as pd
 from tqdm import trange
 
@@ -110,13 +111,22 @@ if __name__ == '__main__':
                                 line.positions[i + shift] = []
                             if best_fragments[candidate_fragment][i] not in line.positions[i + shift]:
                                 line.positions[i + shift].append(best_fragments[candidate_fragment][i])
-            candidate_bases = []
             line_keys = list(line.positions.keys())
-            for position_index in trange(len(line_keys)):
+            position = line_keys[0]
+            candidate_letters = line.positions[position]
+            num_candidates_letters = len(candidate_letters)
+            start_base = []
+            for candidate_letter in candidate_letters:
+                start_base.append(candidate_letter)
+            candidate_bases = np.array(start_base)
+            print(candidate_bases)
+            quit()
+            for position_index in trange(1,len(line_keys)):
                 position = line_keys[position_index]
                 candidate_letters = line.positions[position]
                 num_candidates_letters = len(candidate_letters)
-                if len(candidate_bases) == 0:
+                if candidate_bases.shape[0] == 0:
+                    new_array = np.chararray((num_candidates_letters,1))
                     for i in range(num_candidates_letters):
                         candidate_bases.append([candidate_letters[i]])
                     continue
@@ -138,8 +148,7 @@ if __name__ == '__main__':
 
 
             candidate_bases = sorted(candidate_bases,key=lambda x:findSupportReadScore(x,sequences_scores),reverse=True)
-            for candidate_base in candidate_bases:
-                print(candidate_base,findSupportReadScore(candidate_base,sequences_scores))
+            print('number of candidate bases: ',len(candidate_bases))
             base = candidate_bases[0]
             for candidate_fragment in candidate_fragments_dic.keys():
                 best_fragments.pop(candidate_fragment)

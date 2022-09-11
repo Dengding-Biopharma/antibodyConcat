@@ -125,8 +125,6 @@ if __name__ == '__main__':
                 num_candidates_letters = len(candidate_letters)
                 if num_candidates_letters == 1:
                     for i in range(len(candidate_bases)):
-                        print(candidate_bases)
-                        quit()
                         candidate_bases[i] = candidate_bases[i] + candidate_letters[0]
                     continue
                 if num_candidates_letters > 1:
@@ -145,7 +143,8 @@ if __name__ == '__main__':
             base = candidate_bases[0]
             for candidate_fragment in candidate_fragments_dic.keys():
                 best_fragments.pop(candidate_fragment)
-        except:
+        except Exception as e:
+            print(e)
             quit()
             print('current fragments is up to limit!')
             print(base)

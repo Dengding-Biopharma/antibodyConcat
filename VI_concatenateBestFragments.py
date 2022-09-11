@@ -134,7 +134,7 @@ if __name__ == '__main__':
                     for candidate_letter in candidate_letters:
                         for candidate_base in candidate_bases_copy:
                             candidate_bases.append(candidate_base+candidate_letter)
-                    if len(candidate_bases) > 100000:
+                    if len(candidate_bases) > 20:
                         candidate_bases = sorted(candidate_bases,
                                                  key=lambda x: findSupportReadScore(x, sequences_scores), reverse=True)[:len(candidate_bases)//2]
             candidate_bases = sorted(candidate_bases,key=lambda x:findSupportReadScore(x,sequences_scores),reverse=True)

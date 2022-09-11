@@ -120,7 +120,7 @@ if __name__ == '__main__':
                 start_base.append(candidate_letter)
             candidate_bases = np.array(start_base)
             print(candidate_bases + 'C')
-            breakpoint()
+            quit()
             for position_index in trange(1,len(line_keys)):
                 position = line_keys[position_index]
                 candidate_letters = line.positions[position]
@@ -153,6 +153,7 @@ if __name__ == '__main__':
             for candidate_fragment in candidate_fragments_dic.keys():
                 best_fragments.pop(candidate_fragment)
         except:
+            quit()
             print('current fragments is up to limit!')
             print(base)
             bases.append(base)

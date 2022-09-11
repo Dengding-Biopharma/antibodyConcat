@@ -125,6 +125,8 @@ if __name__ == '__main__':
                 num_candidates_letters = len(candidate_letters)
                 if num_candidates_letters == 1:
                     for i in range(len(candidate_bases)):
+                        print(candidate_bases)
+                        quit()
                         candidate_bases[i] = candidate_bases[i] + candidate_letters[0]
                     continue
                 if num_candidates_letters > 1:

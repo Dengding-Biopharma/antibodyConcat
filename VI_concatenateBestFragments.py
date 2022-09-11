@@ -125,18 +125,15 @@ if __name__ == '__main__':
                 num_candidates_letters = len(candidate_letters)
                 if num_candidates_letters == 1:
                     candidate_bases = np.char.add(candidate_bases,candidate_letters[0])
-                    print(candidate_bases)
-                    quit()
                     continue
                 if num_candidates_letters > 1:
                     candidate_bases_copy = copy.deepcopy(candidate_bases)
-                    temp = []
+                    candidate_bases = np.array([])
                     for candidate_letter in candidate_letters:
-                        for candidate_base in candidate_bases_copy:
-                            candidate_base.append(candidate_letter)
-                        temp.extend(candidate_bases_copy)
-                        candidate_bases_copy = copy.deepcopy(candidate_bases)
-                    candidate_bases = temp
+                        new_bases = np.char.add(candidate_bases_copy,candidate_letter)
+                        candidate_bases = np.append(candidate_bases,new_bases)
+                        print(candidate_bases)
+                        quit()
             for i in range(len(candidate_bases)):
                 candidate_bases[i] = ''.join(candidate_bases[i])
 

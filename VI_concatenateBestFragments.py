@@ -128,6 +128,8 @@ if __name__ == '__main__':
                         candidate_bases[i] = candidate_bases[i] + candidate_letters[0]
                     continue
                 if num_candidates_letters > 1:
+                    print(candidate_bases)
+                    quit()
                     candidate_bases_copy = copy.deepcopy(candidate_bases)
                     candidate_bases = []
                     for candidate_letter in candidate_letters:

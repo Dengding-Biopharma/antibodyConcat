@@ -127,6 +127,8 @@ if __name__ == '__main__':
                 if num_candidates_letters == 1:
                     for i in range(len(candidate_bases)):
                         candidate_bases[i] = candidate_bases[i] + candidate_letters[0]
+                    print(candidate_bases)
+                    quit()
                     continue
                 if num_candidates_letters > 1:
                     candidate_bases_copy = copy.deepcopy(candidate_bases)

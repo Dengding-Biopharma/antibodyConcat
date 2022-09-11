@@ -119,7 +119,7 @@ if __name__ == '__main__':
             for candidate_letter in candidate_letters:
                 start_base.append(candidate_letter)
             candidate_bases = np.array(start_base)
-            print(candidate_bases + 'c')
+            candidate_bases = candidate_bases +'c'
             quit()
             for position_index in trange(1,len(line_keys)):
                 position = line_keys[position_index]

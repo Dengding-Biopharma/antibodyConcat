@@ -115,24 +115,27 @@ if __name__ == '__main__':
             position = line_keys[0]
             candidate_letters = line.positions[position]
             num_candidates_letters = len(candidate_letters)
+            candidate_bases = []
             start_base = []
             for candidate_letter in candidate_letters:
                 start_base.append(candidate_letter)
-            candidate_bases = np.array(start_base)
+            candidate_bases.append(start_base)
             for position_index in trange(1,len(line_keys)):
                 position = line_keys[position_index]
                 candidate_letters = line.positions[position]
                 num_candidates_letters = len(candidate_letters)
                 if num_candidates_letters == 1:
-                    candidate_bases = np.char.add(candidate_bases,candidate_letters[0])
+                    for i in range(len(candidate_bases)):
+                        candidate_bases[i] = candidate_bases[i] + candidate_letters[0]
                     continue
                 if num_candidates_letters > 1:
                     candidate_bases_copy = copy.deepcopy(candidate_bases)
-                    candidate_bases = np.array([])
+                    candidate_bases = []
                     for candidate_letter in candidate_letters:
-                        new_bases = np.char.add(candidate_bases_copy,candidate_letter)
-                        candidate_bases = np.append(candidate_bases,new_bases)
-                        print(candidate_bases.shape)
+                        for candidate_base in candidate_bases_copy:
+                            print(candidate_base)
+                            quit()
+                            print(candidate_bases.shape)
 
             candidate_bases = sorted(candidate_bases,key=lambda x:findSupportReadScore(x,sequences_scores),reverse=True)
             print('number of candidate bases: ',len(candidate_bases))
@@ -140,6 +143,7 @@ if __name__ == '__main__':
             for candidate_fragment in candidate_fragments_dic.keys():
                 best_fragments.pop(candidate_fragment)
         except:
+            quit()
             print('current fragments is up to limit!')
             print(base)
             bases.append(base)

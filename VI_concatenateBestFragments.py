@@ -129,12 +129,12 @@ if __name__ == '__main__':
                     continue
                 if num_candidates_letters > 1:
                     candidate_bases_copy = copy.deepcopy(candidate_bases)
-                    print(len(candidate_bases_copy))
+                    print(num_candidates_letters,len(candidate_bases_copy))
                     candidate_bases = []
                     for candidate_letter in candidate_letters:
                         for candidate_base in candidate_bases_copy:
                             candidate_bases.append(candidate_base+candidate_letter)
-                    if len(candidate_bases) > 20:
+                    if len(candidate_bases) > 100:
                         candidate_bases = sorted(candidate_bases,
                                                  key=lambda x: findSupportReadScore(x, sequences_scores), reverse=True)[:len(candidate_bases)//2]
             candidate_bases = sorted(candidate_bases,key=lambda x:findSupportReadScore(x,sequences_scores),reverse=True)

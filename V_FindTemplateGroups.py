@@ -591,7 +591,7 @@ if __name__ == '__main__':
         #     elif is_continue and len(best_result) == best_result_position + 1:
         #         best_result_coverage_list.append([start,best_result_position])
         # print(best_result_coverage_list)
-        print(1234123412341234,template.best_fragments)
+
         if len(template.best_fragments) > 1:
             showed_fragments = []
             copy_fragments = copy.deepcopy(template.best_fragments)
@@ -629,8 +629,8 @@ if __name__ == '__main__':
                     continue
                 html += '<pre>' + sub_sequence + '</pre>'
             html += '<br>'
-        for best_contig in best_contigs:
-            print(12341234, best_contig)
+        # for best_contig in best_contigs:
+        #     print(12341234, best_contig)
             # html += '<pre>' + best_contig + '</pre>'
         for best_fragment in template.best_fragments:
             html += '<pre>' + best_fragment + '</pre>'

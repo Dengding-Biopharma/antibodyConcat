@@ -462,7 +462,7 @@ if __name__ == '__main__':
                 counting = False
                 end = i
                 best_result_fragments_intervals.append([start, end])
-        print(best_result_fragments_intervals)
+        # print(best_result_fragments_intervals)
         template_gap_filling_intervals = []
         for interval_index in range(len(best_result_fragments_intervals)):
             if interval_index < len(best_result_fragments_intervals) - 1:
@@ -485,12 +485,12 @@ if __name__ == '__main__':
                         concat = True
                 if not concat:
                     best_sorted_fragments.append(current_fragment)
-        print(best_result_fragments)
-        print(best_sorted_fragments)
-        quit()
+        # print(best_result_fragments)
+        # print(best_sorted_fragments)
+        # quit()
         k = 25
         best_contigs = []
-        for fragment in best_result_fragments:
+        for fragment in best_sorted_fragments:
             if len(fragment) <= k:
                 head = fragment
                 tail = fragment

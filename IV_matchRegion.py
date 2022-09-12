@@ -168,9 +168,9 @@ if __name__ == '__main__':
                         for i in range(value[6]-1,value[7]):
                             blank_sequence[i] = '1'
                     coverage = blank_sequence.count('1')/len(blank_sequence)
-                    if coverage > 0.95:
-                        find = True
                     region_sequence_coverage_dic[region_sequence_key] = coverage
+                    if coverage > 0.97 or index == (len(keys) - 1):
+                        find = True
             region_sequence_coverage_dic = dict(sorted(region_sequence_coverage_dic.items(), key=lambda item: item[1],reverse=True))
             best_template_id = list(region_sequence_coverage_dic.items())[0][0]
             best_coverage = list(region_sequence_coverage_dic.items())[0][1]

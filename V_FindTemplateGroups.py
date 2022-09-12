@@ -488,7 +488,7 @@ if __name__ == '__main__':
         # print(best_result_fragments)
         # print(best_sorted_fragments)
         # quit()
-        k = 15
+        k = 25
         best_contigs = []
         for fragment in best_sorted_fragments:
             if len(fragment) <= k:
@@ -526,6 +526,7 @@ if __name__ == '__main__':
                     if score > best_head_contig_score:
                         best_head_contig = head_contig
                         best_head_contig_score = score
+                print(111,best_head_contig)
                 if best_head_contig not in best_contigs:
                     best_contigs.append(best_head_contig)
                 if best_head_contig not in template.best_fragments:
@@ -552,6 +553,7 @@ if __name__ == '__main__':
                     if score > best_tail_contig_score:
                         best_tail_contig = tail_contig
                         best_tail_contig_score = score
+                print(222,best_tail_contig)
                 if best_tail_contig not in best_contigs:
                     best_contigs.append(best_tail_contig)
                 if fragment not in template.best_fragments:

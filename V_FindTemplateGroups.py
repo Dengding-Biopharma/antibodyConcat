@@ -621,6 +621,11 @@ if __name__ == '__main__':
             # print(sub_template)
             html += '<pre>' + sub_template + '</pre>'
             print(merged_result[0])
+            for interval in template_gap_filling_intervals:
+                template_fragment = template.sequence[interval[0]:interval[1]]
+                for position_index in range(interval[0],interval[1]):
+                    merged_result[0][position_index] = template_fragment[position_index-interval[0]]
+            print(merged_result[0])
             quit()
             for sequence in merged_result:
                 try:

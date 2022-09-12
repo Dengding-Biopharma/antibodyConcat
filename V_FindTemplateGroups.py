@@ -514,6 +514,7 @@ if __name__ == '__main__':
                 # if not template.ignore:
                 template.ignore = False
                 head_df = pd.read_csv(head_out, delimiter='\t', header=None)
+                print(111,head_df)
                 head_df = head_df[head_df[2] >= 90]
                 candidate_head_contigs_id = list(head_df[1].values)
                 candidate_head_contigs = [contig_dic[x] for x in candidate_head_contigs_id]
@@ -541,6 +542,7 @@ if __name__ == '__main__':
 
             try:
                 tail_df = pd.read_csv(tail_out, delimiter='\t', header=None)
+                print(222, tail_df)
                 tail_df = tail_df[tail_df[2] >= 90]
                 candidate_tail_contigs_id = list(tail_df[1].values)
                 candidate_tail_contigs = [contig_dic[x] for x in candidate_tail_contigs_id]

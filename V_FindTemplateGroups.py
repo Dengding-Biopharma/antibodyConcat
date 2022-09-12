@@ -470,10 +470,23 @@ if __name__ == '__main__':
                 next_interval = best_result_fragments_intervals[interval_index+1]
                 if next_interval[0] - current_interval[1] <= 10:
                     template_gap_filling_intervals.append([current_interval[1],next_interval[0]])
-        for template_gap_filling_interval in template_gap_filling_intervals:
-            for position in range(template_gap_filling_interval[0],template_gap_filling_interval[1]):
-                template.gap_filling_position[position] += template.sequence[position]
-        print(template.gap_filling_position)
+        best_sorted_fragments = []
+        for fragment_index in range(len(best_result_fragments)):
+            if fragment_index < len(best_result_fragments) - 1:
+                concat = False
+                current_fragment = best_result_fragments[fragment_index]
+                next_fragment = best_result_fragments[fragment_index+1]
+                current_interval = best_result_fragments_intervals[fragment_index]
+                next_interval = best_result_fragments_intervals[fragment_index + 1]
+                for interval in template_gap_filling_intervals:
+                    if current_interval[1] == interval[0] and next_interval[0] == interval[1]:
+                        new_fragment = current_fragment + template.sequence[interval[0]:interval[1]] + next_fragment
+                        best_sorted_fragments.append(new_fragment)
+                        concat = True
+                if not concat:
+                    best_sorted_fragments.append(current_fragment)\
+        print(best_result_fragments)
+        print(best_sorted_fragments)
         quit()
         k = 25
         best_contigs = []

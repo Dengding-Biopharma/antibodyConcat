@@ -620,6 +620,8 @@ if __name__ == '__main__':
                 sub_template = template.sequence[i:]
             # print(sub_template)
             html += '<pre>' + sub_template + '</pre>'
+            print(merged_result[0])
+            quit()
             for sequence in merged_result:
                 try:
                     sub_sequence = sequence[i:i + step]

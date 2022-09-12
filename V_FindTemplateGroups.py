@@ -591,6 +591,7 @@ if __name__ == '__main__':
         #     elif is_continue and len(best_result) == best_result_position + 1:
         #         best_result_coverage_list.append([start,best_result_position])
         # print(best_result_coverage_list)
+        print(template.id)
         print(template.best_fragments)
         if len(template.best_fragments) > 1:
             showed_fragments = []
@@ -633,6 +634,7 @@ if __name__ == '__main__':
         #     print(12341234, best_contig)
             # html += '<pre>' + best_contig + '</pre>'
         for best_fragment in template.best_fragments:
+            print(1111,best_fragment)
             html += '<pre>' + best_fragment + '</pre>'
         html += '<br>'
         html += 'Minimum Contigs Array (Blue part): ' + '<br>'

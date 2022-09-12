@@ -127,15 +127,15 @@ if __name__ == '__main__':
                     for i in range(len(candidate_bases)):
                         candidate_bases[i] = candidate_bases[i] + candidate_letters[0]
                     continue
+                candidate_bases_copy = copy.deepcopy(candidate_bases)
                 if num_candidates_letters > 1:
-                    candidate_bases_copy = copy.deepcopy(candidate_bases)
                     # print(num_candidates_letters,len(candidate_bases_copy))
                     candidate_bases = []
                     for candidate_letter in candidate_letters:
                         for candidate_base in candidate_bases_copy:
                             candidate_bases.append(candidate_base+candidate_letter)
                     # print('before',len(candidate_bases))
-                    if len(candidate_bases) > 128:
+                    if len(candidate_bases) > 100000:
                         candidate_bases = sorted(candidate_bases,
                                                  key=lambda x: findSupportReadScore(x, sequences_scores), reverse=True)[:len(candidate_bases)//2]
                     # print('after', len(candidate_bases))

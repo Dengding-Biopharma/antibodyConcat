@@ -470,22 +470,25 @@ if __name__ == '__main__':
                 next_interval = best_result_fragments_intervals[interval_index+1]
                 if next_interval[0] - current_interval[1] <= 10:
                     template_gap_filling_intervals.append([current_interval[1],next_interval[0]])
-        print(12341234123412341234123412342,best_result_fragments)
+
         best_sorted_fragments = []
-        for fragment_index in range(len(best_result_fragments)):
-            if fragment_index < len(best_result_fragments) - 1:
-                concat = False
-                current_fragment = best_result_fragments[fragment_index]
-                next_fragment = best_result_fragments[fragment_index+1]
-                current_interval = best_result_fragments_intervals[fragment_index]
-                next_interval = best_result_fragments_intervals[fragment_index + 1]
-                for interval in template_gap_filling_intervals:
-                    if current_interval[1] == interval[0] and next_interval[0] == interval[1]:
-                        new_fragment = current_fragment + template.sequence[interval[0]:interval[1]] + next_fragment
-                        best_sorted_fragments.append(new_fragment)
-                        concat = True
-                if not concat:
-                    best_sorted_fragments.append(current_fragment)
+        if len(best_result_fragments) > 1:
+            for fragment_index in range(len(best_result_fragments)):
+                if fragment_index < len(best_result_fragments) - 1:
+                    concat = False
+                    current_fragment = best_result_fragments[fragment_index]
+                    next_fragment = best_result_fragments[fragment_index+1]
+                    current_interval = best_result_fragments_intervals[fragment_index]
+                    next_interval = best_result_fragments_intervals[fragment_index + 1]
+                    for interval in template_gap_filling_intervals:
+                        if current_interval[1] == interval[0] and next_interval[0] == interval[1]:
+                            new_fragment = current_fragment + template.sequence[interval[0]:interval[1]] + next_fragment
+                            best_sorted_fragments.append(new_fragment)
+                            concat = True
+                    if not concat:
+                        best_sorted_fragments.append(current_fragment)
+        else:
+            best_sorted_fragments = best_result_fragments
         # print(best_result_fragments)
         # print(best_sorted_fragments)
         # quit()
@@ -515,7 +518,6 @@ if __name__ == '__main__':
                 # if not template.ignore:
                 template.ignore = False
                 head_df = pd.read_csv(head_out, delimiter='\t', header=None)
-                print(111,head_df)
                 head_df = head_df[head_df[2] >= 90]
                 candidate_head_contigs_id = list(head_df[1].values)
                 candidate_head_contigs = [contig_dic[x] for x in candidate_head_contigs_id]
@@ -528,7 +530,6 @@ if __name__ == '__main__':
                     if score > best_head_contig_score:
                         best_head_contig = head_contig
                         best_head_contig_score = score
-                print(111,best_head_contig)
                 if best_head_contig not in best_contigs:
                     best_contigs.append(best_head_contig)
                 if best_head_contig not in template.best_fragments:
@@ -543,7 +544,6 @@ if __name__ == '__main__':
 
             try:
                 tail_df = pd.read_csv(tail_out, delimiter='\t', header=None)
-                print(222, tail_df)
                 tail_df = tail_df[tail_df[2] >= 90]
                 candidate_tail_contigs_id = list(tail_df[1].values)
                 candidate_tail_contigs = [contig_dic[x] for x in candidate_tail_contigs_id]
@@ -556,7 +556,6 @@ if __name__ == '__main__':
                     if score > best_tail_contig_score:
                         best_tail_contig = tail_contig
                         best_tail_contig_score = score
-                print(222,best_tail_contig)
                 if best_tail_contig not in best_contigs:
                     best_contigs.append(best_tail_contig)
                 if fragment not in template.best_fragments:

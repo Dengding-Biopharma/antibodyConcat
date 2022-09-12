@@ -484,7 +484,7 @@ if __name__ == '__main__':
                         best_sorted_fragments.append(new_fragment)
                         concat = True
                 if not concat:
-                    best_sorted_fragments.append(current_fragment)\
+                    best_sorted_fragments.append(current_fragment)
         print(best_result_fragments)
         print(best_sorted_fragments)
         quit()

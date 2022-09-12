@@ -31,7 +31,9 @@ class Template:
         for i in range(len(self.sequence)):
             self.unusedReads_match[i] = []
         self.best_fragments = []
-        self.gap_filling_position = []
+        self.gap_filling_position = {}
+        for i in range(len(self.sequence)):
+            self.gap_filling_position[i] = []
 
 
 class Contig:
@@ -469,7 +471,9 @@ if __name__ == '__main__':
                 if next_interval[0] - current_interval[1] <= 10:
                     template_gap_filling_intervals.append([current_interval[1],next_interval[0]])
         for template_gap_filling_interval in template_gap_filling_intervals:
-            print(template.sequence[template_gap_filling_interval[0]:template_gap_filling_interval[1]])
+            for position in range(template_gap_filling_interval[0],template_gap_filling_interval[1]):
+                template.gap_filling_position[position] += template.sequence[position]
+        print(template.gap_filling_position)
         quit()
         k = 25
         best_contigs = []

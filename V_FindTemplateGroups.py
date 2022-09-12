@@ -470,6 +470,7 @@ if __name__ == '__main__':
                 next_interval = best_result_fragments_intervals[interval_index+1]
                 if next_interval[0] - current_interval[1] <= 10:
                     template_gap_filling_intervals.append([current_interval[1],next_interval[0]])
+        print(12341234123412341234123412342,best_result_fragments)
         best_sorted_fragments = []
         for fragment_index in range(len(best_result_fragments)):
             if fragment_index < len(best_result_fragments) - 1:

@@ -422,9 +422,9 @@ if __name__ == '__main__':
             if template.letters_errorRate[i] or template.unusedReads_match[i]:
                 matched_length += 1
 
-        coverage = matched_length / len(template.sequence)
-        if coverage < 0.5:
-            continue
+        # coverage = matched_length / len(template.sequence)
+        # if coverage < 0.5:
+        #     continue
 
         merged_result = []
         while len(result_sequences) < max(len(result_sequences), len(unusedReadsResultSequence)):

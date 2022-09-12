@@ -136,7 +136,7 @@ if __name__ == '__main__':
                             candidate_bases.append(candidate_base+candidate_letter)
                     if len(candidate_bases) > 100000:
                         candidate_bases = sorted(candidate_bases,
-                                                 key=lambda x: findSupportReadScore(x, sequences_scores), reverse=True)[:len(candidate_bases)//3]
+                                                 key=lambda x: findSupportReadScore(x, sequences_scores), reverse=True)[:len(candidate_bases)//num_candidates_letters]
                     # print('after', len(candidate_bases))
             candidate_bases = sorted(candidate_bases,key=lambda x:findSupportReadScore(x,sequences_scores),reverse=True)
             print('number of candidate bases: ',len(candidate_bases))

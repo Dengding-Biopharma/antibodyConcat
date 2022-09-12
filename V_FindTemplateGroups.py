@@ -31,6 +31,7 @@ class Template:
         for i in range(len(self.sequence)):
             self.unusedReads_match[i] = []
         self.best_fragments = []
+        self.gap_filling_position = []
 
 
 class Contig:
@@ -42,19 +43,6 @@ class Contig:
         self.rates = {}
         for i in range(len(self.sequence)):
             self.rates[i] = 0
-
-
-class fillingTemplate:
-    def __init__(self, template_sequence):
-        self.template_sequence = template_sequence
-        self.fill = list(' ' * len(self.template_sequence))
-
-    def fill_match(self, contig):
-        contig_sequence = list(contig.sequence[contig.contig_interval[0] - 1:contig.contig_interval[1]])
-        self.fill[contig.template_interval[0] - 1:contig.template_interval[1]] = contig_sequence
-
-    def get_match_result(self):
-        return ''.join(self.fill)
 
 
 def checkOverlap(contig_array, contig):
@@ -158,7 +146,7 @@ if __name__ == '__main__':
     templates = list(template_dic.keys())
     contig_dic = read_fasta(contig_filepath)
     contigs = list(contig_dic.keys())
-    annotation = read_ann(annotation_name)
+    # annotation = read_ann(annotation_name)
 
     dfList = df.values
     sequence_template_id_pair_dic = {}
@@ -448,23 +436,32 @@ if __name__ == '__main__':
 
         best_result = merged_result[0]
         best_result_fragments = []
+        best_result_fragments_intervals = []
         counting = False
+        start = None
+        end = None
         for i in range(len(best_result)):
             best_result_position = best_result[i]
             if not counting and best_result_position != ' ':
                 fragment = ''
                 counting = True
+                start = i
                 fragment += ''.join(c for c in best_result_position if c.isupper())
             elif counting and best_result_position != ' ' and i != (len(best_result) - 1):
                 fragment += ''.join(c for c in best_result_position if c.isupper())
             elif (counting and best_result_position == ' ') and i != (len(best_result) - 1):
                 best_result_fragments.append(fragment)
                 counting = False
+                end = i
+                best_result_fragments_intervals.append([start,end])
             elif i == (len(best_result) - 1):
                 fragment += ''.join(c for c in best_result_position if c.isupper())
                 best_result_fragments.append(fragment)
                 counting = False
-
+                end = i
+                best_result_fragments_intervals.append([start, end])
+        print(best_result_fragments_intervals)
+        quit()
         k = 25
         best_contigs = []
         for fragment in best_result_fragments:

@@ -461,6 +461,14 @@ if __name__ == '__main__':
                 end = i
                 best_result_fragments_intervals.append([start, end])
         print(best_result_fragments_intervals)
+        template_gap_filling_intervals = []
+        for interval_index in range(len(best_result_fragments_intervals)):
+            if interval_index < len(best_result_fragments_intervals) - 1:
+                current_interval = best_result_fragments_intervals[interval_index]
+                next_interval = best_result_fragments_intervals[interval_index+1]
+                if next_interval[0] - current_interval[1] <= 5:
+                    template_gap_filling_intervals.append([current_interval[1],next_interval[0]])
+        print(template_gap_filling_intervals)
         quit()
         k = 25
         best_contigs = []

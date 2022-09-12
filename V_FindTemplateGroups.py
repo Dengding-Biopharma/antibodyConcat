@@ -488,7 +488,7 @@ if __name__ == '__main__':
         # print(best_result_fragments)
         # print(best_sorted_fragments)
         # quit()
-        k = 25
+        k = 15
         best_contigs = []
         for fragment in best_sorted_fragments:
             if len(fragment) <= k:

@@ -468,7 +468,8 @@ if __name__ == '__main__':
                 next_interval = best_result_fragments_intervals[interval_index+1]
                 if next_interval[0] - current_interval[1] <= 10:
                     template_gap_filling_intervals.append([current_interval[1],next_interval[0]])
-        print(template_gap_filling_intervals)
+        for template_gap_filling_interval in template_gap_filling_intervals:
+            print(template.sequence[template_gap_filling_interval[0]:template_gap_filling_interval[1]])
         quit()
         k = 25
         best_contigs = []

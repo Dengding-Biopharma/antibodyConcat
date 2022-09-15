@@ -98,8 +98,10 @@ def NormalizeData(data):
 if __name__ == '__main__':
     args = get_args()
     froot = args.froot
-    template_name = f'{froot}/best_templates.fasta'
+    # template_name = f'{froot}/best_templates.fasta'
+    template_name = f'BSA.fasta'
     annotation_name = f'templates/mAB_database.ann'
+
     contig_filepath = f'{froot}/{froot}_sorted.fasta'
     settingFile = open(f'{froot}/setting.json', 'r')
     setting = json.load(settingFile)

@@ -494,90 +494,76 @@ if __name__ == '__main__':
         # print(best_result_fragments)
         # print(best_sorted_fragments)
         # quit()
-        # k = 25
-        # best_contigs = []
-        # for fragment in best_sorted_fragments:
-        #     if len(fragment) <= k:
-        #         head = fragment
-        #         tail = fragment
-        #     else:
-        #         head = fragment[:k]
-        #         tail = fragment[len(fragment) - k:]
-        #     with open(f'{froot}/head.fasta', 'w') as f:
-        #         f.write(f'>head\n{head}')
-        #     with open(f'{froot}/tail.fasta', 'w') as f:
-        #         f.write(f'>tail\n{tail}')
-        #     head_out = f'{froot}/{froot}_head_best_contigs_refactor.m8'
-        #     tail_out = f'{froot}/{froot}_tail_best_contigs_refactor.m8'
-        #     head_query = f'{froot}/head.fasta'
-        #     tail_query = f'{froot}/tail.fasta'
-        #     os.system(f'prerapsearch -d {contig_filepath} -n {froot}/contigs')
-        #     os.system(f'rapsearch -q {head_query} -d {froot}/contigs -o {froot}/{froot}_head_best_contigs')
-        #     os.system(f'rapsearch -q {tail_query} -d {froot}/contigs -o {froot}/{froot}_tail_best_contigs')
-        #     os.system(f'python processRapsearchM8.py -input {froot}/{froot}_head_best_contigs.m8 -output {head_out}')
-        #     os.system(f'python processRapsearchM8.py -input {froot}/{froot}_tail_best_contigs.m8 -output {tail_out}')
-        #     try:
-        #         # if not template.ignore:
-        #         template.ignore = False
-        #         head_df = pd.read_csv(head_out, delimiter='\t', header=None)
-        #         head_df = head_df[head_df[2] >= 90]
-        #         candidate_head_contigs_id = list(head_df[1].values)
-        #         candidate_head_contigs = [contig_dic[x] for x in candidate_head_contigs_id]
-        #         # valueable_contigs.extend(candidate_head_contigs)
-        #         best_head_contig = None
-        #         best_head_contig_score = 0
-        #         for id in candidate_head_contigs_id:
-        #             head_contig = contig_dic[id]
-        #             score = findSupportReadScore(head_contig, sequences_scores)
-        #             if score > best_head_contig_score:
-        #                 best_head_contig = head_contig
-        #                 best_head_contig_score = score
-        #         if best_head_contig not in best_contigs:
-        #             best_contigs.append(best_head_contig)
-        #         if best_head_contig not in template.best_fragments:
-        #             template.best_fragments.append(best_head_contig)
-        #         if fragment not in template.best_fragments:
-        #             template.best_fragments.append(fragment)
-        #         # else:
-        #         #     template.best_fragments.append(fragment)
-        #     except Exception as e:
-        #         print(e)
-        #         quit()
-        #
-        #     try:
-        #         tail_df = pd.read_csv(tail_out, delimiter='\t', header=None)
-        #         tail_df = tail_df[tail_df[2] >= 90]
-        #         candidate_tail_contigs_id = list(tail_df[1].values)
-        #         candidate_tail_contigs = [contig_dic[x] for x in candidate_tail_contigs_id]
-        #         # valueable_contigs.extend(candidate_tail_contigs)
-        #         best_tail_contig = None
-        #         best_tail_contig_score = 0
-        #         for id in candidate_tail_contigs_id:
-        #             tail_contig = contig_dic[id]
-        #             score = findSupportReadScore(tail_contig, sequences_scores)
-        #             if score > best_tail_contig_score:
-        #                 best_tail_contig = tail_contig
-        #                 best_tail_contig_score = score
-        #         if best_tail_contig not in best_contigs:
-        #             best_contigs.append(best_tail_contig)
-        #         if fragment not in template.best_fragments:
-        #             template.best_fragments.append(fragment)
-        #         if best_tail_contig not in template.best_fragments:
-        #             template.best_fragments.append(best_tail_contig)
-        #         # hook = best_tail_contig[len(best_tail_contig) - 3:]
-        #         # print(best_tail_contig,hook)
-        #         # hook_out = f'{froot}/hook_refactor.m8'
-        #         # with open(f'{froot}/hook.fasta', 'w') as f:
-        #         #     f.write(f'>tail_hook\n{hook}')
-        #         # os.system(f'rapsearch -q {froot}/hook.fasta -d {froot}/contigs -o {froot}/{froot}_hook')
-        #         # os.system(
-        #         #     f'python processRapsearchM8.py -input {froot}/{froot}_hook.m8 -output {hook_out}')
-        #         # hook_df = pd.read_csv(hook_out, delimiter='\t', header=None)
-        #         #
-        #         # print(hook_df)
-        #     except Exception as e:
-        #         print(e)
-        #         quit()
+        k = 25
+        best_contigs = []
+        for fragment in best_sorted_fragments:
+            if len(fragment) <= k:
+                head = fragment
+                tail = fragment
+            else:
+                head = fragment[:k]
+                tail = fragment[len(fragment) - k:]
+            with open(f'{froot}/head.fasta', 'w') as f:
+                f.write(f'>head\n{head}')
+            with open(f'{froot}/tail.fasta', 'w') as f:
+                f.write(f'>tail\n{tail}')
+            head_out = f'{froot}/{froot}_head_best_contigs_refactor.m8'
+            tail_out = f'{froot}/{froot}_tail_best_contigs_refactor.m8'
+            head_query = f'{froot}/head.fasta'
+            tail_query = f'{froot}/tail.fasta'
+            os.system(f'prerapsearch -d {contig_filepath} -n {froot}/contigs')
+            os.system(f'rapsearch -q {head_query} -d {froot}/contigs -o {froot}/{froot}_head_best_contigs')
+            os.system(f'rapsearch -q {tail_query} -d {froot}/contigs -o {froot}/{froot}_tail_best_contigs')
+            os.system(f'python processRapsearchM8.py -input {froot}/{froot}_head_best_contigs.m8 -output {head_out}')
+            os.system(f'python processRapsearchM8.py -input {froot}/{froot}_tail_best_contigs.m8 -output {tail_out}')
+            try:
+                # if not template.ignore:
+                template.ignore = False
+                head_df = pd.read_csv(head_out, delimiter='\t', header=None)
+                head_df = head_df[head_df[2] >= 90]
+                candidate_head_contigs_id = list(head_df[1].values)
+                candidate_head_contigs = [contig_dic[x] for x in candidate_head_contigs_id]
+                best_head_contig = None
+                best_head_contig_score = 0
+                for id in candidate_head_contigs_id:
+                    head_contig = contig_dic[id]
+                    score = findSupportReadScore(head_contig, sequences_scores)
+                    if score > best_head_contig_score:
+                        best_head_contig = head_contig
+                        best_head_contig_score = score
+                if best_head_contig not in best_contigs:
+                    best_contigs.append(best_head_contig)
+                if best_head_contig not in template.best_fragments:
+                    template.best_fragments.append(best_head_contig)
+                if fragment not in template.best_fragments:
+                    template.best_fragments.append(fragment)
+            except Exception as e:
+                print(e)
+                quit()
+
+            try:
+                tail_df = pd.read_csv(tail_out, delimiter='\t', header=None)
+                tail_df = tail_df[tail_df[2] >= 90]
+                candidate_tail_contigs_id = list(tail_df[1].values)
+                candidate_tail_contigs = [contig_dic[x] for x in candidate_tail_contigs_id]
+                # valueable_contigs.extend(candidate_tail_contigs)
+                best_tail_contig = None
+                best_tail_contig_score = 0
+                for id in candidate_tail_contigs_id:
+                    tail_contig = contig_dic[id]
+                    score = findSupportReadScore(tail_contig, sequences_scores)
+                    if score > best_tail_contig_score:
+                        best_tail_contig = tail_contig
+                        best_tail_contig_score = score
+                if best_tail_contig not in best_contigs:
+                    best_contigs.append(best_tail_contig)
+                if fragment not in template.best_fragments:
+                    template.best_fragments.append(fragment)
+                if best_tail_contig not in template.best_fragments:
+                    template.best_fragments.append(best_tail_contig)
+            except Exception as e:
+                print(e)
+                quit()
 
         # best_result_coverage_list = []
         # is_continue = False
@@ -595,20 +581,20 @@ if __name__ == '__main__':
         # print(best_result_coverage_list)
         # print(template.id)
         # print(template.best_fragments)
-        # if len(template.best_fragments) > 1:
-        #     showed_fragments = []
-        #     copy_fragments = copy.deepcopy(template.best_fragments)
-        #     for fragment in copy_fragments:
-        #         substring = False
-        #         for item in template.best_fragments:
-        #             if fragment == item:
-        #                 continue
-        #             else:
-        #                 if fragment in item:
-        #                     substring = True
-        #         if not substring:
-        #             showed_fragments.append(fragment)
-        #     template.best_fragments = showed_fragments
+        if len(template.best_fragments) > 1:
+            showed_fragments = []
+            copy_fragments = copy.deepcopy(template.best_fragments)
+            for fragment in copy_fragments:
+                substring = False
+                for item in template.best_fragments:
+                    if fragment == item:
+                        continue
+                    else:
+                        if fragment in item:
+                            substring = True
+                if not substring:
+                    showed_fragments.append(fragment)
+            template.best_fragments = showed_fragments
         # print(template.best_fragments)
 
         step = 250

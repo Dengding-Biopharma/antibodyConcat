@@ -40,7 +40,7 @@ Generate a template coverage visible report (html format).
 ## VI_concatenateBestFragments.py
 Concatenate the best fragments for different chain (heavy,light) separately.
 
-eg. python VI_concatenateBestFragments.py -froot avastin_5-10mer_0.8_2 -source avastin -chain light
+    eg. python VI_concatenateBestFragments.py -froot avastin_5-10mer_0.8_2 -source avastin -chain light
 
 ## requirements
     requirements.txt

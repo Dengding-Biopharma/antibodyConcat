@@ -49,7 +49,7 @@ if __name__ == '__main__':
 
 
 
-    # sequences = list(Counter(sequences).keys())
+    sequences = list(Counter(sequences).keys())
     more = setting['more']
     if more == 1:
         sequences = read_reads(f'{froot}/input_reads.fasta')

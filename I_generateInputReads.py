@@ -38,6 +38,28 @@ if __name__ == '__main__':
         os.mkdir(froot)
         with open(f'{froot}/setting.json', 'w') as fw:
             json.dump(setting, fw, indent=4)
+        sequences = []
+        f = open(f'{froot}/setting.json')
+        setting = json.load(f)
+        score_cut = setting['score_cut']
+        k_lowerlimit = setting['k_lowerlimit']
+        k_upperlimit = setting['k_upperlimit']
+        threshold = setting['threshold']
+        source = setting['source']
+        for root, dir, files in os.walk(source):
+            root = root + '/'
+            for file in files:
+                filename = root + file
+                data = pd.read_csv(filename, delimiter='\t')
+                temp = data[data['Score'] >= score_cut]
+                temp = temp[-50 <= temp['PPM Difference']]
+                temp = temp[temp['PPM Difference'] <= 50]
+                sequences.extend(temp['DENOVO'].values)
+
+        sequences = list(Counter(sequences).keys())
+        with open(f'{froot}/input_reads.fasta', 'w') as fw:
+            for i in range(len(sequences)):
+                fw.write(f'>input_read{i}\n{sequences[i]}\n')
         quit()
     input_reads = []
     unused_reads =[]

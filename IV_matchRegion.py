@@ -144,7 +144,11 @@ if __name__ == '__main__':
                     with open(template_name,'w') as f:
                         f.write(f'>{region_sequence_key}\n{region_sequence}')
                     os.system(f'prerapsearch -d {template_name} -n {froot}/temp-db')
-                    os.system(f'rapsearch -q {froot}/{froot}_sorted.fasta -d {froot}/temp-db -o {froot}/region_rapsearch_outputs -z 6')
+                    ## contig matching
+                    # os.system(f'rapsearch -q {froot}/{froot}_sorted.fasta -d {froot}/temp-db -o {froot}/region_rapsearch_outputs -z 6')
+                    ## denovo matching
+                    os.system(
+                        f'rapsearch -q {froot}/input_reads.fasta -d {froot}/temp-db -o {froot}/region_rapsearch_outputs -z 6')
                     os.system(
                         f'python processRapsearchM8.py -input {froot}/region_rapsearch_outputs.m8 -output {froot}/region_rapsearch_outputs_refactor.m8')
                     try:

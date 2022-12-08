@@ -529,15 +529,12 @@ if __name__ == '__main__':
                 for id in candidate_head_contigs_id:
                     head_contig = contig_dic[id]
                     score = findSupportReadScore(head_contig, sequences_scores)
-                    print('current head score: ',score)
-                    print('current best head score: ',best_head_contig_score)
-                    print('current best head: ',best_head_contig)
                     if score > best_head_contig_score:
                         best_head_contig = head_contig
                         best_head_contig_score = score
                 if best_head_contig not in best_contigs:
                     best_contigs.append(best_head_contig)
-                if best_head_contig not in template.best_fragments:
+                if best_head_contig not in template.best_fragments and best_head_contig is not None:
                     template.best_fragments.append(best_head_contig)
                 if fragment not in template.best_fragments:
                     template.best_fragments.append(fragment)
@@ -558,9 +555,6 @@ if __name__ == '__main__':
                 for id in candidate_tail_contigs_id:
                     tail_contig = contig_dic[id]
                     score = findSupportReadScore(tail_contig, sequences_scores)
-                    print('current tail score: ',score)
-                    print('current best tail score: ',best_tail_contig_score)
-                    print('current best tail: ',best_tail_contig)
                     if score > best_tail_contig_score:
                         best_tail_contig = tail_contig
                         best_tail_contig_score = score
@@ -568,7 +562,7 @@ if __name__ == '__main__':
                     best_contigs.append(best_tail_contig)
                 if fragment not in template.best_fragments:
                     template.best_fragments.append(fragment)
-                if best_tail_contig not in template.best_fragments:
+                if best_tail_contig not in template.best_fragments and best_tail_contig is not None:
                     template.best_fragments.append(best_tail_contig)
                 # hook = best_tail_contig[len(best_tail_contig) - 3:]
                 # print(best_tail_contig,hook)

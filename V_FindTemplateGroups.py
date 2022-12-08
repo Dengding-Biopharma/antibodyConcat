@@ -595,8 +595,6 @@ if __name__ == '__main__':
         # print(best_result_coverage_list)
         # print(template.id)
         # print(template.best_fragments)
-        print(template.best_fragments)
-        quit()
         if len(template.best_fragments) > 1:
             showed_fragments = []
             copy_fragments = copy.deepcopy(template.best_fragments)

@@ -555,8 +555,8 @@ if __name__ == '__main__':
                 for id in candidate_tail_contigs_id:
                     tail_contig = contig_dic[id]
                     score = findSupportReadScore(tail_contig, sequences_scores)
-                    print(score)
-                    print(best_tail_contig_score)
+                    print('current score: ',score)
+                    print('current best score: ',best_tail_contig_score)
                     if score > best_tail_contig_score:
                         best_tail_contig = tail_contig
                         best_tail_contig_score = score

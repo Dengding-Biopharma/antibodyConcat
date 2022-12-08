@@ -713,9 +713,7 @@ if __name__ == '__main__':
     heavy = ['','']
 
     for Template in Templates:
-        print(Template.id)
-
-        if 'Light' in Template.id:
+        if 'light' or 'Light' in Template.id:
             if Template.type == 'nc':
                 light[0] = Template
             else:
@@ -725,9 +723,7 @@ if __name__ == '__main__':
                 heavy[0] = Template
             else:
                 heavy[1] = Template
-    print(light)
-    print(heavy)
-    quit()
+
     temp = []
     with open(f'{froot}/{args.source}_best_light_fragments.fasta', 'w') as f:
         for template in light:

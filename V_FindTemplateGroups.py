@@ -713,6 +713,7 @@ if __name__ == '__main__':
     heavy = ['','']
 
     for Template in Templates:
+        print(Template.id)
 
         if 'Light' in Template.id:
             if Template.type == 'nc':

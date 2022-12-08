@@ -158,8 +158,8 @@ if __name__ == '__main__':
                     sub_df = df[df[1] == region_sequence_key]
                 except:
                     continue
-                dfList = df.values
-                print(df)
+                dfList = sub_df.values
+                print(dfList)
                 quit()
                 sequence_template_id_pair_dic = {}
                 for item in dfList:

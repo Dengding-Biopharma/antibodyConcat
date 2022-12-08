@@ -159,8 +159,6 @@ if __name__ == '__main__':
                 except:
                     continue
                 dfList = sub_df.values
-                print(dfList)
-                quit()
                 sequence_template_id_pair_dic = {}
                 for item in dfList:
                     template_id = item[:2][1]

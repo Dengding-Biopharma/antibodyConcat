@@ -529,6 +529,9 @@ if __name__ == '__main__':
                 for id in candidate_head_contigs_id:
                     head_contig = contig_dic[id]
                     score = findSupportReadScore(head_contig, sequences_scores)
+                    print('current head score: ',score)
+                    print('current best head score: ',best_head_contig_score)
+                    print('current best head: ',best_head_contig)
                     if score > best_head_contig_score:
                         best_head_contig = head_contig
                         best_head_contig_score = score
@@ -555,8 +558,8 @@ if __name__ == '__main__':
                 for id in candidate_tail_contigs_id:
                     tail_contig = contig_dic[id]
                     score = findSupportReadScore(tail_contig, sequences_scores)
-                    print('current score: ',score)
-                    print('current best score: ',best_tail_contig_score)
+                    print('current tail score: ',score)
+                    print('current best tail score: ',best_tail_contig_score)
                     print('current best tail: ',best_tail_contig)
                     if score > best_tail_contig_score:
                         best_tail_contig = tail_contig

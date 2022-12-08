@@ -138,8 +138,6 @@ if __name__ == '__main__':
             with open(template_name,'w') as f:
                 for index in trange(len(keys)):
                     region_sequence_key = keys[index]
-                    print(region_sequence_key)
-                    quit()
                     region_sequence = region_sequence_dic[region_sequence_key]
                     f.write(f'>{region_sequence_key}\n{region_sequence}')
             os.system(f'prerapsearch -d {template_name} -n {froot}/temp-db')
@@ -156,6 +154,9 @@ if __name__ == '__main__':
                 continue
             df = df[df[2] >= 80]
             df = df.reset_index(drop=True)
+            df = df[df[1] == 'sp|31495|Heavy|Homo_sapiens']
+            print(df)
+            quit()
             dfList = df.values
             sequence_template_id_pair_dic = {}
             for item in dfList:

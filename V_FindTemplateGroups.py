@@ -714,16 +714,18 @@ if __name__ == '__main__':
 
     for Template in Templates:
         if 'light' or 'Light' in Template.id:
-            print(Template.id)
             if Template.type == 'nc':
+                print(Template.id)
                 light[0] = Template
             else:
+                print(Template.id)
                 light[1] = Template
         else:
-            print(Template.id)
             if Template.type == 'nc':
+                print(Template.id)
                 heavy[0] = Template
             else:
+                print(Template.id)
                 heavy[1] = Template
 
     quit()

@@ -561,7 +561,6 @@ if __name__ == '__main__':
                     if score > best_tail_contig_score:
                         best_tail_contig = tail_contig
                         best_tail_contig_score = score
-                quit()
                 if best_tail_contig not in best_contigs:
                     best_contigs.append(best_tail_contig)
                 if fragment not in template.best_fragments:

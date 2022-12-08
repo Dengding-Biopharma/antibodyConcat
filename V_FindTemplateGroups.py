@@ -715,20 +715,15 @@ if __name__ == '__main__':
     for Template in Templates:
         if 'light' in Template.id or 'Light' in Template.id:
             if Template.type == 'nc':
-                print(Template.id)
                 light[0] = Template
             else:
-                print(Template.id)
                 light[1] = Template
         else:
             if Template.type == 'nc':
-                print(Template.id)
                 heavy[0] = Template
             else:
-                print(Template.id)
                 heavy[1] = Template
 
-    quit()
     temp = []
     with open(f'{froot}/{args.source}_best_light_fragments.fasta', 'w') as f:
         for template in light:

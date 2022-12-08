@@ -20,7 +20,7 @@ def getScore(edge_count_table, contig, k):
 def get_args():
     parser = argparse.ArgumentParser()
     # start
-    parser.add_argument('-froot', type=str)
+    parser.add_argument('-froot',required=True, type=str)
     args = parser.parse_args()
     return args
 

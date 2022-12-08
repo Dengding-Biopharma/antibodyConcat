@@ -174,6 +174,7 @@ if __name__ == '__main__':
                         try:
                             blank_sequence[i] = '1'
                         except:
+                            print(i)
                             print(len(blank_sequence))
                             print(sub_df)
                             quit()

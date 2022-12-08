@@ -138,6 +138,8 @@ if __name__ == '__main__':
             with open(template_name,'w') as f:
                 for index in trange(len(keys)):
                     region_sequence_key = keys[index]
+                    print(region_sequence_key)
+                    quit()
                     region_sequence = region_sequence_dic[region_sequence_key]
                     f.write(f'>{region_sequence_key}\n{region_sequence}')
             os.system(f'prerapsearch -d {template_name} -n {froot}/temp-db')
@@ -154,26 +156,24 @@ if __name__ == '__main__':
                 continue
             df = df[df[2] >= 80]
             df = df.reset_index(drop=True)
-            print(df)
-            quit()
-                    # dfList = df.values
-                    # sequence_template_id_pair_dic = {}
-                    # for item in dfList:
-                    #     template_id = item[:2][1]
-                    #     label = item[:2][0] + '+' + template_id
-                    #     value_list = list(item[2:])
-                    #     sequence_template_id_pair_dic[label] = value_list
-                    # blank_sequence = list('0'*len(region_sequence))
-                    # for label in sequence_template_id_pair_dic.keys():
-                    #     value = sequence_template_id_pair_dic[label]
-                    #     if value[5]-value[4] != (value[7]-value[6]):
-                    #         continue
-                    #     for i in range(value[6]-1,value[7]):
-                    #         blank_sequence[i] = '1'
-                    # coverage = blank_sequence.count('1')/len(blank_sequence)
-                    # region_sequence_coverage_dic[region_sequence_key] = coverage
-                    # if coverage > 0.97 or index == (len(keys) - 1):
-                    #     find = True
+            dfList = df.values
+            sequence_template_id_pair_dic = {}
+            for item in dfList:
+                template_id = item[:2][1]
+                label = item[:2][0] + '+' + template_id
+                value_list = list(item[2:])
+                sequence_template_id_pair_dic[label] = value_list
+            blank_sequence = list('0'*len(region_sequence))
+            for label in sequence_template_id_pair_dic.keys():
+                value = sequence_template_id_pair_dic[label]
+                if value[5]-value[4] != (value[7]-value[6]):
+                    continue
+                for i in range(value[6]-1,value[7]):
+                    blank_sequence[i] = '1'
+            coverage = blank_sequence.count('1')/len(blank_sequence)
+            region_sequence_coverage_dic[region_sequence_key] = coverage
+            if coverage > 0.97 or index == (len(keys) - 1):
+                find = True
             region_sequence_coverage_dic = dict(sorted(region_sequence_coverage_dic.items(), key=lambda item: item[1],reverse=True))
             best_template_id = list(region_sequence_coverage_dic.items())[0][0]
             best_coverage = list(region_sequence_coverage_dic.items())[0][1]

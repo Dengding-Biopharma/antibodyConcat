@@ -171,6 +171,9 @@ if __name__ == '__main__':
                     if value[5]-value[4] != (value[7]-value[6]):
                         continue
                     for i in range(value[6]-1,value[7]):
+                        print(blank_sequence)
+                        print(len(blank_sequence))
+                        print(i)
                         blank_sequence[i] = '1'
                 coverage = blank_sequence.count('1')/len(blank_sequence)
                 region_sequence_coverage_dic[region_sequence_key] = coverage

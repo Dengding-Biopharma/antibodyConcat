@@ -171,10 +171,13 @@ if __name__ == '__main__':
                     if value[5]-value[4] != (value[7]-value[6]):
                         continue
                     for i in range(value[6]-1,value[7]):
-                        print(blank_sequence)
-                        print(len(blank_sequence))
-                        print(i)
-                        blank_sequence[i] = '1'
+                        try:
+                            blank_sequence[i] = '1'
+                        except:
+                            print(len(blank_sequence))
+                            print(sub_df)
+                            quit()
+
                 coverage = blank_sequence.count('1')/len(blank_sequence)
                 region_sequence_coverage_dic[region_sequence_key] = coverage
             # if coverage > 0.97 or index == (len(keys) - 1):

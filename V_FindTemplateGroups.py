@@ -557,6 +557,7 @@ if __name__ == '__main__':
                     score = findSupportReadScore(tail_contig, sequences_scores)
                     print('current score: ',score)
                     print('current best score: ',best_tail_contig_score)
+                    print('current best tail: ',best_tail_contig)
                     if score > best_tail_contig_score:
                         best_tail_contig = tail_contig
                         best_tail_contig_score = score

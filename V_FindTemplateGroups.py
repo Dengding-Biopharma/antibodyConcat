@@ -668,7 +668,7 @@ if __name__ == '__main__':
                     type = 'none'
                     json_block['candidates_position_info'][f'line{str(counter)}'][str(i)] = {'letter':letter,'type':type}
             counter += 1
-        pprint(json_block)
+        print(json_block)
         quit()
         # for best_contig in best_contigs:
         #     print(12341234, best_contig)

@@ -237,7 +237,7 @@ if __name__ == '__main__':
             f.write('{}\n'.format(unused_reads[i]))
 
     Templates = []
-    json_file = open(f'{froot}/json_for_web.json','w')
+    json_file = open(f'{froot}/json_for_web.json', 'w')
     for template_id in template_contig_group.keys():
         type = 'nc' if 'NonConstant' in template_id else 'c'
         template = Template(template_id, template_dic[template_id].replace('I', 'L'), type)
@@ -458,7 +458,7 @@ if __name__ == '__main__':
                 best_result_fragments.append(fragment)
                 counting = False
                 end = i
-                best_result_fragments_intervals.append([start,end])
+                best_result_fragments_intervals.append([start, end])
             elif i == (len(best_result) - 1):
                 fragment += ''.join(c for c in best_result_position if c.isupper())
                 best_result_fragments.append(fragment)
@@ -470,9 +470,9 @@ if __name__ == '__main__':
         for interval_index in range(len(best_result_fragments_intervals)):
             if interval_index < len(best_result_fragments_intervals) - 1:
                 current_interval = best_result_fragments_intervals[interval_index]
-                next_interval = best_result_fragments_intervals[interval_index+1]
+                next_interval = best_result_fragments_intervals[interval_index + 1]
                 if next_interval[0] - current_interval[1] <= 10:
-                    template_gap_filling_intervals.append([current_interval[1],next_interval[0]])
+                    template_gap_filling_intervals.append([current_interval[1], next_interval[0]])
 
         best_sorted_fragments = []
         if len(best_result_fragments) > 1:
@@ -480,7 +480,7 @@ if __name__ == '__main__':
                 if fragment_index < len(best_result_fragments) - 1:
                     concat = False
                     current_fragment = best_result_fragments[fragment_index]
-                    next_fragment = best_result_fragments[fragment_index+1]
+                    next_fragment = best_result_fragments[fragment_index + 1]
                     current_interval = best_result_fragments_intervals[fragment_index]
                     next_interval = best_result_fragments_intervals[fragment_index + 1]
                     for interval in template_gap_filling_intervals:
@@ -626,8 +626,9 @@ if __name__ == '__main__':
 
             for interval in template_gap_filling_intervals:
                 template_fragment = template.sequence[interval[0]:interval[1]]
-                for position_index in range(interval[0],interval[1]):
-                    merged_result[0][position_index] = '<font color="black">{}</font>'.format(template_fragment[position_index-interval[0]])
+                for position_index in range(interval[0], interval[1]):
+                    merged_result[0][position_index] = '<font color="black">{}</font>'.format(
+                        template_fragment[position_index - interval[0]])
 
             for sequence in merged_result:
                 try:
@@ -668,11 +669,11 @@ if __name__ == '__main__':
                 assert check == True
                 json_block['candidates_position_info'][f'line{str(counter)}'][str(i)] = {'letter': letter, 'type': type}
             counter += 1
-        json.dump(json_block,json_file,indent=4)
+        json.dump(json_block, json_file, indent=4)
         json_file.write('\n')
         # for best_contig in best_contigs:
         #     print(12341234, best_contig)
-            # html += '<pre>' + best_contig + '</pre>'
+        # html += '<pre>' + best_contig + '</pre>'
         for best_fragment in template.best_fragments:
             # print(1111,best_fragment)
             html += '<pre>' + best_fragment + '</pre>'
@@ -741,8 +742,8 @@ if __name__ == '__main__':
     # outputs = sorted(outputs,key=lambda x:findSupportReadScore(x,sequences_scores),reverse=True)
     # for output in outputs:
     #     print(output)
-    light = ['','']
-    heavy = ['','']
+    light = ['', '']
+    heavy = ['', '']
 
     for Template in Templates:
         if 'light' in Template.id or 'Light' in Template.id:
@@ -762,14 +763,14 @@ if __name__ == '__main__':
             for fragment in template.best_fragments:
                 if fragment not in temp:
                     temp.append(fragment)
-                    f.write(f'>light_fragment_{findSupportReadScore(fragment,sequences_scores)}\n{fragment}\n')
+                    f.write(f'>light_fragment_{findSupportReadScore(fragment, sequences_scores)}\n{fragment}\n')
     temp = []
     with open(f'{froot}/{args.source}_best_heavy_fragments.fasta', 'w') as f:
         for template in heavy:
             for fragment in template.best_fragments:
                 if fragment not in temp:
                     temp.append(fragment)
-                    f.write(f'>heavy_fragment_{findSupportReadScore(fragment,sequences_scores)}\n{fragment}\n')
+                    f.write(f'>heavy_fragment_{findSupportReadScore(fragment, sequences_scores)}\n{fragment}\n')
     # for chain in light:
     #     inputs = chain.best_fragments
     #     print(inputs)

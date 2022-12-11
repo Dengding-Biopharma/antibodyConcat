@@ -436,6 +436,9 @@ if __name__ == '__main__':
                 if sequence[i] != ' ' and len(sequence[i]) == 1:
                     sequence[i] = '<font color="blue">{}</font>'.format(sequence[i])
 
+        for result_sequence in result_sequences:
+            print(result_sequence)
+        quit()
         merged_result = result_sequences
 
         best_result = merged_result[0]

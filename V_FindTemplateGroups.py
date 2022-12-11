@@ -654,19 +654,16 @@ if __name__ == '__main__':
                 if 'blue' in result_sequence[i]:
                     letter = [char for char in result_sequence[i] if char.isupper()][0]
                     type = 'contig'
-                    json_block['candidates_position_info'][f'line{str(counter)}'][str(i)] = {'letter':letter,'type':type}
                 if 'green' in result_sequence[i]:
                     letter = [char for char in result_sequence[i] if char.isupper()][0]
                     type = 'contig'
-                    json_block['candidates_position_info'][f'line{str(counter)}'][str(i)] = {'letter':letter,'type':type}
                 if 'black' in result_sequence[i]:
                     letter = [char for char in result_sequence[i] if char.isupper()][0]
                     type = 'contig'
-                    json_block['candidates_position_info'][f'line{str(counter)}'][str(i)] = {'letter':letter,'type':type}
                 if result_sequence[i] == ' ':
                     letter = ' '
                     type = 'none'
-                    json_block['candidates_position_info'][f'line{str(counter)}'][str(i)] = {'letter':letter,'type':type}
+            json_block['candidates_position_info'][f'line{str(counter)}'][str(i)] = {'letter': letter, 'type': type}
             counter += 1
         print(json_block)
         quit()

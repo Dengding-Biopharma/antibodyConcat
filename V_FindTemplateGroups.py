@@ -656,11 +656,11 @@ if __name__ == '__main__':
                     check = True
                 if 'green' in result_sequence[i]:
                     letter = [char for char in result_sequence[i] if char.isupper()][0]
-                    type = 'contig'
+                    type = 'denovo'
                     check = True
                 if 'black' in result_sequence[i]:
                     letter = [char for char in result_sequence[i] if char.isupper()][0]
-                    type = 'contig'
+                    type = 'copy from template'
                     check = True
                 if result_sequence[i] == ' ':
                     letter = ' '

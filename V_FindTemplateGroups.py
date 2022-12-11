@@ -660,7 +660,7 @@ if __name__ == '__main__':
                 if result_sequence[i] == ' ':
                     letter = ' '
                     type = 'none'
-            json_block['candidates_position_info'][f'line{str(counter)}'][str(i)] = {'letter': letter, 'type': type}
+                json_block['candidates_position_info'][f'line{str(counter)}'][str(i)] = {'letter': letter, 'type': type}
             counter += 1
         print(json_block)
         quit()

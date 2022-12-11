@@ -237,6 +237,7 @@ if __name__ == '__main__':
             f.write('{}\n'.format(unused_reads[i]))
 
     Templates = []
+    json_file = open(f'{froot}/json_for_web.json','w')
     for template_id in template_contig_group.keys():
         type = 'nc' if 'NonConstant' in template_id else 'c'
         template = Template(template_id, template_dic[template_id].replace('I', 'L'), type)
@@ -435,10 +436,7 @@ if __name__ == '__main__':
             for i in range(len(sequence)):
                 if sequence[i] != ' ' and len(sequence[i]) == 1:
                     sequence[i] = '<font color="blue">{}</font>'.format(sequence[i])
-        print(template.sequence)
-        for result_sequence in result_sequences:
-            print(result_sequence)
-        quit()
+
         merged_result = result_sequences
 
         best_result = merged_result[0]
@@ -614,7 +612,7 @@ if __name__ == '__main__':
             template.best_fragments = showed_fragments
         # print(template.best_fragments)
 
-
+        print(template.sequence)
         step = 250
         html += '*' * 100 + 'Merged Result' + '*' * 100 + '<br>'
         html += 'Template ID: {}<br>'.format(template.id)
@@ -640,7 +638,36 @@ if __name__ == '__main__':
                 if not any(c.isalpha() for c in sub_sequence):
                     continue
                 html += '<pre>' + sub_sequence + '</pre>'
+
+            for sequence in merged_result:
+                print(sequence)
             html += '<br>'
+            
+
+        quit()
+        json_block = dict()
+        json_block['template sequence'] = template.sequence
+        json_block['candidates_position_info'] = {}
+        print(template.sequence)
+        counter = 0
+        for result_sequence in result_sequences:
+            json_block['candidates_position_info'][f'line{str(counter)}'] = {}
+            for i in range(len(result_sequence)):
+                if 'blue' in result_sequence[i]:
+                    letter = [char for char in result_sequence[i] if char.isupper()][0]
+                    type = 'contig'
+                    json_block['candidates_position_info'][f'line{str(counter)}'][str(i)] = {'letter':letter,'type':type}
+                if 'blue' in result_sequence[i]:
+                    letter = [char for char in result_sequence[i] if char.isupper()][0]
+                    type = 'contig'
+                    json_block['candidates_position_info'][f'line{str(counter)}'][str(i)] = {'letter':letter,'type':type}
+                if 'blue' in result_sequence[i]:
+                    letter = [char for char in result_sequence[i] if char.isupper()][0]
+                    type = 'contig'
+                    json_block['candidates_position_info'][f'line{str(counter)}'][str(i)] = {'letter':letter,'type':type}
+
+            counter += 1
+        quit()
         # for best_contig in best_contigs:
         #     print(12341234, best_contig)
             # html += '<pre>' + best_contig + '</pre>'

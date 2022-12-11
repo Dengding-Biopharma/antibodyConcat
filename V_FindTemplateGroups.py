@@ -662,8 +662,8 @@ if __name__ == '__main__':
                     type = 'none'
                 json_block['candidates_position_info'][f'line{str(counter)}'][str(i)] = {'letter': letter, 'type': type}
             counter += 1
-        print(json_block)
-        quit()
+        json.dump(json_block,json_file,indent=4)
+        json_file.write('\n')
         # for best_contig in best_contigs:
         #     print(12341234, best_contig)
             # html += '<pre>' + best_contig + '</pre>'
@@ -788,3 +788,4 @@ if __name__ == '__main__':
     htmlFile.close()
     outFile.write(message)
     outFile.close()
+    json_file.close()

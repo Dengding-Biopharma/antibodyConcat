@@ -643,7 +643,7 @@ if __name__ == '__main__':
         json_block = dict()
         json_block['template sequence'] = template.sequence
         json_block['candidates_position_info'] = {}
-        print(template.sequence)
+
         counter = 0
         for result_sequence in merged_result:
             json_block['candidates_position_info'][f'line{str(counter)}'] = {}

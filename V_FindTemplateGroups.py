@@ -638,9 +638,6 @@ if __name__ == '__main__':
                 if not any(c.isalpha() for c in sub_sequence):
                     continue
                 html += '<pre>' + sub_sequence + '</pre>'
-
-            for sequence in merged_result:
-                print(sequence)
             html += '<br>'
 
         json_block = dict()

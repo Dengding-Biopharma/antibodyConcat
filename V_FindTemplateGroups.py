@@ -648,18 +648,24 @@ if __name__ == '__main__':
         for result_sequence in merged_result:
             json_block['candidates_position_info'][f'line{str(counter)}'] = {}
             for i in range(len(result_sequence)):
+                check = False
                 if 'blue' in result_sequence[i]:
                     letter = [char for char in result_sequence[i] if char.isupper()][0]
                     type = 'contig'
+                    check = True
                 if 'green' in result_sequence[i]:
                     letter = [char for char in result_sequence[i] if char.isupper()][0]
                     type = 'contig'
+                    check = True
                 if 'black' in result_sequence[i]:
                     letter = [char for char in result_sequence[i] if char.isupper()][0]
                     type = 'contig'
+                    check = True
                 if result_sequence[i] == ' ':
                     letter = ' '
                     type = 'none'
+                    check = True
+                assert check == True
                 json_block['candidates_position_info'][f'line{str(counter)}'][str(i)] = {'letter': letter, 'type': type}
             counter += 1
         json.dump(json_block,json_file,indent=4)

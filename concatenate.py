@@ -15,7 +15,6 @@ def get_args():
     parser = argparse.ArgumentParser()
     # start
     parser.add_argument('-froot', type=str, required=True)
-    parser.add_argument('-source', type=str, required=True)
     parser.add_argument('-chain', type=str, required=True)
     args = parser.parse_args()
     return args
@@ -36,7 +35,8 @@ if __name__ == '__main__':
     print(setting)
     filePath = setting['source']
     score_cut = setting['score_cut']
-    best_fragments = read_fasta(f'{froot}/{args.source}_best_{args.chain}_fragments.fasta')
+    source = setting['source']
+    best_fragments = read_fasta(f'{froot}/{source}_best_{args.chain}_fragments.fasta')
     sequences_scores = dict()
     for root, dir, files in os.walk(filePath):
         root = root + '/'

@@ -33,7 +33,7 @@ if __name__ == '__main__':
     froot = f'{args.source}_{k_lowerlimit}-{k_upperlimit}mer_{score_cut}_{threshold}'
     read_path = f'{source}/{source}'
     setting = {'score_cut': score_cut, 'threshold': threshold, 'k_lowerlimit': k_lowerlimit,
-               'k_upperlimit': k_upperlimit,'source':read_path,'more':more}
+               'k_upperlimit': k_upperlimit,'source_path':read_path,'more':more,'froot':froot,'source':source}
     if not more:
         os.mkdir(froot)
         with open(f'{froot}/setting.json', 'w') as fw:

@@ -6,12 +6,12 @@ def get_args():
     parser = argparse.ArgumentParser()
     # start
     parser.add_argument('-source', type=str, required=True)
-    parser.add_argument('-score', type=float, required=True,default=0.8)
-    parser.add_argument('-t', type=int, required=True,default=2)
-    parser.add_argument('-kl', type=int, required=True,default=5)
-    parser.add_argument('-ku', type=int, required=True,default=8)
-    parser.add_argument('-more', type=int, required=True,default=0)
-    parser.add_argument('-template',type=str,required=True,default='homo')
+    parser.add_argument('-score', type=float,default=0.8)
+    parser.add_argument('-t', type=int,default=2)
+    parser.add_argument('-kl', type=int,default=5)
+    parser.add_argument('-ku', type=int,default=8)
+    parser.add_argument('-more', type=int, default=0)
+    parser.add_argument('-template',type=str,default='homo')
     args = parser.parse_args()
     return args
 

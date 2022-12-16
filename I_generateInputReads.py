@@ -17,7 +17,8 @@ def get_args():
     parser.add_argument('-kl', type=int, required=True)
     parser.add_argument('-ku', type=int, required=True)
     parser.add_argument('-more', type=int, required=True)
-
+    parser.add_argument('-predfull_path',type=str)
+    parser.add_argument('-msSlash_path',type=str)
     args = parser.parse_args()
     return args
 
@@ -102,7 +103,7 @@ if __name__ == '__main__':
     df.to_csv(f'{froot}/unused_reads.tsv', sep='\t')
 
     os.system(
-        f'python PredFull/predfull.py --input {froot}/unused_reads.tsv --model PredFull/pm.h5 --output {froot}/unused_reads_prediction.mgf'
+        f'python {args.predfull_path} --input {froot}/unused_reads.tsv --model PredFull/pm.h5 --output {froot}/unused_reads_prediction.mgf'
     )
     try:
         os.system(f'touch {froot}/empty.mgf')
@@ -111,8 +112,11 @@ if __name__ == '__main__':
     df = pd.DataFrame()
     for spectrum_filename in os.listdir(spectrum_path):
         spectrum_file = f'{spectrum_path}/{spectrum_filename}'
+        # os.system(
+        #     f'./msSLASH/bin/bruteforce  -e {spectrum_file} -l {froot}/unused_reads_prediction.mgf -d {froot}/empty.mgf -o {froot}/msSLASHresult_{spectrum_filename}.tsv'
+        # )
         os.system(
-            f'./msSLASH/bin/bruteforce  -e {spectrum_file} -l {froot}/unused_reads_prediction.mgf -d {froot}/empty.mgf -o {froot}/msSLASHresult_{spectrum_filename}.tsv'
+            f'./{args.msSlash_path}  -e {spectrum_file} -l {froot}/unused_reads_prediction.mgf -d {froot}/empty.mgf -o {froot}/msSLASHresult_{spectrum_filename}.tsv'
         )
         slashResult = pd.read_csv(f'{froot}/msSLASHresult_{spectrum_filename}.tsv',sep='\t')
         slashResult['DENOVO'] = np.nan

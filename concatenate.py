@@ -160,9 +160,9 @@ if __name__ == '__main__':
             else:
                 print('finish!')
                 break
-    print('##########################final result#########################')
-    for base in bases:
-        print('fragment: ',base)
+    with open(f'{froot}/result_{args.chain}.txt') as f:
+        for base in bases:
+            f.write(f'fragment: {base}\n')
 
 
 

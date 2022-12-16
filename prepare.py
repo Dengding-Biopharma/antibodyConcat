@@ -34,3 +34,5 @@ if __name__ == '__main__':
     os.system(f'python III_sortOutputs.py -froot {froot}')
     os.system(f'python IV_matchRegion.py -froot {froot} -template {args.template} -rapsearch_path {rapsearch_path} -prerapsearch_path {prerapsearch_path}')
     os.system(f'python V_FindTemplateGroups.py -froot {froot} -source {args.source} -rapsearch_path {rapsearch_path} -prerapsearch_path {prerapsearch_path}')
+    os.system(f'python concatenate.py -froot {froot} -chain light -rapsearch_path {rapsearch_path} -prerapsearch_path {prerapsearch_path}')
+    os.system(f'python concatenate.py -froot {froot} -chain heavy -rapsearch_path {rapsearch_path} -prerapsearch_path {prerapsearch_path}')

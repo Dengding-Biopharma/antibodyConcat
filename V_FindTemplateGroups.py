@@ -87,8 +87,8 @@ def get_args():
     # start
     parser.add_argument('-froot', type=str, required=True)
     parser.add_argument('-source', type=str, required=True)
-    parser.add_argument('-rapsearch_path',type=str,required=True)
-    parser.add_argument('-prerapsearch_path', type=str, required=True)
+    # parser.add_argument('-rapsearch_path',type=str,required=True)
+    # parser.add_argument('-prerapsearch_path', type=str, required=True)
     args = parser.parse_args()
     return args
 
@@ -138,8 +138,8 @@ if __name__ == '__main__':
     DF.reset_index(inplace=True, drop=True)
     unused_reads.reset_index(inplace=True, drop=True)
 
-    os.system(f'{args.prerapsearch_path} -d {template_name} -n templates/temp-db')
-    os.system(f'{args.rapsearch_path} -q {froot}/{froot}_sorted.fasta -d templates/temp-db -o {froot}/rapsearch_outputs -z 6')
+    os.system(f'prerapsearch -d {template_name} -n templates/temp-db')
+    os.system(f'rapsearch -q {froot}/{froot}_sorted.fasta -d templates/temp-db -o {froot}/rapsearch_outputs -z 6')
     os.system(
         f'python processRapsearchM8.py -input {froot}/rapsearch_outputs.m8 -output {froot}/rapsearch_outputs_refactor.m8')
     df = pd.read_csv(f'{froot}/rapsearch_outputs_refactor.m8', delimiter='\t', header=None)
@@ -372,8 +372,8 @@ if __name__ == '__main__':
 
         out = f'{froot}/{froot}_unusedReadsBlastTemplate_refactor.m8'
         query = f'{froot}/unusedReads.fasta'
-        os.system(f'{args.prerapsearch_path} -d {froot}/temp.fasta -n {froot}/temp')
-        os.system(f'{args.rapsearch_path} -q {query} -d {froot}/temp -o {froot}/{froot}_unusedReadsBlastTemplate')
+        os.system(f'prerapsearch -d {froot}/temp.fasta -n {froot}/temp')
+        os.system(f'rapsearch -q {query} -d {froot}/temp -o {froot}/{froot}_unusedReadsBlastTemplate')
         os.system(f'python processRapsearchM8.py -input {froot}/{froot}_unusedReadsBlastTemplate.m8 -output {out}')
 
         unusedReadsTemplateResults = pd.read_csv(out, delimiter='\t', header=None)
@@ -514,9 +514,9 @@ if __name__ == '__main__':
             tail_out = f'{froot}/{froot}_tail_best_contigs_refactor.m8'
             head_query = f'{froot}/head.fasta'
             tail_query = f'{froot}/tail.fasta'
-            os.system(f'{args.prerapsearch_path} -d {contig_filepath} -n {froot}/contigs')
-            os.system(f'{args.rapsearch_path} -q {head_query} -d {froot}/contigs -o {froot}/{froot}_head_best_contigs')
-            os.system(f'{args.rapsearch_path} -q {tail_query} -d {froot}/contigs -o {froot}/{froot}_tail_best_contigs')
+            os.system(f'prerapsearch -d {contig_filepath} -n {froot}/contigs')
+            os.system(f'rapsearch -q {head_query} -d {froot}/contigs -o {froot}/{froot}_head_best_contigs')
+            os.system(f'rapsearch -q {tail_query} -d {froot}/contigs -o {froot}/{froot}_tail_best_contigs')
             os.system(f'python processRapsearchM8.py -input {froot}/{froot}_head_best_contigs.m8 -output {head_out}')
             os.system(f'python processRapsearchM8.py -input {froot}/{froot}_tail_best_contigs.m8 -output {tail_out}')
             try:

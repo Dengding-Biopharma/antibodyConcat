@@ -13,8 +13,8 @@ def get_args():
     parser.add_argument('-more', type=int, default=0)
     parser.add_argument('-template',type=str,default='homo')
     parser.add_argument('-predfull_path',type=str,required=True)
-    parser.add_argument('-rapsearch_path',type=str,required=True)
-    parser.add_argument('-prerapsearch_path', type=str, required=True)
+    # parser.add_argument('-rapsearch_path',type=str,required=True)
+    # parser.add_argument('-prerapsearch_path', type=str, required=True)
     parser.add_argument('-msslash_path',type=str,required=True)
     args = parser.parse_args()
     return args
@@ -25,8 +25,8 @@ def get_args():
 if __name__ == '__main__':
     args = get_args()
     predfull_path = args.predfull_path
-    rapsearch_path = args.rapsearch_path
-    prerapsearch_path = args.prerapsearch_path
+    # rapsearch_path = args.rapsearch_path
+    # prerapsearch_path = args.prerapsearch_path
     msslash_path = args.msslash_path
     froot = f'{args.source}_{args.kl}-{args.ku}mer_{args.score}_{args.t}'
     os.system(f'python I_generateInputReads.py -source {args.source} -score {args.score} -t {args.t} -kl {args.kl} -ku {args.ku} -more {args.more} -predfull_path {predfull_path} -msSlash_path {msslash_path}')

@@ -91,8 +91,8 @@ def get_args():
     # start
     parser.add_argument('-froot', type=str,required=True)
     parser.add_argument('-template', type=str,required=True)
-    parser.add_argument('-rapsearch_path',type=str,required=True)
-    parser.add_argument('-prerapsearch_path', type=str, required=True)
+    # parser.add_argument('-rapsearch_path',type=str,required=True)
+    # parser.add_argument('-prerapsearch_path', type=str, required=True)
     args = parser.parse_args()
     return args
 
@@ -142,12 +142,12 @@ if __name__ == '__main__':
                     region_sequence_key = keys[index]
                     region_sequence = region_sequence_dic[region_sequence_key]
                     f.write(f'>{region_sequence_key}\n{region_sequence}')
-            os.system(f'{args.prerapsearch_path} -d {template_name} -n {froot}/temp-db')
+            os.system(f'prerapsearch -d {template_name} -n {froot}/temp-db')
             ## contig matching
             # os.system(f'rapsearch -q {froot}/{froot}_sorted.fasta -d {froot}/temp-db -o {froot}/region_rapsearch_outputs -z 6')
             ## denovo matching
             os.system(
-                f'{args.rapsearch_path} -q {froot}/input_reads.fasta -d {froot}/temp-db -o {froot}/region_rapsearch_outputs -z 6')
+                f'rapsearch -q {froot}/input_reads.fasta -d {froot}/temp-db -o {froot}/region_rapsearch_outputs -z 6')
             os.system(
                 f'python processRapsearchM8.py -input {froot}/region_rapsearch_outputs.m8 -output {froot}/region_rapsearch_outputs_refactor.m8')
 

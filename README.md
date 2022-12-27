@@ -1,6 +1,18 @@
 # antibodyConcat
 The procedure are currently split into parts for easier modification.
 
+## Installation
+Simply using git clone.
+
+## Requirements
+    Predfull
+    Rapsearch
+    msslash
+We recommend to install Predfull and msslash by their github's guidance(git clone and install), and install the rapsearch by conda (e.g. conda install rapsearch)
+
+## usage
+
+
 ## I_generateInputReads.py
 As the name said, it selects the input reads from the original input files by parameters. 
 You can define the parameters of your splicing by running this code.

@@ -10,7 +10,8 @@ Simply using git clone.
     msslash
 We recommend to install Predfull and msslash by their github's guidance(git clone and install), and install the rapsearch by conda (e.g. conda install rapsearch)
 
-## usage
+## sample usage
+
 
 
 ## I_generateInputReads.py

@@ -18,8 +18,8 @@ It may take few minutes, the final results will appeal on the generated folder n
 
 ## Explanation for hyperparameters
     source: name of your antibody.
-    score: score threshold.
-    t: branch threshold.
-    kl: lower limit of kmer.
-    ku: upper limit of kmer.
-    more: If using Spectrum file as a data argument.
+    score: score threshold. Default = 0.8
+    t: branch threshold. Default = 2
+    kl: lower limit of kmer. Default = 5
+    ku: upper limit of kmer. Default = 8
+    more: If using Spectrum file as a data argument. Default = 0

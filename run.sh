@@ -1,0 +1,1 @@
+docker run --rm -v $(pwd)/avastin:/home/avastin registry.cn-hangzhou.aliyuncs.com/neobank/antibody-concat python run.py -source avastin -score 0.8 -t 2 -kl 5 -ku 8 -more 0 -predfull_path /install/PredFull-master/predfull.py -msslash_path /install/msSLASH-master/bin/bruteforce

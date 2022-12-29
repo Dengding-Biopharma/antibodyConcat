@@ -5,6 +5,9 @@ import os
 def get_args():
     parser = argparse.ArgumentParser()
     # start
+    parser.add_argument('-source_path',type=str,required=True)
+    parser.add_argument('-spectrum_require',type=int,default=0)
+    parser.add_argument('-spectrum_path',type=str,default=None)
     parser.add_argument('-source', type=str, required=True)
     parser.add_argument('-score', type=float,default=0.8)
     parser.add_argument('-t', type=int,default=2)
@@ -28,8 +31,20 @@ if __name__ == '__main__':
     # rapsearch_path = args.rapsearch_path
     # prerapsearch_path = args.prerapsearch_path
     msslash_path = args.msslash_path
+    data_path = args.source_path
+    assert data_path is not None
+
+    if args.spectrum_require == 1:
+        spectrum_path = args.spectrum_path
+        if not spectrum_path:
+            print('Please provide the spectrum path as you required it to be data argument.')
+            quit(1)
+
     froot = f'{args.source}_{args.kl}-{args.ku}mer_{args.score}_{args.t}'
-    os.system(f'python I_generateInputReads.py -source {args.source} -score {args.score} -t {args.t} -kl {args.kl} -ku {args.ku} -more {args.more} -predfull_path {predfull_path} -msSlash_path {msslash_path}')
+    if args.more == 1:
+        os.system(f'python I_generateInputReads.py -source {args.source} -score {args.score} -t {args.t} -kl {args.kl} -ku {args.ku} -more {args.more} -predfull_path {predfull_path} -msSlash_path {msslash_path} -source_path {data_path} -spectrum_path {spectrum_path}')
+    else:
+        os.system(f'python I_generateInputReads.py -source {args.source} -score {args.score} -t {args.t} -kl {args.kl} -ku {args.ku} -more {args.more} -predfull_path {predfull_path} -msSlash_path {msslash_path} -source_path {data_path}')
     os.system(f'python II_assembleFromReads.py -froot {froot}')
     os.system(f'python III_sortOutputs.py -froot {froot}')
     os.system(f'python IV_matchRegion.py -froot {froot} -template {args.template}')

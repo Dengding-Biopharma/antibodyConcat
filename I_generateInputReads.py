@@ -19,6 +19,8 @@ def get_args():
     parser.add_argument('-more', type=int, required=True)
     parser.add_argument('-predfull_path',type=str)
     parser.add_argument('-msSlash_path',type=str)
+    parser.add_argument('-spectrum_path',type=str,default=None)
+    parser.add_argument('-source_path',type=str,required=True)
     args = parser.parse_args()
     return args
 
@@ -32,7 +34,7 @@ if __name__ == '__main__':
     k_upperlimit = args.ku
     source = f'{args.source}'
     froot = f'{args.source}_{k_lowerlimit}-{k_upperlimit}mer_{score_cut}_{threshold}'
-    read_path = f'{source}/{source}'
+    read_path = args.source_path
     setting = {'score_cut': score_cut, 'threshold': threshold, 'k_lowerlimit': k_lowerlimit,
                'k_upperlimit': k_upperlimit,'source':read_path,'more':more,'froot':froot,'source_':source}
     if not more:
@@ -64,7 +66,7 @@ if __name__ == '__main__':
         quit()
     input_reads = []
     unused_reads =[]
-    spectrum_path = f'{source}/Spectrum'
+    spectrum_path = args.spectrum_path
     title_denovo_dic = dict()
     for read_filename in os.listdir(read_path):
         read_file = f'{read_path}/{read_filename}'

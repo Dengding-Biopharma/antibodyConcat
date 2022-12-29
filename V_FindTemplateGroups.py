@@ -107,7 +107,7 @@ if __name__ == '__main__':
     contig_filepath = f'{froot}/{froot}_sorted.fasta'
     settingFile = open(f'{froot}/setting.json', 'r')
     setting = json.load(settingFile)
-    sourceFilePath = f'{args.source}/{args.source}'
+    sourceFilePath = setting['source']
     DF = pd.DataFrame()
     unused_reads = pd.DataFrame()
     sequences_scores = dict()

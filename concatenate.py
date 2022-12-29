@@ -34,7 +34,6 @@ if __name__ == '__main__':
     froot = args.froot
     f = open(f'{froot}/setting.json')
     setting = json.load(f)
-    print(setting)
     filePath = setting['source']
     score_cut = setting['score_cut']
     source = setting['source_']

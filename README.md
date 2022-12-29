@@ -17,7 +17,7 @@ Assuming the Predfull and msslash are installed at the same path as this tool:
 It may take few minutes, the final results will appeal on the generated folder named by parameters, which contains an HTML report and two concatenation result for heavy chain and light chain separately. 
 
 ## Explanation for hyperparameters
-    source: name of your antibody.
+    source: name of your antibody. Just a name you like.
     score: score threshold. Default = 0.8
     t: branch threshold. Default = 2
     kl: lower limit of kmer. Default = 5

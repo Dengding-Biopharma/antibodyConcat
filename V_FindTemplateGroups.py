@@ -103,7 +103,7 @@ if __name__ == '__main__':
     # template_name = f'BSA.fasta'
     annotation_name = f'templates/mAB_database.ann'
 
-    contig_filepath = f'{froot}/contigs_sorted.fasta'
+    contig_filepath = f'{froot}/{froot}_sorted.fasta'
     settingFile = open(f'{froot}/setting.json', 'r')
     setting = json.load(settingFile)
     sourceFilePath = setting['source']

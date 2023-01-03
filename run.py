@@ -34,7 +34,9 @@ if __name__ == '__main__':
     assert data_path is not None
     spectrum_path = args.spectrum_path
 
-    froot = f'{args.source}_{args.kl}-{args.ku}mer_{args.score}_{args.t}'
+    froot = f'{data_path}_{args.kl}-{args.ku}mer_{args.score}_{args.t}'
+    print(froot)
+    quit()
     if spectrum_path is not None:
         os.system(f'python I_generateInputReads.py -source {args.source} -score {args.score} -t {args.t} -kl {args.kl} -ku {args.ku} -more 1 -predfull_path {predfull_path} -msSlash_path {msslash_path} -source_path {data_path} -spectrum_path {spectrum_path}')
     else:

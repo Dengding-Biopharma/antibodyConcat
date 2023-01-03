@@ -78,8 +78,6 @@ if __name__ == '__main__':
                     delete_table.append(fragment_key)
         for key in delete_table:
             best_fragments.pop(key)
-        pprint(best_fragments)
-        quit()
         with open(f'{froot}/query.fasta', 'w') as f:
             f.write(f'>base\n{base}\n')
         with open(f'{froot}/rest.fasta', 'w') as f:

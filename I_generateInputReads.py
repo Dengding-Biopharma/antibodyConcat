@@ -21,6 +21,7 @@ def get_args():
     parser.add_argument('-msSlash_path',type=str)
     parser.add_argument('-spectrum_path',type=str,default=None)
     parser.add_argument('-source_path',type=str,required=True)
+    parser.add_argument('-froot',type=str,required=True)
     args = parser.parse_args()
     return args
 
@@ -32,9 +33,9 @@ if __name__ == '__main__':
     threshold = args.t
     k_lowerlimit = args.kl
     k_upperlimit = args.ku
-    source = f'{args.source}'
-    froot = f'{args.source}_{k_lowerlimit}-{k_upperlimit}mer_{score_cut}_{threshold}'
+    froot = args.froot
     read_path = args.source_path
+    source = args.source
     setting = {'score_cut': score_cut, 'threshold': threshold, 'k_lowerlimit': k_lowerlimit,
                'k_upperlimit': k_upperlimit,'source':read_path,'more':more,'froot':froot,'source_':source}
     if not more:

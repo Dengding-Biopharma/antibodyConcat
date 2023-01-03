@@ -104,7 +104,7 @@ if __name__ == '__main__':
     # template_name = f'BSA.fasta'
     annotation_name = f'templates/mAB_database.ann'
 
-    contig_filepath = f'{froot}/{froot}_sorted.fasta'
+    contig_filepath = f'{froot}/contigs_sorted.fasta'
     settingFile = open(f'{froot}/setting.json', 'r')
     setting = json.load(settingFile)
     sourceFilePath = setting['source']
@@ -139,7 +139,7 @@ if __name__ == '__main__':
     unused_reads.reset_index(inplace=True, drop=True)
 
     os.system(f'prerapsearch -d {template_name} -n templates/temp-db')
-    os.system(f'rapsearch -q {froot}/{froot}_sorted.fasta -d templates/temp-db -o {froot}/rapsearch_outputs -z 6')
+    os.system(f'rapsearch -q {froot}/contigs_sorted.fasta -d templates/temp-db -o {froot}/rapsearch_outputs -z 6')
     os.system(
         f'python processRapsearchM8.py -input {froot}/rapsearch_outputs.m8 -output {froot}/rapsearch_outputs_refactor.m8')
     df = pd.read_csv(f'{froot}/rapsearch_outputs_refactor.m8', delimiter='\t', header=None)
@@ -217,10 +217,10 @@ if __name__ == '__main__':
     # pprint(template_contig_group)
     # quit()
 
-    report_path = f'{froot}/{froot}_TemplateMatchReport.txt'
+    report_path = f'{froot}/TemplateMatchReport.txt'
     outFile = open(report_path, 'w')
     message = ''
-    html_path = f'{froot}/{froot}_TemplateMatchReport.html'
+    html_path = f'{froot}/TemplateMatchReport.html'
     htmlFile = open(html_path, 'w')
     html = '''<!DOCTYPE html>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
@@ -370,11 +370,11 @@ if __name__ == '__main__':
             f.write('>{}\n'.format(template.id))
             f.write(template.sequence)
 
-        out = f'{froot}/{froot}_unusedReadsBlastTemplate_refactor.m8'
+        out = f'{froot}/unusedReadsBlastTemplate_refactor.m8'
         query = f'{froot}/unusedReads.fasta'
         os.system(f'prerapsearch -d {froot}/temp.fasta -n {froot}/temp')
-        os.system(f'rapsearch -q {query} -d {froot}/temp -o {froot}/{froot}_unusedReadsBlastTemplate')
-        os.system(f'python processRapsearchM8.py -input {froot}/{froot}_unusedReadsBlastTemplate.m8 -output {out}')
+        os.system(f'rapsearch -q {query} -d {froot}/temp -o {froot}/unusedReadsBlastTemplate')
+        os.system(f'python processRapsearchM8.py -input {froot}/unusedReadsBlastTemplate.m8 -output {out}')
 
         unusedReadsTemplateResults = pd.read_csv(out, delimiter='\t', header=None)
         unusedReadsTemplateResults = unusedReadsTemplateResults[unusedReadsTemplateResults[2] >= 90]
@@ -510,15 +510,15 @@ if __name__ == '__main__':
                 f.write(f'>head\n{head}')
             with open(f'{froot}/tail.fasta', 'w') as f:
                 f.write(f'>tail\n{tail}')
-            head_out = f'{froot}/{froot}_head_best_contigs_refactor.m8'
-            tail_out = f'{froot}/{froot}_tail_best_contigs_refactor.m8'
+            head_out = f'{froot}/head_best_contigs_refactor.m8'
+            tail_out = f'{froot}/tail_best_contigs_refactor.m8'
             head_query = f'{froot}/head.fasta'
             tail_query = f'{froot}/tail.fasta'
             os.system(f'prerapsearch -d {contig_filepath} -n {froot}/contigs')
-            os.system(f'rapsearch -q {head_query} -d {froot}/contigs -o {froot}/{froot}_head_best_contigs')
-            os.system(f'rapsearch -q {tail_query} -d {froot}/contigs -o {froot}/{froot}_tail_best_contigs')
-            os.system(f'python processRapsearchM8.py -input {froot}/{froot}_head_best_contigs.m8 -output {head_out}')
-            os.system(f'python processRapsearchM8.py -input {froot}/{froot}_tail_best_contigs.m8 -output {tail_out}')
+            os.system(f'rapsearch -q {head_query} -d {froot}/contigs -o {froot}/head_best_contigs')
+            os.system(f'rapsearch -q {tail_query} -d {froot}/contigs -o {froot}/tail_best_contigs')
+            os.system(f'python processRapsearchM8.py -input {froot}/head_best_contigs.m8 -output {head_out}')
+            os.system(f'python processRapsearchM8.py -input {froot}/tail_best_contigs.m8 -output {tail_out}')
             try:
                 # if not template.ignore:
                 template.ignore = False

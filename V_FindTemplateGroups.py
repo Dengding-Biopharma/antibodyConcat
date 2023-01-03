@@ -86,7 +86,6 @@ def get_args():
     parser = argparse.ArgumentParser()
     # start
     parser.add_argument('-froot', type=str, required=True)
-    parser.add_argument('-source', type=str, required=True)
     # parser.add_argument('-rapsearch_path',type=str,required=True)
     # parser.add_argument('-prerapsearch_path', type=str, required=True)
     args = parser.parse_args()

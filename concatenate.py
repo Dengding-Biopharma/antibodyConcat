@@ -2,6 +2,7 @@ import argparse
 import copy
 import json
 import os
+from pprint import pprint
 
 import numpy as np
 import pandas as pd
@@ -38,7 +39,7 @@ if __name__ == '__main__':
     score_cut = setting['score_cut']
     source = setting['source_']
     best_fragments = read_fasta(f'{froot}/{source}_best_{args.chain}_fragments.fasta')
-    print(best_fragments)
+    pprint(best_fragments)
     quit()
     sequences_scores = dict()
     for root, dir, files in os.walk(filePath):

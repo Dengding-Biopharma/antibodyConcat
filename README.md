@@ -22,4 +22,4 @@ It may take few minutes, the final results will appeal on the generated folder n
     t: branch threshold. Default = 2
     kl: lower limit of kmer. Default = 5
     ku: upper limit of kmer. Default = 8
-    more: If using Spectrum file as a data argument. Default = 0
+

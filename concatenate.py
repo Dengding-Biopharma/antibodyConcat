@@ -37,7 +37,7 @@ if __name__ == '__main__':
     filePath = setting['source']
     score_cut = setting['score_cut']
     source = setting['source_']
-    best_fragments = read_fasta(f'{froot}/best_{args.chain}_fragments.fasta')
+    best_fragments = read_fasta(f'{froot}/{source}_best_{args.chain}_fragments.fasta')
     sequences_scores = dict()
     for root, dir, files in os.walk(filePath):
         root = root + '/'

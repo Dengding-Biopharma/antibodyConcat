@@ -87,8 +87,8 @@ if __name__ == '__main__':
         out = f'{froot}/temp_refactor.m8'
         query = f'{froot}/query.fasta'
         os.system(f'prerapsearch -d {froot}/rest.fasta -n {froot}/rest-db')
-        os.system(f'rapsearch -q {query} -d {froot}/rest-db -o {froot}/{froot}_temp')
-        os.system(f'python processRapsearchM8.py -input {froot}/{froot}_temp.m8 -output {out}')
+        os.system(f'rapsearch -q {query} -d {froot}/rest-db -o {froot}/temp')
+        os.system(f'python processRapsearchM8.py -input {froot}/temp.m8 -output {out}')
         try:
             df = pd.read_csv(out, delimiter='\t', header=None)
             dfList = df.values

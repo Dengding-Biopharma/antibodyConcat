@@ -39,8 +39,6 @@ if __name__ == '__main__':
     score_cut = setting['score_cut']
     source = setting['source_']
     best_fragments = read_fasta(f'{froot}/{source}_best_{args.chain}_fragments.fasta')
-    pprint(best_fragments)
-    quit()
     sequences_scores = dict()
     for root, dir, files in os.walk(filePath):
         root = root + '/'
@@ -85,7 +83,7 @@ if __name__ == '__main__':
         with open(f'{froot}/rest.fasta', 'w') as f:
             for fragment_key in best_fragments.keys():
                 f.write(f'>{fragment_key}\n{best_fragments[fragment_key]}\n')
-
+        quit()
         out = f'{froot}/temp_refactor.m8'
         query = f'{froot}/query.fasta'
         os.system(f'prerapsearch -d {froot}/rest.fasta -n {froot}/rest-db')

@@ -652,6 +652,7 @@ if __name__ == '__main__':
         json_block['candidates_position_info'] = []
         for result_sequence in merged_result:
             # json_block['candidates_position_info'][f'line{str(counter)}'] = {}
+            json_block['candidates_position_info'].append([])
             for i in range(len(result_sequence)):
                 check = False
                 if 'blue' in result_sequence[i]:

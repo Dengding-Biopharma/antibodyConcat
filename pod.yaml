@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: nextflow
+  name: antibody-concat-pod
+spec:
+  containers:
+  - name: nextflow-pod
+    image: nextflow/nextflow:22.04.5
+    imagePullPolicy: IfNotPresent
+    command:
+    - /bin/bash
+    - -c
+    - cd /workspace; nextflow run /models/run.nf -c /home/nextflow.config --input antibodyConcat/Spectrum/IgG_ZG_4_90min_C.mgf,antibodyConcat/Spectrum/IgG_ZG_4_90min_G.mgf,antibodyConcat/Spectrum/IgG_ZG_4_90min_L.mgf,antibodyConcat/Spectrum/IgG_ZG_4_90min_T.mgf,antibodyConcat/Spectrum/MAM_SST_4ul_ZG_T_S23_LHL_0811-2.mgf,antibodyConcat/Spectrum/ZG_A.mgf,antibodyConcat/Spectrum/ZG_E.mgf,antibodyConcat/Spectrum/ZG_P.mgf --modelName 2022-09-11_22_59_27 --user test3 --moveTo workflow/antibodyConcat-test
+    volumeMounts:
+    - name: runtime
+      mountPath: /workspace
+    - name: output
+      subPath: test3/antibodyConcat-test
+      mountPath: /home
+    - name: models
+      subPath: antibodyConcat/run.nf
+      mountPath: /models/run.nf
+  restartPolicy: Never
+  volumes:
+  - name: runtime
+    persistentVolumeClaim:
+      claimName: nextflow-pv-claim-runtime
+  - name: output
+    persistentVolumeClaim:
+      claimName: nextflow-pv-claim-output
+  - name: models
+    persistentVolumeClaim:
+      claimName: nextflow-pv-claim-models
+  imagePullSecrets:
+    - name: vpc-docker

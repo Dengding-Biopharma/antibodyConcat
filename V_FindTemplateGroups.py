@@ -240,6 +240,7 @@ if __name__ == '__main__':
 
     Templates = []
     json_file = open(f'{froot}/json_for_web.json', 'w')
+    json_file.write('[\n')
     for template_id in template_contig_group.keys():
         type = 'nc' if 'NonConstant' in template_id else 'c'
         template = Template(template_id, template_dic[template_id].replace('I', 'L'), type)
@@ -648,8 +649,9 @@ if __name__ == '__main__':
         json_block['candidates_position_info'] = {}
 
         counter = 0
+        json_block['candidates_position_info'] = []
         for result_sequence in merged_result:
-            json_block['candidates_position_info'][f'line{str(counter)}'] = {}
+            # json_block['candidates_position_info'][f'line{str(counter)}'] = {}
             for i in range(len(result_sequence)):
                 check = False
                 if 'blue' in result_sequence[i]:
@@ -669,7 +671,7 @@ if __name__ == '__main__':
                     type = 'none'
                     check = True
                 assert check == True
-                json_block['candidates_position_info'][f'line{str(counter)}'][str(i)] = {'letter': letter, 'type': type}
+                json_block['candidates_position_info'][counter].append({'letter': letter, 'type': type})
             counter += 1
         json.dump(json_block, json_file, indent=4)
         json_file.write('\n')
@@ -797,4 +799,5 @@ if __name__ == '__main__':
     htmlFile.close()
     outFile.write(message)
     outFile.close()
+    json_file.write(']\n')
     json_file.close()

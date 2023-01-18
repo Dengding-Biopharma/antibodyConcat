@@ -240,7 +240,7 @@ if __name__ == '__main__':
 
     Templates = []
     json_file = open(f'{froot}/json_for_web.json', 'w')
-    json_file.write('[\n')
+    json_list = []
     for template_id in template_contig_group.keys():
         type = 'nc' if 'NonConstant' in template_id else 'c'
         template = Template(template_id, template_dic[template_id].replace('I', 'L'), type)
@@ -674,8 +674,9 @@ if __name__ == '__main__':
                 assert check == True
                 json_block['candidates_position_info'][counter].append({'letter': letter, 'type': type})
             counter += 1
-        json.dump(json_block, json_file, indent=4)
-        json_file.write('\n')
+        json_list.append(json_block)
+        # json.dump(json_block, json_file, indent=4)
+        # json_file.write('\n')
         # for best_contig in best_contigs:
         #     print(12341234, best_contig)
         # html += '<pre>' + best_contig + '</pre>'
@@ -800,5 +801,5 @@ if __name__ == '__main__':
     htmlFile.close()
     outFile.write(message)
     outFile.close()
-    json_file.write(']\n')
+    json.dump(json_list, json_file, indent=4)
     json_file.close()

@@ -114,8 +114,8 @@ if __name__ == '__main__':
     best_template = open(f'{froot}/best_templates.fasta','w')
     candidates_templates = read_fasta('templates/alpaca.fasta')
     candidates_templates_ann = read_ann('templates/alpaca.ann')
-    print(candidates_templates)
-    print(candidates_templates_ann)
+    # print(candidates_templates)
+    # print(candidates_templates_ann)
 
     template_name = 'templates/alpaca.fasta'
     os.system(f'prerapsearch -d {template_name} -n {froot}/temp-db')

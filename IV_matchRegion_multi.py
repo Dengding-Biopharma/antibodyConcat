@@ -14,29 +14,27 @@ from III_sortOutputs import findSupportReadScore
 
 
 class Template:
-    def __init__(self, template_id, template_sequence,template_region_info):
+    def __init__(self, template_id, template_sequence, template_region_info):
         self.sequence = template_sequence
         self.id = template_id
         self.match = ['0' for _ in range(len(self.sequence))]
-        print(len(self.sequence))
-        print(template_region_info)
         for region_name, region_interval in template_region_info.items():
             if 'FR' in region_name:
-                for i in range(region_interval[0]-1, region_interval[1]):
-                    print(i)
+                for i in range(region_interval[0] - 1, region_interval[1] - 2):
                     self.match[i] = 'F'
-        print(self.match)
-        quit()
 
     def getCoverage(self):
         fr_length = 0
         cover_length = 0
         for position in self.sequence:
             if position == '1':
-               cover_length += 1
-            fr_length += 1
+                cover_length += 1
+                fr_length += 1
+            elif position == 'F':
+                fr_length += 1
 
-        return cover_length/fr_length
+        return cover_length / fr_length
+
 
 class Contig:
     def __init__(self, contig_id, contig_sequence, template_interval, contig_interval):
@@ -61,11 +59,12 @@ class fillingTemplate:
     def get_match_result(self):
         return ''.join(self.fill)
 
+
 def read_ann(file_path):
     f = open(file_path, 'r')
     lines = f.readlines()
     f.close()
-    ann={}
+    ann = {}
 
     for i in range(len(lines)):
         line = lines[i]
@@ -78,24 +77,27 @@ def read_ann(file_path):
             key = fragment[0]
             temp = fragment[1].rstrip()
             value = temp.split('-')
-            value = [int(value[0]),int(value[1])]
+            value = [int(value[0]), int(value[1])]
             ann[id][key] = value
     return ann
+
 
 def get_args():
     parser = argparse.ArgumentParser()
     # start
-    parser.add_argument('-froot', type=str,required=True)
-    parser.add_argument('-template', type=str,required=True)
+    parser.add_argument('-froot', type=str, required=True)
+    parser.add_argument('-template', type=str, required=True)
     # parser.add_argument('-rapsearch_path',type=str,required=True)
     # parser.add_argument('-prerapsearch_path', type=str, required=True)
     args = parser.parse_args()
     return args
 
+
 def NormalizeData(data):
     return (data - np.min(data)) / (np.max(data) - np.min(data))
 
-def read_fasta(path,species=None):
+
+def read_fasta(path, species=None):
     f = open(path, 'r')
     lines = f.readlines()
     f.close()
@@ -104,7 +106,7 @@ def read_fasta(path,species=None):
         for i in range(len(lines)):
             line = lines[i]
             if line[0] == '>' and species in line:
-                id = line.rstrip()[1:].replace(' ','_')
+                id = line.rstrip()[1:].replace(' ', '_')
                 contig = lines[i + 1]
                 dic[id] = contig.rstrip()
         return dic
@@ -112,7 +114,7 @@ def read_fasta(path,species=None):
         for i in range(len(lines)):
             line = lines[i]
             if line[0] == '>':
-                id = line.rstrip()[1:].replace(' ','_')
+                id = line.rstrip()[1:].replace(' ', '_')
                 contig = lines[i + 1]
                 dic[id] = contig.rstrip()
         return dic
@@ -122,7 +124,7 @@ if __name__ == '__main__':
     args = get_args()
     froot = args.froot
     template = args.template
-    best_template = open(f'{froot}/best_templates.fasta','w')
+    best_template = open(f'{froot}/best_templates.fasta', 'w')
     candidates_templates = read_fasta('templates/alpaca.fasta')
     candidates_templates_ann = read_ann('templates/alpaca.ann')
     # print(candidates_templates)
@@ -171,8 +173,8 @@ if __name__ == '__main__':
         print(current_template.sequence)
         print(current_template.getCoverage())
         quit()
-            #
-            # region_sequence_coverage_dic = dict(sorted(region_sequence_coverage_dic.items(), key=lambda item: item[1],reverse=True))
-            # best_template_id = list(region_sequence_coverage_dic.items())[0][0]
-            # best_coverage = list(region_sequence_coverage_dic.items())[0][1]
-            # best_template.write(f'>{best_template_id}_{region}_{best_coverage}\n{region_sequence_dic[best_template_id]}\n')
+        #
+        # region_sequence_coverage_dic = dict(sorted(region_sequence_coverage_dic.items(), key=lambda item: item[1],reverse=True))
+        # best_template_id = list(region_sequence_coverage_dic.items())[0][0]
+        # best_coverage = list(region_sequence_coverage_dic.items())[0][1]
+        # best_template.write(f'>{best_template_id}_{region}_{best_coverage}\n{region_sequence_dic[best_template_id]}\n')

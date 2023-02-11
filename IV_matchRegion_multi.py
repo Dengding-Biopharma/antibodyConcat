@@ -14,9 +14,12 @@ from III_sortOutputs import findSupportReadScore
 
 
 class Template:
-    def __init__(self, template_id, template_sequence):
+    def __init__(self, template_id, template_sequence,template_region_info):
         self.sequence = template_sequence
         self.id = template_id
+        print(template_region_info)
+        quit()
+
         self.contigArrays = []
         self.different_position = []
         self.letters_errorRate = {}
@@ -128,14 +131,19 @@ if __name__ == '__main__':
     df = df.reset_index(drop=True)
     print(df)
     keys = list(candidates_templates_ann.keys())
+    Templates = {}
+
     for i in trange(len(keys)):
         key = keys[i]
         try:
             sub_df = df[df[1] == key]
         except:
             continue
-        print(sub_df)
-        break
+        if sub_df.empty:
+            continue
+        if key not in Templates.keys():
+            Templates[key] = Template(key,candidates_templates[key],candidates_templates_ann[key])
+
 
 
     quit()

@@ -136,7 +136,7 @@ if __name__ == '__main__':
     for i in trange(len(keys)):
         key = keys[i]
         try:
-            sub_df = df[df[1] == key]
+            sub_df = df[df[1] == str(key)]
         except:
             continue
         if sub_df.empty:

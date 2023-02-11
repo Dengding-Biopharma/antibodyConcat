@@ -17,8 +17,13 @@ class Template:
     def __init__(self, template_id, template_sequence,template_region_info):
         self.sequence = template_sequence
         self.id = template_id
+        print(self.id)
         print(template_region_info)
         quit()
+        self.sequences = []
+        # for region_name,region_interval in template_region_info.items():
+        #     if 'FR' in region_name:
+        #         self.
 
         self.contigArrays = []
         self.different_position = []

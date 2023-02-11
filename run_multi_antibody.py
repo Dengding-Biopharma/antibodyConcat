@@ -41,7 +41,7 @@ if __name__ == '__main__':
         os.system(f'python I_generateInputReads.py -froot {froot} -source {args.source} -score {args.score} -t {args.t} -kl {args.kl} -ku {args.ku} -more 0 -predfull_path {predfull_path} -msSlash_path {msslash_path} -source_path {data_path}')
     os.system(f'python II_assembleFromReads.py -froot {froot}')
     os.system(f'python III_sortOutputs.py -froot {froot}')
-    # os.system(f'python IV_matchRegion.py -froot {froot} -template {args.template}')
+    os.system(f'python IV_matchRegion_multi.py -froot {froot} -template {args.template}')
     # os.system(f'python V_FindTemplateGroups.py -froot {froot} -source {args.source}')
     # os.system(f'python concatenate.py -froot {froot} -chain light')
     # os.system(f'python concatenate.py -froot {froot} -chain heavy')

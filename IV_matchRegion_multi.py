@@ -17,23 +17,24 @@ class Template:
     def __init__(self, template_id, template_sequence,template_region_info):
         self.sequence = template_sequence
         self.id = template_id
-        print(self.id)
-        print(template_region_info)
-        quit()
-        self.sequences = []
-        # for region_name,region_interval in template_region_info.items():
-        #     if 'FR' in region_name:
-        #         self.
+        self.sequence = ['0' for _ in range(len(self.sequence))]
+        self.count = 0
+        for region_name, region_interval in template_region_info.items():
+            for i in range(region_interval[0], region_interval[1]):
+                if 'FR' in region_name:
+                    self.sequence[self.count] = 'F'
+                self.count += 1
 
-        self.contigArrays = []
-        self.different_position = []
-        self.letters_errorRate = {}
-        for i in range(len(self.sequence)):
-            self.letters_errorRate[i] = {}
-        self.unusedReads_match = {}
-        for i in range(len(self.sequence)):
-            self.unusedReads_match[i] = []
 
+    def getCoverage(self):
+        fr_length = 0
+        cover_length = 0
+        for position in self.sequence:
+            if position == '1':
+               cover_length += 1
+            fr_length += 1
+
+        return cover_length/fr_length
 
 class Contig:
     def __init__(self, contig_id, contig_sequence, template_interval, contig_interval):
@@ -142,19 +143,16 @@ if __name__ == '__main__':
         Templates[key] = Template(key, candidates_templates[key], candidates_templates_ann[key])
 
     for i in trange(len(keys)):
-        key = keys[i]
+        key = int(keys[i])
         try:
-            sub_df = df[df[1] == str(key)]
+            sub_df = df[df[1] == key]
         except:
             continue
         if sub_df.empty:
             continue
-        if key not in Templates.keys():
-            Templates[key] = Template(key,candidates_templates[key],candidates_templates_ann[key])
+        print(sub_df)
+        quit()
 
-
-
-    quit()
     for candidates_template in candidates_templates:
 
         keys = list(region_sequence_dic.keys())

@@ -272,7 +272,7 @@ if __name__ == '__main__':
             validate_template[id] = result[0]
         except Exception as e:
             pass
-
+        break
     print(validate_template)
     '''
     format
@@ -299,6 +299,7 @@ if __name__ == '__main__':
             start+=len(sequence)
         validate_template_region_interval[key] = temp
     print(validate_template_region_interval)
+    quit()
     with open('templates/alpaca.ann','w') as f:
         for id,regions in validate_template_region_interval.items():
             f.write(f'>{id}\n')

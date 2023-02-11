@@ -153,7 +153,7 @@ if __name__ == '__main__':
         dfList = sub_df.values
         sequence_template_id_pair_dic = {}
         for item in dfList:
-            template_id = item[:2][1]
+            template_id = str(item[:2][1])
             label = item[:2][0] + '+' + template_id
             value_list = list(item[2:])
             sequence_template_id_pair_dic[label] = value_list

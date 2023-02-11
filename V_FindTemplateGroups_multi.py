@@ -739,58 +739,6 @@ if __name__ == '__main__':
                 unused_reads_intervals[read][0]) + ' | ' + 'Read Count: ' + str(reads_count[read]) + ' | ' + ''.join(
                 read_sequence) + '</pre>'
             # html += '<pre>' + ''.join(read_sequence) + '</pre>'
-
-    # valueable_contigs = list(Counter(valueable_contigs).keys())
-    # graph = naive_db.construct_naive_debruijn_graph(valueable_contigs,4,False)
-    # outputs = naive_db.output_contigs(graph,[],[])
-    # outputs = sorted(outputs,key=lambda x:findSupportReadScore(x,sequences_scores),reverse=True)
-    # for output in outputs:
-    #     print(output)
-    light = ['', '']
-    heavy = ['', '']
-
-    for Template in Templates:
-        if 'light' in Template.id or 'Light' in Template.id:
-            if Template.type == 'nc':
-                light[0] = Template
-            else:
-                light[1] = Template
-        else:
-            if Template.type == 'nc':
-                heavy[0] = Template
-            else:
-                heavy[1] = Template
-
-    temp = []
-    with open(f'{froot}/{args.source}_best_light_fragments.fasta', 'w') as f:
-        for template in light:
-            for fragment in template.best_fragments:
-                if fragment not in temp:
-                    temp.append(fragment)
-                    f.write(f'>light_fragment_{findSupportReadScore(fragment, sequences_scores)}\n{fragment}\n')
-    temp = []
-    with open(f'{froot}/{args.source}_best_heavy_fragments.fasta', 'w') as f:
-        for template in heavy:
-            for fragment in template.best_fragments:
-                if fragment not in temp:
-                    temp.append(fragment)
-                    f.write(f'>heavy_fragment_{findSupportReadScore(fragment, sequences_scores)}\n{fragment}\n')
-    # for chain in light:
-    #     inputs = chain.best_fragments
-    #     print(inputs)
-    #     start_inputs = inputs[0]
-    #     start_inputs.extend(inputs[1])
-    #     print(start_inputs)
-    #
-    #     inputs.remove(inputs[0])
-    #     inputs.remove(inputs[1])
-    #     graph = naive_db.construct_naive_debruijn_graph(start_inputs, 5, False)
-    #     outputs = naive_db.output_contigs(graph)
-    #     outputs = sorted(outputs, key=lambda x: findSupportReadScore(x, sequences_scores), reverse=True)
-    #     for output in outputs:
-    #         print(output)
-    #     quit()
-
     html += '''
     </body>
     </html>

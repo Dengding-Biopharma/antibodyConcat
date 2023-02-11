@@ -170,7 +170,7 @@ if __name__ == '__main__':
                     current_template.match[j] = '1'
 
         coverage = current_template.getCoverage()
-        if coverage >= 0.6:
+        if coverage >= 0.8:
             region_sequence_coverage_dic[key] = coverage
 
     region_sequence_coverage_dic = dict(sorted(region_sequence_coverage_dic.items(), key=lambda item: item[1],reverse=True))

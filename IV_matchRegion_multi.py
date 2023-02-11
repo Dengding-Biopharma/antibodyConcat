@@ -26,7 +26,7 @@ class Template:
     def getCoverage(self):
         fr_length = 0
         cover_length = 0
-        for position in self.sequence:
+        for position in self.match:
             if position == '1':
                 cover_length += 1
                 fr_length += 1
@@ -167,8 +167,8 @@ if __name__ == '__main__':
                 continue
             current_template = Templates[keys[i]]
             for j in range(value[6] - 1, value[7]):
-                if current_template.sequence[j] == 'F':
-                    current_template.sequence[j] = '1'
+                if current_template.match[j] == 'F':
+                    current_template.match[j] = '1'
 
         print(current_template.sequence)
         print(current_template.getCoverage())

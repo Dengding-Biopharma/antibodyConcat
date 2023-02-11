@@ -124,7 +124,19 @@ if __name__ == '__main__':
         f'python processRapsearchM8.py -input {froot}/multi_rapsearch_outputs.m8 -output {froot}/multi_rapsearch_outputs_refactor.m8')
 
     df = pd.read_csv(f'{froot}/multi_rapsearch_outputs_refactor.m8', delimiter='\t', header=None)
-    print(df)
+    df = df[df[2] >= 80]
+    df = df.reset_index(drop=True)
+    keys = list(candidates_templates_ann.keys())
+    for i in trange(len(keys)):
+        key = keys[i]
+        try:
+            sub_df = df[df[1] == key]
+        except:
+            continue
+        print(sub_df)
+        break
+
+
     quit()
     for candidates_template in candidates_templates:
 

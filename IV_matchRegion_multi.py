@@ -133,7 +133,7 @@ if __name__ == '__main__':
     os.system(f'prerapsearch -d {template_name} -n {froot}/temp-db')
     # denova matching
     os.system(
-        f'rapsearch -q {froot}/input_reads.fasta -d {froot}/temp-db -o {froot}/region_rapsearch_outputs -z 6')
+        f'rapsearch -q {froot}/input_reads.fasta -d {froot}/temp-db -o {froot}/multi_rapsearch_outputs -z 6')
 
     # # contig matching
     # os.system(f'rapsearch -q {froot}/contigs_sorted.fasta -d {froot}/temp-db -o {froot}/multi_rapsearch_outputs -z 6')

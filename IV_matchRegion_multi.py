@@ -17,14 +17,15 @@ class Template:
     def __init__(self, template_id, template_sequence,template_region_info):
         self.sequence = template_sequence
         self.id = template_id
-        self.sequence = ['0' for _ in range(len(self.sequence))]
+        self.match = ['0' for _ in range(len(self.sequence))]
+        print(len(self.sequence))
         print(template_region_info)
         for region_name, region_interval in template_region_info.items():
             if 'FR' in region_name:
-                for i in range(region_interval[0], region_interval[1]):
+                for i in range(region_interval[0]-1, region_interval[1]):
                     print(i)
-                    self.sequence[i] = 'F'
-        print(self.sequence)
+                    self.match[i] = 'F'
+        print(self.match)
         quit()
 
     def getCoverage(self):
@@ -77,7 +78,7 @@ def read_ann(file_path):
             key = fragment[0]
             temp = fragment[1].rstrip()
             value = temp.split('-')
-            value = [int(value[0])-1,int(value[1])-2]
+            value = [int(value[0]),int(value[1])]
             ann[id][key] = value
     return ann
 

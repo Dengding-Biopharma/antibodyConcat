@@ -145,7 +145,7 @@ if __name__ == '__main__':
     Templates = {}
     for key in keys:
         Templates[key] = Template(key, candidates_templates[key], candidates_templates_ann[key])
-
+    region_sequence_coverage_dic = {}
     for i in trange(len(keys)):
         key = int(keys[i])
         try:
@@ -161,20 +161,22 @@ if __name__ == '__main__':
             label = item[:2][0] + '+' + template_id
             value_list = list(item[2:])
             sequence_template_id_pair_dic[label] = value_list
+
+        current_template = Templates[keys[i]]
         for label in sequence_template_id_pair_dic.keys():
             value = sequence_template_id_pair_dic[label]
             if value[5] - value[4] != (value[7] - value[6]):
                 continue
-            current_template = Templates[keys[i]]
             for j in range(value[6] - 1, value[7]):
                 if current_template.match[j] == 'F':
                     current_template.match[j] = '1'
 
-        print(current_template.match)
-        print(current_template.getCoverage())
-        quit()
-        #
-        # region_sequence_coverage_dic = dict(sorted(region_sequence_coverage_dic.items(), key=lambda item: item[1],reverse=True))
-        # best_template_id = list(region_sequence_coverage_dic.items())[0][0]
-        # best_coverage = list(region_sequence_coverage_dic.items())[0][1]
-        # best_template.write(f'>{best_template_id}_{region}_{best_coverage}\n{region_sequence_dic[best_template_id]}\n')
+        region_sequence_coverage_dic[key] = current_template.getCoverage()
+
+    region_sequence_coverage_dic = dict(sorted(region_sequence_coverage_dic.items(), key=lambda item: item[1],reverse=True))
+    print(region_sequence_coverage_dic)
+    best_template_id = list(region_sequence_coverage_dic.items())[0][0]
+    best_coverage = list(region_sequence_coverage_dic.items())[0][1]
+    print(best_template_id)
+    print(best_coverage)
+    # best_template.write(f'>{best_template_id}_{region}_{best_coverage}\n{region_sequence_dic[best_template_id]}\n')

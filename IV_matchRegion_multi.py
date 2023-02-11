@@ -139,8 +139,6 @@ if __name__ == '__main__':
     df = pd.read_csv(f'{froot}/multi_rapsearch_outputs_refactor.m8', delimiter='\t', header=None)
     df = df[df[2] >= 80]
     df = df.reset_index(drop=True)
-    print(df)
-    print(df.columns)
     keys = list(candidates_templates_ann.keys())
     Templates = {}
     for key in keys:

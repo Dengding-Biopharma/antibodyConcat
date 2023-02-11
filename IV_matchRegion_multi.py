@@ -116,12 +116,18 @@ if __name__ == '__main__':
     candidates_templates_ann = read_ann('templates/alpaca.ann')
     print(candidates_templates)
     print(candidates_templates_ann)
-    quit()
 
+    template_name = 'templates/alpaca.fasta'
+    os.system(f'prerapsearch -d {template_name} -n {froot}/temp-db')
+    os.system(f'rapsearch -q {froot}/contigs_sorted.fasta -d {froot}/temp-db -o {froot}/multi_rapsearch_outputs -z 6')
+    os.system(
+        f'python processRapsearchM8.py -input {froot}/multi_rapsearch_outputs.m8 -output {froot}/multi_rapsearch_outputs_refactor.m8')
+
+    df = pd.read_csv(f'{froot}/multi_rapsearch_outputs_refactor.m8', delimiter='\t', header=None)
+    print(df)
+    quit()
     for candidates_template in candidates_templates:
-        region_file = f'templates/{region}_{template}_{chain}.fasta'
-        region_sequence_dic = read_fasta(region_file)
-        region_sequence_coverage_dic = {}
+
         keys = list(region_sequence_dic.keys())
         template_name = f'{froot}/region_temp.fasta'
         with open(template_name,'w') as f:
@@ -131,10 +137,10 @@ if __name__ == '__main__':
                 f.write(f'>{region_sequence_key}\n{region_sequence}')
         os.system(f'prerapsearch -d {template_name} -n {froot}/temp-db')
         ## contig matching
-        # os.system(f'rapsearch -q {froot}/contigs_sorted.fasta -d {froot}/temp-db -o {froot}/region_rapsearch_outputs -z 6')
+        os.system(f'rapsearch -q {froot}/contigs_sorted.fasta -d {froot}/temp-db -o {froot}/region_rapsearch_outputs -z 6')
         ## denovo matching
-        os.system(
-            f'rapsearch -q {froot}/input_reads.fasta -d {froot}/temp-db -o {froot}/region_rapsearch_outputs -z 6')
+        # os.system(
+        #     f'rapsearch -q {froot}/input_reads.fasta -d {froot}/temp-db -o {froot}/region_rapsearch_outputs -z 6')
         os.system(
             f'python processRapsearchM8.py -input {froot}/region_rapsearch_outputs.m8 -output {froot}/region_rapsearch_outputs_refactor.m8')
 

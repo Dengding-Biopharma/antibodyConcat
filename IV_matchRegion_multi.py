@@ -124,7 +124,6 @@ if __name__ == '__main__':
     args = get_args()
     froot = args.froot
     template = args.template
-    best_template = open(f'{froot}/best_templates.fasta', 'w')
     candidates_templates = read_fasta('templates/alpaca.fasta')
     candidates_templates_ann = read_ann('templates/alpaca.ann')
     # print(candidates_templates)
@@ -145,9 +144,10 @@ if __name__ == '__main__':
         Templates[key] = Template(key, candidates_templates[key], candidates_templates_ann[key])
     region_sequence_coverage_dic = {}
     for i in trange(len(keys)):
-        key = int(keys[i])
+        key = keys[i]
+        int_key = int(keys[i])
         try:
-            sub_df = df[df[1] == key]
+            sub_df = df[df[1] == int_key]
         except:
             continue
         if sub_df.empty:
@@ -169,12 +169,15 @@ if __name__ == '__main__':
                 if current_template.match[j] == 'F':
                     current_template.match[j] = '1'
 
-        region_sequence_coverage_dic[key] = current_template.getCoverage()
+        coverage = current_template.getCoverage()
+        if coverage >= 0.6:
+            region_sequence_coverage_dic[key] = coverage
 
     region_sequence_coverage_dic = dict(sorted(region_sequence_coverage_dic.items(), key=lambda item: item[1],reverse=True))
-    print(region_sequence_coverage_dic)
-    best_template_id = list(region_sequence_coverage_dic.items())[0][0]
-    best_coverage = list(region_sequence_coverage_dic.items())[0][1]
-    print(best_template_id)
-    print(best_coverage)
-    # best_template.write(f'>{best_template_id}_{region}_{best_coverage}\n{region_sequence_dic[best_template_id]}\n')
+    # best_template_id = list(region_sequence_coverage_dic.items())[0][0]
+    # best_coverage = list(region_sequence_coverage_dic.items())[0][1]
+
+    keys = list(region_sequence_coverage_dic.keys())
+    with open(f'{froot}/best_templates.fasta','w') as f:
+        for key in keys:
+            f.write(f'>{key}_{region_sequence_coverage_dic[key]}\n{Templates[key]}\n')

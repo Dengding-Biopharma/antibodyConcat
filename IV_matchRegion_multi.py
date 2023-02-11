@@ -170,7 +170,7 @@ if __name__ == '__main__':
                 if current_template.match[j] == 'F':
                     current_template.match[j] = '1'
 
-        print(current_template.sequence)
+        print(current_template.match)
         print(current_template.getCoverage())
         quit()
         #

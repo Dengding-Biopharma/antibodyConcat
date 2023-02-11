@@ -180,4 +180,4 @@ if __name__ == '__main__':
     keys = list(region_sequence_coverage_dic.keys())
     with open(f'{froot}/best_templates.fasta','w') as f:
         for key in keys:
-            f.write(f'>{key}_{region_sequence_coverage_dic[key]}\n{Templates[key]}\n')
+            f.write(f'>{key}_{region_sequence_coverage_dic[key]}\n{Templates[key].sequence}\n')

@@ -274,3 +274,35 @@ if __name__ == '__main__':
             pass
 
     print(validate_template)
+    '''
+    format
+    >sp|34164|Light|Homo sapiens
+    FR1=1-24
+    CDR1=24-35
+    FR2=35-50
+    CDR2=50-57
+    FR3=57-89
+    CDR3=89-98
+    FR4=98-111
+    CONSTANT=111-215
+    '''
+    region_names = ['FR1','CDR1','FR2','CDR2','FR3','CDR3','FR4']
+    validate_template_region_interval = {}
+    keys = list(validate_template.keys())
+    for i in range(len(keys)):
+        key = keys[i]
+        current = validate_template[key]
+        start = 1
+        temp = {}
+        for region_name,sequence in current.items():
+            temp[region_name[2:]] = [start,start+len(sequence)]
+            start+=len(sequence)
+        validate_template_region_interval[key] = temp
+    print(validate_template_region_interval)
+    with open('templates/alpaca.ann','w') as f:
+        for id,regions in validate_template_region_interval.items():
+            f.write(f'>{id}\n')
+            for region_name,region_interval in regions.items():
+                f.write(f'{region_name}={region_interval[0]}-{region_interval[1]}\n')
+
+

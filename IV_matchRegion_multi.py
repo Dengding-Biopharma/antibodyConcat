@@ -19,6 +19,7 @@ class Template:
         self.id = template_id
         self.sequence = ['0' for _ in range(len(self.sequence))]
         self.count = 0
+        print(self.count)
         for region_name, region_interval in template_region_info.items():
             if 'FR' in region_name:
                 for i in range(region_interval[0], region_interval[1]):
@@ -27,7 +28,9 @@ class Template:
             else:
                 for i in range(region_interval[0], region_interval[1]):
                     self.count += 1
-
+        print(self.count)
+        print(self.sequence)
+        quit()
 
     def getCoverage(self):
         fr_length = 0

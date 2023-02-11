@@ -130,8 +130,11 @@ if __name__ == '__main__':
     df = df[df[2] >= 80]
     df = df.reset_index(drop=True)
     print(df)
+    print(df.columns)
     keys = list(candidates_templates_ann.keys())
     Templates = {}
+    for key in keys:
+        Templates[key] = Template(key, candidates_templates[key], candidates_templates_ann[key])
 
     for i in trange(len(keys)):
         key = keys[i]

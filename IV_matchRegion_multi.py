@@ -131,7 +131,12 @@ if __name__ == '__main__':
 
     template_name = 'templates/alpaca.fasta'
     os.system(f'prerapsearch -d {template_name} -n {froot}/temp-db')
-    os.system(f'rapsearch -q {froot}/contigs_sorted.fasta -d {froot}/temp-db -o {froot}/multi_rapsearch_outputs -z 6')
+    # denova matching
+    os.system(
+        f'rapsearch -q {froot}/input_reads.fasta -d {froot}/temp-db -o {froot}/region_rapsearch_outputs -z 6')
+
+    # # contig matching
+    # os.system(f'rapsearch -q {froot}/contigs_sorted.fasta -d {froot}/temp-db -o {froot}/multi_rapsearch_outputs -z 6')
     os.system(
         f'python processRapsearchM8.py -input {froot}/multi_rapsearch_outputs.m8 -output {froot}/multi_rapsearch_outputs_refactor.m8')
 

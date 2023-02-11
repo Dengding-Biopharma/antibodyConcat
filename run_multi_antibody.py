@@ -42,6 +42,6 @@ if __name__ == '__main__':
     os.system(f'python II_assembleFromReads.py -froot {froot}')
     os.system(f'python III_sortOutputs.py -froot {froot}')
     os.system(f'python IV_matchRegion_multi.py -froot {froot} -template {args.template}')
-    # os.system(f'python V_FindTemplateGroups.py -froot {froot} -source {args.source}')
+    os.system(f'python V_FindTemplateGroups_multi.py -froot {froot} -source {args.source}')
     # os.system(f'python concatenate.py -froot {froot} -chain light')
     # os.system(f'python concatenate.py -froot {froot} -chain heavy')

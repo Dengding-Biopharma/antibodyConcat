@@ -496,7 +496,7 @@ if __name__ == '__main__':
         # print(best_result_fragments)
         # print(best_sorted_fragments)
         # quit()
-        k = 10
+        k = 25
         best_contigs = []
         for fragment in best_sorted_fragments:
             if len(fragment) <= k:
@@ -544,7 +544,9 @@ if __name__ == '__main__':
                 #     template.best_fragments.append(fragment)
             except Exception as e:
                 print(e)
-                quit()
+                if fragment not in template.best_fragments:
+                    template.best_fragments.append(fragment)
+                continue
 
             try:
                 tail_df = pd.read_csv(tail_out, delimiter='\t', header=None)
@@ -579,7 +581,9 @@ if __name__ == '__main__':
                 # print(hook_df)
             except Exception as e:
                 print(e)
-                quit()
+                if fragment not in template.best_fragments:
+                    template.best_fragments.append(fragment)
+                continue
 
         # best_result_coverage_list = []
         # is_continue = False

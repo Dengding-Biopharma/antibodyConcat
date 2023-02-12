@@ -682,47 +682,47 @@ if __name__ == '__main__':
             # print(1111,best_fragment)
             html += '<pre>' + best_fragment + '</pre>'
         html += '<br>'
-        html += 'Minimum Contigs Array (Blue part): ' + '<br>'
-        for index in range(len(minimum_contigs_array)):
-            contig = minimum_contigs_array[index]
-            id = uuid.uuid4()
-            colored_contig = list(contig.sequence)
-            for i in range(contig.contig_interval[0] - 1, contig.contig_interval[1]):
-                colored_contig[i] = '<font color="blue">{}</font>'.format(colored_contig[i])
-            html += '<pre>' + 'Template interval: ' + str(contig.template_interval) + ' | ' + 'Contig score: ' + str(
-                round(findSupportReadScore(contig.sequence, sequences_scores), 2)) + '</pre>'
-            html += '<pre>' + ''.join(colored_contig) + '</pre>'
-            y = list(contig.rates.values())
-            y = list(NormalizeData(y))
-            x = [letter for letter in contig.sequence]
-            line_chart = f'''
-            <canvas id="{id}" style="width:100%;max-width:600px"></canvas>
-            <script>
-            var xValues = {str(x)};
-            var yValues = {str(y)};
-
-            new Chart("{id}", 
-            '''
-
-            line_chart += '''{
-              type: "line",
-              data: {
-                labels: xValues,
-                datasets: [{
-                  fill: false,
-                  lineTension: 0,
-                  backgroundColor: "rgba(0,0,255,1.0)",
-                  borderColor: "rgba(0,0,255,0.1)",
-                  data: yValues
-                }]
-              },
-              options: {
-                legend: {display: false},
-              }
-            });
-            </script>                       
-            '''
-            html += line_chart + '<br>'
+        # html += 'Minimum Contigs Array (Blue part): ' + '<br>'
+        # for index in range(len(minimum_contigs_array)):
+        #     contig = minimum_contigs_array[index]
+        #     id = uuid.uuid4()
+        #     colored_contig = list(contig.sequence)
+        #     for i in range(contig.contig_interval[0] - 1, contig.contig_interval[1]):
+        #         colored_contig[i] = '<font color="blue">{}</font>'.format(colored_contig[i])
+        #     html += '<pre>' + 'Template interval: ' + str(contig.template_interval) + ' | ' + 'Contig score: ' + str(
+        #         round(findSupportReadScore(contig.sequence, sequences_scores), 2)) + '</pre>'
+        #     html += '<pre>' + ''.join(colored_contig) + '</pre>'
+        #     y = list(contig.rates.values())
+        #     y = list(NormalizeData(y))
+        #     x = [letter for letter in contig.sequence]
+        #     line_chart = f'''
+        #     <canvas id="{id}" style="width:100%;max-width:600px"></canvas>
+        #     <script>
+        #     var xValues = {str(x)};
+        #     var yValues = {str(y)};
+        #
+        #     new Chart("{id}",
+        #     '''
+        #
+        #     line_chart += '''{
+        #       type: "line",
+        #       data: {
+        #         labels: xValues,
+        #         datasets: [{
+        #           fill: false,
+        #           lineTension: 0,
+        #           backgroundColor: "rgba(0,0,255,1.0)",
+        #           borderColor: "rgba(0,0,255,0.1)",
+        #           data: yValues
+        #         }]
+        #       },
+        #       options: {
+        #         legend: {display: false},
+        #       }
+        #     });
+        #     </script>
+        #     '''
+        #     html += line_chart + '<br>'
 
         html += 'unused Reads (Green part): ' + '<br>'
         for read in unused_reads_intervals.keys():

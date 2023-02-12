@@ -544,7 +544,7 @@ if __name__ == '__main__':
                 #     template.best_fragments.append(fragment)
             except Exception as e:
                 print(e)
-                quit()
+                continue
 
             try:
                 tail_df = pd.read_csv(tail_out, delimiter='\t', header=None)
@@ -579,7 +579,7 @@ if __name__ == '__main__':
                 # print(hook_df)
             except Exception as e:
                 print(e)
-                quit()
+                continue
 
         # best_result_coverage_list = []
         # is_continue = False

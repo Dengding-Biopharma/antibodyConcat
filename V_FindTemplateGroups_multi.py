@@ -682,6 +682,8 @@ if __name__ == '__main__':
         # for best_contig in best_contigs:
         #     print(12341234, best_contig)
         # html += '<pre>' + best_contig + '</pre>'
+
+        html += 'best fragments: ' + '<br>'
         for best_fragment in template.best_fragments:
             # print(1111,best_fragment)
             html += '<pre>' + best_fragment + '</pre>'
